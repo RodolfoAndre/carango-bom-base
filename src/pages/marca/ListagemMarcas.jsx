@@ -1,33 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 
-import { Button, Fab, makeStyles } from '@material-ui/core';
 import { DataGrid } from '@material-ui/data-grid';
 import AddIcon from '@material-ui/icons/Add';
+import {
+  MainContent,
+  ActionsToolbar,
+  ActionButton,
+  StyledFab,
+} from '../../assets/GlobalStyles.jsx';
 
 import MarcaService from '../../services/MarcaService';
 
 const colunas = [{ field: 'nome', headerName: 'Marca', width: 200 }];
 
-const useStyles = makeStyles(() => ({
-  fab: {
-    position: 'absolute',
-    bottom: '100px',
-    right: '100px',
-  },
-  actionsToolbar: {
-    float: 'right',
-  },
-  actions: {
-    top: '10px',
-    marginLeft: '10px',
-  },
-}));
-
 function ListagemMarcas() {
   const [marcas, setMarcas] = useState([]);
   const [marcaSelecionada, setMarcaSelecionada] = useState();
-  const classes = useStyles();
   const history = useHistory();
 
   function alterar() {
@@ -50,7 +39,7 @@ function ListagemMarcas() {
   }
 
   return (
-    <div style={{ height: 300, width: '100%' }}>
+    <MainContent>
       <DataGrid
         rows={marcas}
         columns={colunas}
@@ -59,36 +48,33 @@ function ListagemMarcas() {
         }
       />
 
-      <div className={classes.actionsToolbar}>
-        <Button
-          className={classes.actions}
-          variant='contained'
-          color='secondary'
+      <ActionsToolbar>
+        <ActionButton
+          variant="contained"
+          color="secondary"
           disabled={!marcaSelecionada}
           onClick={() => excluir()}
         >
           Excluir
-        </Button>
-        <Button
-          className={classes.actions}
-          variant='contained'
-          color='primary'
+        </ActionButton>
+        <ActionButton
+          variant="contained"
+          color="primary"
           disabled={!marcaSelecionada}
           onClick={() => alterar()}
         >
           Alterar
-        </Button>
-      </div>
+        </ActionButton>
+      </ActionsToolbar>
 
-      <Fab
-        color='primary'
-        aria-label='add'
-        className={classes.fab}
+      <StyledFab
+        color="primary"
+        aria-label="add"
         onClick={() => history.push('/cadastro-marca')}
       >
         <AddIcon />
-      </Fab>
-    </div>
+      </StyledFab>
+    </MainContent>
   );
 }
 

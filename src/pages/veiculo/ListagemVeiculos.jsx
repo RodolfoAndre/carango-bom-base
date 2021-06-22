@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { DataGrid } from '@material-ui/data-grid';
 
-import { MainContent } from './styles';
-import { ActionsToolbar, ActionButton } from '../../assets/GlobalStyles.jsx';
+import {
+  MainContent,
+  ActionsToolbar,
+  ActionButton,
+} from '../../assets/GlobalStyles.jsx';
 
 import VeiculoService from '../../services/VeiculoService';
 
@@ -46,8 +49,8 @@ const ListagemVeiculos = () => {
 
       <ActionsToolbar>
         <ActionButton
-          variant='contained'
-          color='secondary'
+          variant="contained"
+          color="secondary"
           disabled={!veiculoSelecionado}
           onClick={() => excluirVeiculo()}
         >
