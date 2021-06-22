@@ -18,4 +18,7 @@ module.exports = {
       version: 'detect',
     },
   },
+  rules: {
+    'no-unused-vars': 'warn',
+  },
 };

@@ -16,7 +16,7 @@ const colunas = [{ field: 'nome', headerName: 'Marca', width: 200 }];
 
 function ListagemMarcas() {
   const [marcas, setMarcas] = useState([]);
-  const [marcaSelecionada, setMarcaSelecionada] = useState();
+  const [marcaSelecionada, setMarcaSelecionada] = useState(null);
   const history = useHistory();
 
   function alterar() {
@@ -30,8 +30,6 @@ function ListagemMarcas() {
     });
   }
 
-  // TODO: Avaliar remover disable na próxima linha
-  // eslint-disable-next-line
   useEffect(() => carregarMarcas(), []);
 
   function carregarMarcas() {
