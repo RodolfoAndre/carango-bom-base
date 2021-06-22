@@ -1,20 +1,25 @@
+import React from 'react';
+import { Route, Switch } from 'react-router-dom';
+
 import { Container, CssBaseline, makeStyles } from '@material-ui/core';
 import blue from '@material-ui/core/colors/blue';
 import { ptBR } from '@material-ui/core/locale';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import React from 'react';
-import { Route, Switch } from 'react-router-dom';
-import './App.css';
-import CadastroMarca from './pages/CadastroMarca';
-import ListagemMarcas from './pages/ListagemMarcas';
 
-const muiTheme = createMuiTheme({
-  palette: {
-    primary: {
-      main: blue[900],
-    }
+import CadastroMarca from './pages/marca/CadastroMarca';
+import ListagemMarcas from './pages/marca/ListagemMarcas';
+import ListagemVeiculos from './pages/veiculo/ListagemVeiculos';
+
+const muiTheme = createMuiTheme(
+  {
+    palette: {
+      primary: {
+        main: blue[900],
+      },
+    },
   },
-}, ptBR);
+  ptBR,
+);
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,7 +39,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function App() {
-
   const classes = useStyles();
 
   return (
@@ -43,16 +47,19 @@ function App() {
         <CssBaseline />
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <Container component="article" maxWidth="md">
+          <Container component='article' maxWidth='md'>
             <Switch>
-              <Route path="/cadastro-marca">
-                <CadastroMarca></CadastroMarca>
+              <Route path='/cadastro-marca'>
+                <CadastroMarca />
               </Route>
               <Route path='/alteracao-marca/:id'>
-                <CadastroMarca></CadastroMarca>
+                <CadastroMarca />
               </Route>
-              <Route path="/">
-                <ListagemMarcas></ListagemMarcas>
+              <Route path='/listar-marcas'>
+                <ListagemMarcas />
+              </Route>
+              <Route path='/'>
+                <ListagemVeiculos />
               </Route>
             </Switch>
           </Container>
