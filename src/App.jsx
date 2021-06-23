@@ -9,6 +9,7 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import CadastroMarca from './pages/marca/CadastroMarca';
 import ListagemMarcas from './pages/marca/ListagemMarcas';
 import ListagemVeiculos from './pages/veiculo/ListagemVeiculos';
+import Login from './pages/login/Login';
 
 const muiTheme = createMuiTheme(
   {
@@ -58,8 +59,11 @@ function App() {
               <Route path='/listar-marcas'>
                 <ListagemMarcas />
               </Route>
-              <Route path='/'>
+              <Route path='/listar-veiculos'>
                 <ListagemVeiculos />
+              </Route>
+              <Route path='/'>
+                <Login />
               </Route>
             </Switch>
           </Container>
