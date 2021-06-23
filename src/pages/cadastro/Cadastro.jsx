@@ -24,6 +24,7 @@ import {
 const Login = () => {
   const [usuario, setUsuario] = useState('');
   const [senha, setSenha] = useState('');
+  const [confirmarSenha, setConfirmarSenha] = useState('');
 
   const history = useHistory();
 
@@ -38,14 +39,21 @@ const Login = () => {
         return { valido: false, texto: 'Senha deve ter ao menos 6 caracteres' };
       return { valido: true };
     },
+
+    confirmarSenha: (confirmarSenha) => {
+      if (confirmarSenha !== senha)
+        return { valido: false, texto: 'Senhas não conferem' };
+      return { valido: true };
+    },
   };
 
   const [erros, validarCampos, possoEnviar] = useErros(validacoes);
 
   const logar = (e) => {
+    // TODO - Mostrar mensagem de cadastro com sucesso
     if (possoEnviar) {
       e.preventDefault();
-      history.push('/listar-veiculos');
+      history.push('/');
     }
   };
 
@@ -57,7 +65,7 @@ const Login = () => {
           <LockOutlinedIcon />
         </LoginAvatar>
         <Typography component='h1' variant='h5'>
-          Login
+          Cadastro
         </Typography>
         <LoginForm onSubmit={(e) => logar(e)}>
           <TextField
@@ -95,6 +103,24 @@ const Login = () => {
             required
           />
 
+          <TextField
+            value={confirmarSenha}
+            onBlur={validarCampos}
+            onChange={(e) => {
+              setConfirmarSenha(e.target.value);
+            }}
+            error={!erros.confirmarSenha.valido}
+            helperText={erros.confirmarSenha.texto}
+            variant='outlined'
+            margin='normal'
+            id='confirmarSenha'
+            name='confirmarSenha'
+            label='Confirmar senha'
+            type='password'
+            fullWidth
+            required
+          />
+
           <LoginButton
             disabled={!possoEnviar()}
             type='submit'
@@ -102,12 +128,12 @@ const Login = () => {
             color='primary'
             fullWidth
           >
-            Entrar
+            Cadastrar
           </LoginButton>
         </LoginForm>
         <Grid container>
           <Grid item>
-            <Link href='/cadastro'>Não possui conta? Cadastrar</Link>
+            <Link href='/'>Já possui conta? Entrar</Link>
           </Grid>
         </Grid>
       </LoginContainer>

@@ -10,6 +10,7 @@ import CadastroMarca from './pages/marca/CadastroMarca';
 import ListagemMarcas from './pages/marca/ListagemMarcas';
 import ListagemVeiculos from './pages/veiculo/ListagemVeiculos';
 import Login from './pages/login/Login';
+import Cadastro from './pages/cadastro/Cadastro';
 
 const muiTheme = createMuiTheme(
   {
@@ -62,8 +63,11 @@ function App() {
               <Route path='/listar-veiculos'>
                 <ListagemVeiculos />
               </Route>
-              <Route path='/'>
+              <Route path='/' exact>
                 <Login />
+              </Route>
+              <Route path='/cadastro'>
+                <Cadastro />
               </Route>
             </Switch>
           </Container>
