@@ -17,13 +17,13 @@ import {
 import { LoginContainer, LoginForm, LoginAvatar, LoginButton } from './styles';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
+  const [usuario, setUsuario] = useState('');
   const [senha, setSenha] = useState('');
   const history = useHistory();
 
   const validacoes = {
-    email: (email) => {
-      if (!email.length) return { valido: false, texto: 'Campo obrigatório' };
+    usuario: (usuario) => {
+      if (!usuario.length) return { valido: false, texto: 'Campo obrigatório' };
       return { valido: true };
     },
 
@@ -55,19 +55,19 @@ const Login = () => {
         </Typography>
         <LoginForm onSubmit={(e) => logar(e)}>
           <TextField
-            value={email}
+            value={usuario}
             onBlur={validarCampos}
             onChange={(e) => {
-              setEmail(e.target.value);
+              setUsuario(e.target.value);
             }}
-            error={!erros.email.valido}
-            helperText={erros.email.texto}
+            error={!erros.usuario.valido}
+            helperText={erros.usuario.texto}
             variant='outlined'
             margin='normal'
-            id='email'
-            name='email'
-            label='Email'
-            type='email'
+            id='usuario'
+            name='usuario'
+            label='Usuário'
+            type='text'
             fullWidth
             required
           />
