@@ -10,7 +10,13 @@ const createRender = () => {
 };
 
 describe('Component de ListagemVeiculos', () => {
-  describe('Quando entra na página', () => {
+  describe('Quando entrar na página', () => {
+    it('deve exibir datagrid', async () => {
+      VeiculoService.listar.mockResolvedValue([]);
+      const { findByRole } = createRender();
+      expect(await findByRole('grid')).toBeInTheDocument();
+    });
+
     it('datagrid deve exibir colunas de marca, modelo, ano e valor', async () => {
       VeiculoService.listar.mockResolvedValue([]);
       const { getByText, findByText } = createRender();
