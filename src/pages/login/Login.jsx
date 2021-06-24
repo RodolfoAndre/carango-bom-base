@@ -70,6 +70,7 @@ const Login = () => {
             onBlur={validarCampos}
             onChange={(e) => {
               setUsuario(e.target.value);
+              validarCampos(e);
             }}
             error={!erros.usuario.valido}
             helperText={erros.usuario.texto}

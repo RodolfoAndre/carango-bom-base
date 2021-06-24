@@ -31,6 +31,11 @@ const Login = () => {
   const validacoes = {
     usuario: (usuario) => {
       if (!usuario.length) return { valido: false, texto: 'Campo obrigatório' };
+      if (usuario.length <= 3)
+        return {
+          valido: false,
+          texto: 'Usuário deve ter ao menos 4 caracteres',
+        };
       return { valido: true };
     },
 
@@ -42,7 +47,7 @@ const Login = () => {
 
     confirmarSenha: (confirmarSenha) => {
       if (confirmarSenha !== senha)
-        return { valido: false, texto: 'Senhas não conferem' };
+        return { valido: false, texto: 'As senhas devem ser iguais' };
       return { valido: true };
     },
   };
@@ -73,6 +78,7 @@ const Login = () => {
             onBlur={validarCampos}
             onChange={(e) => {
               setUsuario(e.target.value);
+              validarCampos(e);
             }}
             error={!erros.usuario.valido}
             helperText={erros.usuario.texto}
@@ -82,6 +88,7 @@ const Login = () => {
             name='usuario'
             label='Usuário'
             type='text'
+            inputProps={{ 'data-testid': 'usuario' }}
             fullWidth
             required
           />
@@ -90,6 +97,7 @@ const Login = () => {
             onBlur={validarCampos}
             onChange={(e) => {
               setSenha(e.target.value);
+              validarCampos(e);
             }}
             error={!erros.senha.valido}
             helperText={erros.senha.texto}
@@ -99,6 +107,7 @@ const Login = () => {
             name='senha'
             label='Senha'
             type='password'
+            inputProps={{ 'data-testid': 'senha' }}
             fullWidth
             required
           />
@@ -108,6 +117,7 @@ const Login = () => {
             onBlur={validarCampos}
             onChange={(e) => {
               setConfirmarSenha(e.target.value);
+              validarCampos(e);
             }}
             error={!erros.confirmarSenha.valido}
             helperText={erros.confirmarSenha.texto}
@@ -117,6 +127,7 @@ const Login = () => {
             name='confirmarSenha'
             label='Confirmar senha'
             type='password'
+            inputProps={{ 'data-testid': 'confirmarSenha' }}
             fullWidth
             required
           />
