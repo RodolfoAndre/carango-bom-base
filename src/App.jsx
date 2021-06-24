@@ -6,6 +6,7 @@ import blue from '@material-ui/core/colors/blue';
 import { ptBR } from '@material-ui/core/locale';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
+import Header from './components/header/Header';
 import CadastroMarca from './pages/marca/CadastroMarca';
 import ListagemMarcas from './pages/marca/ListagemMarcas';
 import ListagemVeiculos from './pages/veiculo/ListagemVeiculos';
@@ -45,6 +46,7 @@ function App() {
 
   return (
     <ThemeProvider theme={muiTheme}>
+      <Header />
       <div className={classes.root}>
         <CssBaseline />
         <main className={classes.content}>
@@ -60,10 +62,10 @@ function App() {
               <Route path='/listar-marcas'>
                 <ListagemMarcas />
               </Route>
-              <Route path='/listar-veiculos'>
+              <Route path='/' exact>
                 <ListagemVeiculos />
               </Route>
-              <Route path='/' exact>
+              <Route path='/login'>
                 <Login />
               </Route>
               <Route path='/cadastro'>
