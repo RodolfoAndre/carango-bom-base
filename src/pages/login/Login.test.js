@@ -50,5 +50,6 @@ describe('Testes de Login', () => {
       name: 'Não possui conta? Cadastrar',
     });
     expect(linkCadastro).toBeInTheDocument();
+    expect(linkCadastro).toHaveAttribute('href', '/cadastro');
   });
 });
