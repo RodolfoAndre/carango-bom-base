@@ -30,6 +30,11 @@ const Login = () => {
   const validacoes = {
     usuario: (usuario) => {
       if (!usuario.length) return { valido: false, texto: 'Campo obrigatório' };
+      if (usuario.length <= 3)
+        return {
+          valido: false,
+          texto: 'Usuário deve ter ao menos 4 caracteres',
+        };
       return { valido: true };
     },
 
@@ -74,6 +79,7 @@ const Login = () => {
             name='usuario'
             label='Usuário'
             type='text'
+            inputProps={{ 'data-testid': 'usuario' }}
             fullWidth
             required
           />
@@ -82,6 +88,7 @@ const Login = () => {
             onBlur={validarCampos}
             onChange={(e) => {
               setSenha(e.target.value);
+              validarCampos(e);
             }}
             error={!erros.senha.valido}
             helperText={erros.senha.texto}
@@ -91,6 +98,7 @@ const Login = () => {
             name='senha'
             label='Senha'
             type='password'
+            inputProps={{ 'data-testid': 'senha' }}
             fullWidth
             required
           />
@@ -106,9 +114,7 @@ const Login = () => {
           </LoginButton>
         </LoginForm>
         <Grid container>
-          <Grid item>
-            <Link href='/cadastro'>Não possui conta? Cadastrar</Link>
-          </Grid>
+          <Link href='/cadastro'>Não possui conta? Cadastrar</Link>
         </Grid>
       </LoginContainer>
     </Container>
