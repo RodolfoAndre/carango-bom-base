@@ -1,11 +1,10 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react';
-import { Router, MemoryRouter } from 'react-router-dom';
+import { MemoryRouter, Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 
 import ListagemMarcas from './ListagemMarcas';
 import MarcaService from '../../services/MarcaService';
-import CadastroMarca from './CadastroMarca';
 
 jest.mock('../../services/MarcaService');
 
@@ -116,15 +115,17 @@ describe('Component de ListagemMarcas', () => {
 
     it('rotear para a página de cadastrar marca', async () => {
       MarcaService.listar.mockResolvedValue([]);
-      const { findByLabelText, findByText } = render(
-        <MemoryRouter initialEntries={['/listar-marcas']}>
+      const history = createMemoryHistory();
+      history.push = jest.fn();
+
+      const { findByLabelText } = render(
+        <Router history={history}>
           <ListagemMarcas />
-          <CadastroMarca />
-        </MemoryRouter>
+        </Router>
       );
       const botaoAdicionar = await findByLabelText('add');
       fireEvent.click(botaoAdicionar);
-      expect(await findByText('Cadastrar')).toBeInTheDocument();
+      expect(history.push).toHaveBeenCalledWith('/cadastro-marca');
     });
   });
 });

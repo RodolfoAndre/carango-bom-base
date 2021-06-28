@@ -61,26 +61,27 @@ function CadastroMarca() {
         onBlur={validarCampos}
         helperText={erros.marca.texto}
         error={!erros.marca.valido}
-        name='marca'
-        id='marca'
-        label='Marca'
-        type='text'
-        variant='outlined'
+        name="marca"
+        id="marca"
+        data-testid="marca"
+        label="Marca"
+        type="text"
+        variant="outlined"
         fullWidth
         required
-        margin='normal'
+        margin="normal"
       />
 
       <Button
-        variant='contained'
-        color='primary'
-        type='submit'
+        variant="contained"
+        color="primary"
+        type="submit"
         disabled={!possoEnviar()}
       >
         {id ? 'Alterar' : 'Cadastrar'}
       </Button>
 
-      <Button variant='contained' color='secondary' onClick={cancelar}>
+      <Button variant="contained" color="secondary" onClick={cancelar}>
         Cancelar
       </Button>
     </form>
