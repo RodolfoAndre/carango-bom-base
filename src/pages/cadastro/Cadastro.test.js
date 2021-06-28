@@ -58,6 +58,6 @@ describe('Testes de Login', () => {
       name: 'Já possui conta? Entrar',
     });
     expect(linkLogin).toBeInTheDocument();
-    expect(linkLogin).toHaveAttribute('href', '/');
+    expect(linkLogin).toHaveAttribute('href', '/login');
   });
 });
