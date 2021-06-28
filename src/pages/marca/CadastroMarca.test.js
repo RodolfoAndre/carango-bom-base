@@ -1,6 +1,6 @@
 import React from 'react';
 import { fireEvent, render, waitFor } from '@testing-library/react';
-import { MemoryRouter, Route, Router } from 'react-router-dom';
+import { Route, Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 
 import CadastroMarca from './CadastroMarca';
@@ -16,6 +16,7 @@ const renderWithRouter = (history, path) => {
   );
 };
 
+// TODO revisar quando tivermos implementado a feature de autenticação
 describe('Component de CadastroMarca', () => {
   beforeEach(() => {
     MarcaService.consultar.mockResolvedValue({});
