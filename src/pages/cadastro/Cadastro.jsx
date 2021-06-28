@@ -144,7 +144,7 @@ const Login = () => {
         </LoginForm>
         <Grid container>
           <Grid item>
-            <Link href='/'>Já possui conta? Entrar</Link>
+            <Link href='/login'>Já possui conta? Entrar</Link>
           </Grid>
         </Grid>
       </LoginContainer>
