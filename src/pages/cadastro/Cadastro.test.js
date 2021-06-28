@@ -108,7 +108,7 @@ describe('Testes de Login', () => {
       );
     });
 
-    it('Deve redirecionar para Home quando cadastro for realizado com sucesso', () => {
+    it('Deve redirecionar para tela de Login quando cadastro for realizado com sucesso', () => {
       const usuario = screen.getByTestId('usuario');
       const senha = screen.getByTestId('senha');
       const confirmarSenha = screen.getByTestId('confirmarSenha');
@@ -123,7 +123,7 @@ describe('Testes de Login', () => {
 
       fireEvent.click(botaoCadastro);
 
-      expect(history.push).toHaveBeenCalledWith('/');
+      expect(history.push).toHaveBeenCalledWith('/login');
       expect(history.push).toHaveBeenCalledTimes(1);
     });
   });

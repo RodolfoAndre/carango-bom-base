@@ -54,11 +54,11 @@ const Login = () => {
 
   const [erros, validarCampos, possoEnviar] = useErros(validacoes);
 
-  const logar = (e) => {
+  const cadastrar = (e) => {
     // TODO - Mostrar mensagem de cadastro com sucesso
     if (possoEnviar) {
       e.preventDefault();
-      history.push('/');
+      history.push('/login');
     }
   };
 
@@ -72,7 +72,7 @@ const Login = () => {
         <Typography component='h1' variant='h5'>
           Cadastro
         </Typography>
-        <LoginForm onSubmit={(e) => logar(e)}>
+        <LoginForm onSubmit={(e) => cadastrar(e)}>
           <TextField
             value={usuario}
             onBlur={validarCampos}
