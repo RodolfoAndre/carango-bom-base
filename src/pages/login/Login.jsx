@@ -50,7 +50,7 @@ const Login = () => {
   const logar = (e) => {
     if (possoEnviar) {
       e.preventDefault();
-      history.push('/listar-veiculos');
+      history.push('/');
     }
   };
 
