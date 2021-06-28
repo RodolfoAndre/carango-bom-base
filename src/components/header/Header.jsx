@@ -15,41 +15,44 @@ const Header = () => {
 
   const fecharMenu = () => setLinkPara(null);
 
-  const redirecionarPara = (pagina) => {
-    setLinkPara(null);
-    history.push(pagina);
-  };
+  const redirecionarPara = (pagina) => history.push(pagina);
 
   return (
     <StyledHeader>
       <AppBar position='static'>
         <Toolbar>
-          <MenuButton edge='start' color='inherit' aria-label='menu'>
-            <MenuIcon
-              aria-controls='menu'
-              aria-haspopup='true'
-              onClick={abrirMenu}
-            />
-
-            <Menu
-              id='menu'
-              anchorEl={linkPara}
-              keepMounted
-              open={Boolean(linkPara)}
-              onClose={fecharMenu}
-            >
-              <MenuItem onClick={() => redirecionarPara('/')}>
-                Veículos
-              </MenuItem>
-              <MenuItem
-                onClick={() => {
-                  redirecionarPara('/listar-marcas');
-                }}
-              >
-                Marcas
-              </MenuItem>
-            </Menu>
+          <MenuButton
+            edge='start'
+            color='inherit'
+            aria-label='menu'
+            onClick={abrirMenu}
+          >
+            <MenuIcon aria-controls='menu' aria-haspopup='true' />
           </MenuButton>
+          <Menu
+            id='menu'
+            anchorEl={linkPara}
+            keepMounted
+            open={Boolean(linkPara)}
+            onClose={fecharMenu}
+          >
+            <MenuItem
+              onClick={() => {
+                fecharMenu();
+                redirecionarPara('/');
+              }}
+            >
+              Veículos
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                fecharMenu();
+                redirecionarPara('/listar-marcas');
+              }}
+            >
+              Marcas
+            </MenuItem>
+          </Menu>
           <Title component='h1' variant='h6' onClick={() => history.push('/')}>
             Carango Bom
           </Title>
