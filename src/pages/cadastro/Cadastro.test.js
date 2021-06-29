@@ -38,64 +38,76 @@ describe('Testes de Login', () => {
       render(<Cadastro />);
     });
 
-    it('Deve desabilitar botão de Cadastrar quando usuário for inválido', () => {
-      const usuario = screen.getByTestId('usuario');
-      const senha = screen.getByTestId('senha');
+    describe('Deve desabilitar botão de Cadastrar quando', () => {
+      it('Usuário for inválido', () => {
+        const usuario = screen.getByTestId('usuario');
+        const senha = screen.getByTestId('senha');
 
-      fireEvent.change(usuario, {
-        target: { value: 'ale' },
+        fireEvent.change(usuario, {
+          target: { value: 'ale' },
+        });
+
+        fireEvent.change(senha, { target: { value: 'thefamemonster' } });
+        expect(
+          screen.getByRole('button', { name: 'Cadastrar' }),
+        ).toBeDisabled();
       });
 
-      fireEvent.change(senha, { target: { value: 'thefamemonster' } });
-      expect(screen.getByRole('button', { name: 'Cadastrar' })).toBeDisabled();
+      it('Senha for inválida', () => {
+        const usuario = screen.getByTestId('usuario');
+        const senha = screen.getByTestId('senha');
+
+        fireEvent.change(usuario, {
+          target: { value: 'alejandro' },
+        });
+
+        fireEvent.change(senha, { target: { value: 'the' } });
+        expect(
+          screen.getByRole('button', { name: 'Cadastrar' }),
+        ).toBeDisabled();
+      });
+
+      it('Senhas forem diferentes', () => {
+        const usuario = screen.getByTestId('usuario');
+        const senha = screen.getByTestId('senha');
+        const confirmarSenha = screen.getByTestId('confirmarSenha');
+
+        fireEvent.change(usuario, {
+          target: { value: 'alejandro' },
+        });
+
+        fireEvent.change(senha, { target: { value: 'thefamemonster' } });
+        fireEvent.change(confirmarSenha, { target: { value: 'thefame' } });
+
+        expect(
+          screen.getByRole('button', { name: 'Cadastrar' }),
+        ).toBeDisabled();
+      });
     });
 
-    it('Deve desabilitar botão de Cadastrar quando senha for inválida', () => {
-      const usuario = screen.getByTestId('usuario');
-      const senha = screen.getByTestId('senha');
+    describe('Deve habilitar o botão de Cadastrar quando', () => {
+      it('Os campos estiverem preenchidos corretamente ', () => {
+        const usuario = screen.getByTestId('usuario');
+        const senha = screen.getByTestId('senha');
+        const confirmarSenha = screen.getByTestId('confirmarSenha');
 
-      fireEvent.change(usuario, {
-        target: { value: 'alejandro' },
+        fireEvent.change(usuario, {
+          target: { value: 'alejandro' },
+        });
+
+        fireEvent.change(senha, { target: { value: 'thefamemonster' } });
+        fireEvent.change(confirmarSenha, {
+          target: { value: 'thefamemonster' },
+        });
+
+        expect(
+          screen.getByRole('button', { name: 'Cadastrar' }),
+        ).not.toBeDisabled();
       });
-
-      fireEvent.change(senha, { target: { value: 'the' } });
-      expect(screen.getByRole('button', { name: 'Cadastrar' })).toBeDisabled();
-    });
-
-    it('Deve desabilitar botão de Cadastrar quando senhas forem diferentes', () => {
-      const usuario = screen.getByTestId('usuario');
-      const senha = screen.getByTestId('senha');
-      const confirmarSenha = screen.getByTestId('confirmarSenha');
-
-      fireEvent.change(usuario, {
-        target: { value: 'alejandro' },
-      });
-
-      fireEvent.change(senha, { target: { value: 'thefamemonster' } });
-      fireEvent.change(confirmarSenha, { target: { value: 'thefame' } });
-
-      expect(screen.getByRole('button', { name: 'Cadastrar' })).toBeDisabled();
-    });
-
-    it('Deve habilitar botão de Cadastrar quando os campos estiverem preenchidos corretamente ', () => {
-      const usuario = screen.getByTestId('usuario');
-      const senha = screen.getByTestId('senha');
-      const confirmarSenha = screen.getByTestId('confirmarSenha');
-
-      fireEvent.change(usuario, {
-        target: { value: 'alejandro' },
-      });
-
-      fireEvent.change(senha, { target: { value: 'thefamemonster' } });
-      fireEvent.change(confirmarSenha, { target: { value: 'thefamemonster' } });
-
-      expect(
-        screen.getByRole('button', { name: 'Cadastrar' }),
-      ).not.toBeDisabled();
     });
   });
 
-  describe('Teste de redirecionamento', () => {
+  describe('Testes de redirecionamento', () => {
     const history = createMemoryHistory();
 
     beforeEach(() => {

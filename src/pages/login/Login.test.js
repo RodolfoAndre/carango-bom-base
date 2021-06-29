@@ -36,46 +36,52 @@ describe('Testes de Login', () => {
       render(<Login />);
     });
 
-    it('Deve desabilitar botão de Entrar quando usuário for inválido', () => {
-      const usuario = screen.getByTestId('usuario');
-      const senha = screen.getByTestId('senha');
+    describe('Deve desabilitar botão de Entrar quando', () => {
+      it('Usuário for inválido', () => {
+        const usuario = screen.getByTestId('usuario');
+        const senha = screen.getByTestId('senha');
 
-      fireEvent.change(usuario, {
-        target: { value: 'ale' },
+        fireEvent.change(usuario, {
+          target: { value: 'ale' },
+        });
+
+        fireEvent.change(senha, { target: { value: 'thefamemonster' } });
+        expect(screen.getByRole('button', { name: 'Entrar' })).toBeDisabled();
       });
 
-      fireEvent.change(senha, { target: { value: 'thefamemonster' } });
-      expect(screen.getByRole('button', { name: 'Entrar' })).toBeDisabled();
+      it('Senha for inválida', () => {
+        const usuario = screen.getByTestId('usuario');
+        const senha = screen.getByTestId('senha');
+
+        fireEvent.change(usuario, {
+          target: { value: 'alejandro' },
+        });
+
+        fireEvent.change(senha, { target: { value: 'the' } });
+
+        expect(screen.getByRole('button', { name: 'Entrar' })).toBeDisabled();
+      });
     });
 
-    it('Deve desabilitar botão de Entrar quando senha for inválida', () => {
-      const usuario = screen.getByTestId('usuario');
-      const senha = screen.getByTestId('senha');
+    describe('Deve habilitar botão de Entrar quando', () => {
+      it('Os campos estiverem preenchidos corretamente ', () => {
+        const usuario = screen.getByTestId('usuario');
+        const senha = screen.getByTestId('senha');
 
-      fireEvent.change(usuario, {
-        target: { value: 'alejandro' },
+        fireEvent.change(usuario, {
+          target: { value: 'alejandro' },
+        });
+
+        fireEvent.change(senha, { target: { value: 'thefamemonster' } });
+
+        expect(
+          screen.getByRole('button', { name: 'Entrar' }),
+        ).not.toBeDisabled();
       });
-
-      fireEvent.change(senha, { target: { value: 'the' } });
-
-      expect(screen.getByRole('button', { name: 'Entrar' })).toBeDisabled();
-    });
-
-    it('Deve habilitar botão de Entrar quando os campos estiverem preenchidos corretamente ', () => {
-      const usuario = screen.getByTestId('usuario');
-      const senha = screen.getByTestId('senha');
-
-      fireEvent.change(usuario, {
-        target: { value: 'alejandro' },
-      });
-
-      fireEvent.change(senha, { target: { value: 'thefamemonster' } });
-
-      expect(screen.getByRole('button', { name: 'Entrar' })).not.toBeDisabled();
     });
   });
 
-  describe('Teste de redirecionamento', () => {
+  describe('Testes de redirecionamento', () => {
     const history = createMemoryHistory();
 
     beforeEach(() => {
