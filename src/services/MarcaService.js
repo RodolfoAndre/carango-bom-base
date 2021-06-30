@@ -1,32 +1,38 @@
+const baseUrl = 'http://localhost:8080/marcas/';
+
+const headers = new Headers({ 'Content-Type': 'application/json' });
+
 const MarcaService = {
   cadastrar(marca) {
-    return fetch('https://carango-bom-api.herokuapp.com/marcas', {
+    return fetch(baseUrl, {
       method: 'POST',
-      body: JSON.stringify(marca)
-    }).then(r => r.json());
+      headers: headers,
+      body: JSON.stringify(marca),
+    }).then((r) => r.json());
   },
 
   alterar(marca) {
-    return fetch('https://carango-bom-api.herokuapp.com/marcas/' + marca.id, {
+    return fetch(`${baseUrl}${marca.id}`, {
       method: 'PUT',
-      body: JSON.stringify(marca)
-    }).then(r => r.json());
+      headers: headers,
+      body: JSON.stringify(marca),
+    }).then((r) => r.json());
   },
 
   consultar(id) {
-    return fetch('https://carango-bom-api.herokuapp.com/marcas/' + id).then(r => r.json());
+    return fetch(`${baseUrl}${id}`, { headers: headers }).then((r) => r.json());
   },
 
   listar() {
-    return fetch('https://carango-bom-api.herokuapp.com/marcas').then(r => r.json());
+    return fetch(baseUrl, { headers: headers }).then((r) => r.json());
   },
 
   excluir(marca) {
-    return fetch('https://carango-bom-api.herokuapp.com/marcas/' + marca.id, {
+    return fetch(`${baseUrl}${marca.id}`, {
       method: 'DELETE',
-    })
-      .then(r => r.json());
-  }
+      headers: headers,
+    }).then((r) => r.json());
+  },
 };
 
 export default MarcaService;
