@@ -1,8 +1,12 @@
+const baseUrl = 'https://carango-bom-api.herokuapp.com/veiculos';
+
 const VeiculoService = {
   listar() {
-    return fetch('https://carango-bom-api.herokuapp.com/veiculos').then((r) =>
-      r.json(),
-    );
+    return fetch(baseUrl).then((response) => response.json());
+  },
+
+  consultar(id) {
+    return fetch(`${baseUrl}${id}`).then((response) => response.json());
   },
 
   excluir(veiculo) {

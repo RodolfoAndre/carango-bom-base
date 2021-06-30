@@ -43,6 +43,10 @@ const ListagemVeiculos = () => {
     carregarVeiculos();
   };
 
+  const alterarVeiculo = () => {
+    history.push(`/alteracao-veiculo/${veiculoSelecionado.id}`);
+  };
+
   return (
     <MainContent>
       <DataGrid
@@ -60,6 +64,14 @@ const ListagemVeiculos = () => {
           onClick={() => excluirVeiculo()}
         >
           Excluir
+        </ActionButton>
+        <ActionButton
+          variant='contained'
+          color='primary'
+          disabled={!veiculoSelecionado}
+          onClick={() => alterarVeiculo()}
+        >
+          Alterar
         </ActionButton>
       </ActionsToolbar>
       <StyledFab

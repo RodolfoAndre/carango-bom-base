@@ -66,6 +66,9 @@ function App() {
               <Route path='/cadastro-veiculo' exact>
                 <CadastroVeiculo />
               </Route>
+              <Route path='/alteracao-veiculo/:id'>
+                <CadastroVeiculo />
+              </Route>
               <Route path='/' exact>
                 <ListagemVeiculos />
               </Route>
