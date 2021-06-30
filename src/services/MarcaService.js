@@ -8,7 +8,7 @@ const MarcaService = {
       method: 'POST',
       headers: headers,
       body: JSON.stringify(marca),
-    }).then((r) => r.json());
+    }).then((response) => response.json());
   },
 
   alterar(marca) {
@@ -16,22 +16,26 @@ const MarcaService = {
       method: 'PUT',
       headers: headers,
       body: JSON.stringify(marca),
-    }).then((r) => r.json());
+    }).then((response) => response.json());
   },
 
   consultar(id) {
-    return fetch(`${baseUrl}${id}`, { headers: headers }).then((r) => r.json());
+    return fetch(`${baseUrl}${id}`, { headers: headers }).then((response) =>
+      response.json()
+    );
   },
 
   listar() {
-    return fetch(baseUrl, { headers: headers }).then((r) => r.json());
+    return fetch(baseUrl, { headers: headers }).then((response) =>
+      response.json()
+    );
   },
 
   excluir(marca) {
     return fetch(`${baseUrl}${marca.id}`, {
       method: 'DELETE',
       headers: headers,
-    }).then((r) => r.json());
+    }).then((response) => response.json());
   },
 };
 

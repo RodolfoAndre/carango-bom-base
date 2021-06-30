@@ -50,7 +50,7 @@ function CadastroMarca() {
 
   useEffect(() => {
     if (id) {
-      MarcaService.consultar(id).then((m) => setMarca(m.nome));
+      MarcaService.consultar(id).then((marca) => setMarca(marca.nome));
     }
   }, [id]);
 
