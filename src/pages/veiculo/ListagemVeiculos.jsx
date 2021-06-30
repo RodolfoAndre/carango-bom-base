@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { DataGrid } from '@material-ui/data-grid';
+import { useHistory } from 'react-router';
 
+import { DataGrid } from '@material-ui/data-grid';
+import AddIcon from '@material-ui/icons/Add';
 import {
   MainContent,
   ActionsToolbar,
   ActionButton,
+  StyledFab,
 } from '../../assets/GlobalStyles.jsx';
 
 import VeiculoService from '../../services/VeiculoService';
@@ -24,11 +27,14 @@ const colunas = [
 const ListagemVeiculos = () => {
   const [veiculos, setVeiculos] = useState([]);
   const [veiculoSelecionado, setVeiculoSelecionado] = useState(null);
+  const history = useHistory();
 
   useEffect(() => carregarVeiculos(), []);
 
   const carregarVeiculos = () => {
-    VeiculoService.listar().then((dados) => setVeiculos(dados));
+    VeiculoService.listar().then((dados) => {
+      setVeiculos(dados);
+    });
   };
 
   const excluirVeiculo = () => {
@@ -46,17 +52,23 @@ const ListagemVeiculos = () => {
           setVeiculoSelecionado(gridSelection.data)
         }
       />
-
       <ActionsToolbar>
         <ActionButton
-          variant="contained"
-          color="secondary"
+          variant='contained'
+          color='secondary'
           disabled={!veiculoSelecionado}
           onClick={() => excluirVeiculo()}
         >
           Excluir
         </ActionButton>
       </ActionsToolbar>
+      <StyledFab
+        color='primary'
+        aria-label='add'
+        onClick={() => history.push('/cadastro-veiculo')}
+      >
+        <AddIcon />
+      </StyledFab>
     </MainContent>
   );
 };
