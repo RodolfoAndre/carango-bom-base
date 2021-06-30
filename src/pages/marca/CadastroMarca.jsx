@@ -16,10 +16,12 @@ function CadastroMarca() {
 
   const validacoes = {
     marca: (dado) => {
-      if (dado && dado.length >= 3) {
-        return { valido: true };
-      } else {
+      if (dado && dado.erro) {
+        return { valido: false, texto: dado.erro };
+      } else if (dado && dado.length < 3) {
         return { valido: false, texto: 'Marca deve ter ao menos 3 letras.' };
+      } else {
+        return { valido: true };
       }
     },
   };
@@ -30,12 +32,27 @@ function CadastroMarca() {
     history.goBack();
   }
 
-  // TODO: Avaliar remover disable na próxima linha
+  const avaliarResponse = (response) => {
+    let wrappedResponse = {};
+    if (response.status === 500) {
+      wrappedResponse = {
+        erro: true,
+        target: {
+          name: 'marca',
+          value: { erro: response.message },
+        },
+      };
+    } else {
+      wrappedResponse = { erro: false, dados: response.data };
+    }
+    return wrappedResponse;
+  };
+
   useEffect(() => {
     if (id) {
-      MarcaService.consultar(id).then((m) => setMarca(m.nome));
+      MarcaService.consultar(id).then((marca) => setMarca(marca.nome));
     }
-  }, [id]); // eslint-disable-line
+  }, [id]);
 
   return (
     <form
@@ -43,13 +60,23 @@ function CadastroMarca() {
         event.preventDefault();
         if (possoEnviar()) {
           if (id) {
-            MarcaService.alterar({ id, nome: marca }).then((res) => {
-              history.goBack();
+            MarcaService.alterar({ id, nome: marca }).then((response) => {
+              const dados = avaliarResponse(response);
+              if (dados.erro) {
+                validarCampos(dados);
+              } else {
+                history.goBack();
+              }
             });
           } else {
-            MarcaService.cadastrar({ nome: marca }).then((res) => {
-              setMarca('');
-              history.goBack();
+            MarcaService.cadastrar({ nome: marca }).then((response) => {
+              const dados = avaliarResponse(response);
+              if (dados.erro) {
+                validarCampos(dados);
+              } else {
+                setMarca('');
+                history.goBack();
+              }
             });
           }
         }
