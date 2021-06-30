@@ -41,6 +41,7 @@ const CadastroVeiculo = () => {
 
   const alterarVeiculo = () => {
     VeiculoService.alterar({ id, nome: veiculo }).then(() => {
+      setVeiculo('');
       history.goBack();
     });
   };
