@@ -1,15 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
 
-import { Typography, TextField } from '@material-ui/core';
+import { Typography, TextField, MenuItem } from '@material-ui/core';
 
 import { ActionsToolbar, ActionButton } from '../../assets/GlobalStyles.jsx';
 
 import useErros from '../../hooks/useErros';
 import VeiculoService from '../../services/VeiculoService';
+import MarcaService from '../../services/MarcaService.js';
 
 const CadastroVeiculo = () => {
-  const [veiculo, setVeiculo] = useState('');
+  const [veiculo, setVeiculo] = useState({});
+  const [marcas, setMarcas] = useState([]);
+  const [marcaSelecionada, setMarcaSelecionada] = useState('');
+  const [modelo, setModelo] = useState('');
+  const [ano, setAno] = useState('');
+  const [valor, setValor] = useState('');
+
   const history = useHistory();
 
   const { id } = useParams();
@@ -19,7 +26,7 @@ const CadastroVeiculo = () => {
       if (!dado || !dado.length)
         return { valido: false, texto: 'Campo obrigatório' };
       if (dado.length <= 3)
-        return { valido: false, texto: 'Modelo deve ter ao menos 3 letras' };
+        return { valido: false, texto: 'Marca deve ter ao menos 3 letras' };
       return { valido: true };
     },
     modelo: (dado) => {
@@ -48,9 +55,16 @@ const CadastroVeiculo = () => {
   const [erros, validarCampos, possoEnviar] = useErros(validacoes);
 
   useEffect(() => {
+    MarcaService.listar().then((dado) => setMarcas(dado));
+
     if (id) {
-      VeiculoService.consultar(id).then((veiculo) =>
-        setVeiculo(veiculo.modelo),
+      VeiculoService.consultar(id).then(
+        ({ marca: { nome: nomeMarca }, modelo, ano, valor }) => {
+          setMarcaSelecionada(nomeMarca);
+          setModelo(modelo);
+          setAno(ano);
+          setValor(valor);
+        },
       );
     }
   }, [id]);
@@ -58,15 +72,13 @@ const CadastroVeiculo = () => {
   const cancelar = () => history.goBack();
 
   const cadastrarVeiculo = () => {
-    VeiculoService.cadastrar({ modelo: veiculo }).then(() => {
-      setVeiculo('');
+    VeiculoService.cadastrar(veiculo).then(() => {
       history.goBack();
     });
   };
 
   const alterarVeiculo = () => {
-    VeiculoService.alterar({ id, modelo: veiculo }).then(() => {
-      setVeiculo('');
+    VeiculoService.alterar(veiculo).then(() => {
       history.goBack();
     });
   };
@@ -75,9 +87,18 @@ const CadastroVeiculo = () => {
     event.preventDefault();
 
     if (!possoEnviar()) return;
+
+    setVeiculo({ marca: marcaSelecionada, modelo, ano, valor });
     if (id) alterarVeiculo();
     else cadastrarVeiculo();
   };
+
+  const renderizarMarcas = () =>
+    marcas.map((marca) => (
+      <MenuItem value={marca.nome} key={marca.id}>
+        {marca.nome}
+      </MenuItem>
+    ));
 
   return (
     <>
@@ -86,8 +107,8 @@ const CadastroVeiculo = () => {
       </Typography>
       <form onSubmit={(event) => cadastrarOuAlterarVeiculo(event)}>
         <TextField
-          value={veiculo.marca?.nome}
-          onChange={(evt) => setVeiculo(evt.target.value)}
+          value={marcaSelecionada}
+          onChange={(evt) => setMarcaSelecionada(evt.target.value)}
           onBlur={validarCampos}
           helperText={erros.marca.texto}
           error={!erros.marca.valido}
@@ -95,16 +116,21 @@ const CadastroVeiculo = () => {
           id='marca'
           data-testid='marca'
           label='Marca'
-          type='text'
           variant='outlined'
           fullWidth
           required
+          select
           margin='normal'
-        />
+        >
+          <MenuItem value=''>
+            <em>Selecione uma marca</em>
+          </MenuItem>
+          {renderizarMarcas()}
+        </TextField>
 
         <TextField
-          value={veiculo.modelo}
-          onChange={(evt) => setVeiculo(evt.target.value)}
+          value={modelo}
+          onChange={(evt) => setModelo(evt.target.value)}
           onBlur={validarCampos}
           helperText={erros.modelo.texto}
           error={!erros.modelo.valido}
@@ -120,8 +146,8 @@ const CadastroVeiculo = () => {
         />
 
         <TextField
-          value={veiculo.ano}
-          onChange={(evt) => setVeiculo(evt.target.value)}
+          value={ano}
+          onChange={(evt) => setAno(evt.target.value)}
           onBlur={validarCampos}
           helperText={erros.ano.texto}
           error={!erros.ano.valido}
@@ -137,8 +163,8 @@ const CadastroVeiculo = () => {
         />
 
         <TextField
-          value={veiculo.valor}
-          onChange={(evt) => setVeiculo(evt.target.value)}
+          value={valor}
+          onChange={(evt) => setValor(evt.target.value)}
           onBlur={validarCampos}
           helperText={erros.valor.texto}
           error={!erros.valor.valido}
