@@ -33,10 +33,7 @@ describe('Component de ListagemVeiculos', () => {
           modelo: 'KA 123456',
           ano: 2021,
           valor: 80000.0,
-          marca: {
-            id: 34,
-            nome: 'FORD',
-          },
+          marca: 'FORD',
         },
       ]);
       const { findByText, getByText } = createRender();
@@ -69,10 +66,7 @@ describe('Component de ListagemVeiculos', () => {
           modelo: 'KA 123456',
           ano: 2021,
           valor: 80000.0,
-          marca: {
-            id: 34,
-            nome: 'FORD',
-          },
+          marca: 'FORD',
         },
       ]);
       const { findByText } = createRender();
