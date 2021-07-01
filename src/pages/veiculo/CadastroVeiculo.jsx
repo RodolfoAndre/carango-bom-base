@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
 
-import { Button, TextField } from '@material-ui/core';
+import { Typography, TextField } from '@material-ui/core';
+
+import { ActionsToolbar, ActionButton } from '../../assets/GlobalStyles.jsx';
 
 import useErros from '../../hooks/useErros';
 import VeiculoService from '../../services/VeiculoService';
@@ -13,11 +15,32 @@ const CadastroVeiculo = () => {
   const { id } = useParams();
 
   const validacoes = {
-    veiculo: (dado) => {
+    marca: (dado) => {
       if (!dado || !dado.length)
         return { valido: false, texto: 'Campo obrigatório' };
       if (dado.length <= 3)
-        return { valido: false, texto: 'Veiculo deve ter ao menos 3 letras' };
+        return { valido: false, texto: 'Modelo deve ter ao menos 3 letras' };
+      return { valido: true };
+    },
+    modelo: (dado) => {
+      if (!dado || !dado.length)
+        return { valido: false, texto: 'Campo obrigatório' };
+      if (dado.length <= 3)
+        return { valido: false, texto: 'Modelo deve ter ao menos 3 letras' };
+      return { valido: true };
+    },
+    ano: (dado) => {
+      if (!dado || !dado.length)
+        return { valido: false, texto: 'Campo obrigatório' };
+      if (dado.length <= 3)
+        return { valido: false, texto: 'Ano deve ter ao menos 3 letras' };
+      return { valido: true };
+    },
+    valor: (dado) => {
+      if (!dado || !dado.length)
+        return { valido: false, texto: 'Campo obrigatório' };
+      if (dado.length <= 3)
+        return { valido: false, texto: 'Valor deve ter ao menos 3 letras' };
       return { valido: true };
     },
   };
@@ -26,21 +49,23 @@ const CadastroVeiculo = () => {
 
   useEffect(() => {
     if (id) {
-      VeiculoService.consultar(id).then((veiculo) => setVeiculo(veiculo.nome));
+      VeiculoService.consultar(id).then((veiculo) =>
+        setVeiculo(veiculo.modelo),
+      );
     }
   }, [id]);
 
   const cancelar = () => history.goBack();
 
   const cadastrarVeiculo = () => {
-    VeiculoService.cadastrar({ nome: veiculo }).then(() => {
+    VeiculoService.cadastrar({ modelo: veiculo }).then(() => {
       setVeiculo('');
       history.goBack();
     });
   };
 
   const alterarVeiculo = () => {
-    VeiculoService.alterar({ id, nome: veiculo }).then(() => {
+    VeiculoService.alterar({ id, modelo: veiculo }).then(() => {
       setVeiculo('');
       history.goBack();
     });
@@ -55,37 +80,98 @@ const CadastroVeiculo = () => {
   };
 
   return (
-    <form onSubmit={(event) => cadastrarOuAlterarVeiculo(event)}>
-      <TextField
-        value={veiculo}
-        onChange={(evt) => setVeiculo(evt.target.value)}
-        onBlur={validarCampos}
-        helperText={erros.veiculo.texto}
-        error={!erros.veiculo.valido}
-        name='veiculo'
-        id='veiculo'
-        data-testid='veiculo'
-        label='Veículo'
-        type='text'
-        variant='outlined'
-        fullWidth
-        required
-        margin='normal'
-      />
+    <>
+      <Typography component='h2' variant='h4'>
+        {id ? 'Alterar veículo' : 'Cadastrar veículo'}
+      </Typography>
+      <form onSubmit={(event) => cadastrarOuAlterarVeiculo(event)}>
+        <TextField
+          value={veiculo.marca?.nome}
+          onChange={(evt) => setVeiculo(evt.target.value)}
+          onBlur={validarCampos}
+          helperText={erros.marca.texto}
+          error={!erros.marca.valido}
+          name='marca'
+          id='marca'
+          data-testid='marca'
+          label='Marca'
+          type='text'
+          variant='outlined'
+          fullWidth
+          required
+          margin='normal'
+        />
 
-      <Button
-        variant='contained'
-        color='primary'
-        type='submit'
-        disabled={!possoEnviar()}
-      >
-        {id ? 'Alterar' : 'Cadastrar'}
-      </Button>
+        <TextField
+          value={veiculo.modelo}
+          onChange={(evt) => setVeiculo(evt.target.value)}
+          onBlur={validarCampos}
+          helperText={erros.modelo.texto}
+          error={!erros.modelo.valido}
+          name='modelo'
+          id='modelo'
+          data-testid='modelo'
+          label='Modelo'
+          type='text'
+          variant='outlined'
+          fullWidth
+          required
+          margin='normal'
+        />
 
-      <Button variant='contained' color='secondary' onClick={cancelar}>
-        Cancelar
-      </Button>
-    </form>
+        <TextField
+          value={veiculo.ano}
+          onChange={(evt) => setVeiculo(evt.target.value)}
+          onBlur={validarCampos}
+          helperText={erros.ano.texto}
+          error={!erros.ano.valido}
+          name='ano'
+          id='ano'
+          data-testid='ano'
+          label='Ano'
+          type='text'
+          variant='outlined'
+          fullWidth
+          required
+          margin='normal'
+        />
+
+        <TextField
+          value={veiculo.valor}
+          onChange={(evt) => setVeiculo(evt.target.value)}
+          onBlur={validarCampos}
+          helperText={erros.valor.texto}
+          error={!erros.valor.valido}
+          name='valor'
+          id='valor'
+          data-testid='valor'
+          label='Valor'
+          type='text'
+          variant='outlined'
+          fullWidth
+          required
+          margin='normal'
+        />
+
+        <ActionsToolbar>
+          <ActionButton
+            variant='contained'
+            color='secondary'
+            onClick={cancelar}
+          >
+            Cancelar
+          </ActionButton>
+          <ActionButton
+            variant='contained'
+            color='primary'
+            type='submit'
+            disabled={!possoEnviar()}
+          >
+            {id ? 'Alterar' : 'Cadastrar'}
+          </ActionButton>
+        </ActionsToolbar>
+      </form>
+    </>
   );
 };
 
