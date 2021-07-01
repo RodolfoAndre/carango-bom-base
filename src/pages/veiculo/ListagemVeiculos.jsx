@@ -14,10 +14,9 @@ import VeiculoService from '../../services/VeiculoService';
 
 const colunas = [
   {
-    field: 'marcaNome',
+    field: 'marca',
     headerName: 'Marca',
     width: 200,
-    valueFormatter: (params) => params.row.marca.nome,
   },
   { field: 'modelo', headerName: 'Modelo', width: 200 },
   { field: 'ano', headerName: 'Ano', width: 200 },
@@ -38,9 +37,10 @@ const ListagemVeiculos = () => {
   };
 
   const excluirVeiculo = () => {
-    VeiculoService.excluir(veiculoSelecionado);
-    setVeiculoSelecionado(null);
-    carregarVeiculos();
+    VeiculoService.excluir(veiculoSelecionado).then(() => {
+      setVeiculoSelecionado(null);
+      carregarVeiculos();
+    });
   };
 
   const alterarVeiculo = () => {

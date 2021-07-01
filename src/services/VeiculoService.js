@@ -1,4 +1,4 @@
-const baseUrl = 'https://carango-bom-api.herokuapp.com/veiculos/';
+const baseUrl = 'http://localhost:8080/veiculos/';
 
 const headers = new Headers({ 'Content-Type': 'application/json' });
 
