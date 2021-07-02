@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
+import NumberFormat from 'react-number-format';
 
 import { DataGrid } from '@material-ui/data-grid';
 import AddIcon from '@material-ui/icons/Add';
@@ -12,6 +13,17 @@ import {
 
 import VeiculoService from '../../services/VeiculoService';
 
+const formatarValor = (params) => (
+  <NumberFormat
+    value={params.value.toFixed(2)}
+    isNumericString
+    displayType='text'
+    thousandSeparator='.'
+    decimalSeparator=','
+    prefix='R$'
+  />
+);
+
 const colunas = [
   {
     field: 'marca',
@@ -20,7 +32,12 @@ const colunas = [
   },
   { field: 'modelo', headerName: 'Modelo', width: 200 },
   { field: 'ano', headerName: 'Ano', width: 200 },
-  { field: 'valor', headerName: 'Valor', width: 200 },
+  {
+    field: 'valor',
+    headerName: 'Valor',
+    width: 200,
+    renderCell: formatarValor,
+  },
 ];
 
 const ListagemVeiculos = () => {
