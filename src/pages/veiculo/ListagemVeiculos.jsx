@@ -6,6 +6,7 @@ import { DataGrid } from '@material-ui/data-grid';
 import AddIcon from '@material-ui/icons/Add';
 import {
   MainContent,
+  PageTitle,
   ActionsToolbar,
   ActionButton,
   StyledFab,
@@ -66,6 +67,9 @@ const ListagemVeiculos = () => {
 
   return (
     <MainContent>
+      <PageTitle component='h2' variant='h4'>
+        Lista de veículos
+      </PageTitle>
       <DataGrid
         rows={veiculos}
         columns={colunas}
