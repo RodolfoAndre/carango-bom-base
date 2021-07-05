@@ -68,6 +68,8 @@ const CadastroVeiculo = () => {
         });
       }
     });
+
+    return () => setMarcas([]);
   }, [id]);
 
   const cancelar = () => history.goBack();
