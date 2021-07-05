@@ -199,6 +199,7 @@ const CadastroVeiculo = () => {
           <ActionButton
             variant='contained'
             color='secondary'
+            data-testid='cancelar'
             onClick={cancelar}
           >
             Cancelar
@@ -207,6 +208,7 @@ const CadastroVeiculo = () => {
             variant='contained'
             color='primary'
             type='submit'
+            data-testid='cadastrar-ou-alterar'
             disabled={!possoEnviar()}
           >
             {id ? 'Alterar' : 'Cadastrar'}
