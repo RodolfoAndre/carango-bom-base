@@ -96,13 +96,11 @@ describe('Component de CadastroVeiculo', () => {
 
     const { getByTestId } = renderWithRouter(history, path);
 
-    const marca = getByTestId('marca').querySelector('input');
     const modelo = screen.getByRole('textbox', { name: 'Modelo' });
     const ano = screen.getByRole('textbox', { name: 'Ano' });
     const valor = screen.getByRole('textbox', { name: 'Valor' });
     const botaoCadastrar = getByTestId('cadastrar-ou-alterar');
 
-    fireEvent.change(marca, { target: { value: 'Audi' } });
     fireEvent.change(modelo, { target: { value: 'Q5 Sportback' } });
     fireEvent.change(ano, { target: { value: 2020 } });
     fireEvent.change(valor, { target: { value: 80000 } });
@@ -159,6 +157,36 @@ describe('Component de CadastroVeiculo', () => {
       fireEvent.focusOut(modelo);
 
       expect(botaoAlterar).toBeDisabled();
+    });
+
+    it('Deve chamar a função alterar e voltar para a página anterior ao alterar um veículo com sucesso', async () => {
+      VeiculoService.alterar = jest.fn(() => Promise.resolve({ data: {} }));
+      history.goBack = jest.fn();
+
+      const { getByTestId } = renderWithRouter(history, `${path}/:id`);
+
+      const modelo = screen.getByRole('textbox', { name: 'Modelo' });
+      const ano = screen.getByRole('textbox', { name: 'Ano' });
+      const valor = screen.getByRole('textbox', { name: 'Valor' });
+      const botaoAlterar = getByTestId('cadastrar-ou-alterar');
+
+      fireEvent.change(modelo, { target: { value: 'Q5 Sportback' } });
+      fireEvent.change(ano, { target: { value: 2020 } });
+      fireEvent.change(valor, { target: { value: 80000 } });
+      fireEvent.click(botaoAlterar);
+
+      await waitFor(() =>
+        expect(VeiculoService.alterar).toHaveBeenCalledWith({
+          id: veiculoSobTest.id.toString(),
+          marca: '',
+          modelo: 'Q5 Sportback',
+          ano: '2020',
+          valor: '80000',
+        }),
+      );
+
+      expect(history.goBack).toHaveBeenCalled();
+      expect(history.goBack).toHaveBeenCalledTimes(1);
     });
   });
 });
