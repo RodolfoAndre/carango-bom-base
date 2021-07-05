@@ -50,12 +50,10 @@ describe('Component de ListagemVeiculos', () => {
         const marca = await findByText('Marca');
         const modelo = await findByText('Modelo');
         const ano = await findByText('Ano');
-        //const valor = await findByText('Valor');
 
         expect(marca).toBeInTheDocument();
         expect(modelo).toBeInTheDocument();
         expect(ano).toBeInTheDocument();
-        //expect(valor).toBeInTheDocument();
       });
 
       it('deve exibir linha com valores de marca, modelo, ano e valor', async () => {
@@ -65,12 +63,10 @@ describe('Component de ListagemVeiculos', () => {
         const marca = await findByText(veiculoSobTest.marca);
         const modelo = await findByText(veiculoSobTest.modelo);
         const ano = await findByText(veiculoSobTest.ano);
-        //const valor = await findByText(veiculoSobTest.valor);
 
         expect(marca).toBeInTheDocument();
         expect(modelo).toBeInTheDocument();
         expect(ano).toBeInTheDocument();
-        //expect(valor).toBeInTheDocument();
       });
     });
 
