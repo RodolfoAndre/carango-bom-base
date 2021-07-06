@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { AppBar, Toolbar, Button, Menu, MenuItem } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 
-import { StyledHeader, MenuButton, Title } from './styles';
+import { StyledHeader, MenuButton, Title, MenuIconButton } from './styles';
 import { useContext } from 'react';
 import UsuarioAutenticado from '../../contexts/UsuarioAutenticado';
 
@@ -27,23 +27,33 @@ const Header = ({ handleChangeLogin }) => {
     redirecionarPara('/');
   };
 
+  const renderMenuItems = () => {
+    let menuItems = [{ titulo: 'Veículos', rota: '/' }];
+    if (usuarioAutenticado?.nome) {
+      menuItems.push({
+        titulo: 'Marcas',
+        rota: '/listar-marcas',
+      });
+    }
+    return menuItems;
+  };
+
   const renderLogin = () => {
     let component = (
       <Button onClick={() => history.push('/login')} color="inherit">
         Login
       </Button>
     );
-    if (usuarioAutenticado.nome) {
+    if (usuarioAutenticado?.nome) {
       component = (
         <div>
-          <Button
+          <MenuButton
             aria-controls="logout-menu"
             aria-haspopup="true"
             onClick={abrirLogout}
-            style={{ color: '#fff' }}
           >
             {usuarioAutenticado.nome}
-          </Button>
+          </MenuButton>
           <Menu
             id="simple-menu"
             anchorEl={menuLogout}
@@ -70,14 +80,14 @@ const Header = ({ handleChangeLogin }) => {
     <StyledHeader>
       <AppBar position="static">
         <Toolbar>
-          <MenuButton
+          <MenuIconButton
             edge="start"
             color="inherit"
             aria-label="menu"
             onClick={abrirMenu}
           >
             <MenuIcon aria-controls="menu" aria-haspopup="true" />
-          </MenuButton>
+          </MenuIconButton>
           <Menu
             id="menu"
             anchorEl={linkPara}
@@ -85,22 +95,17 @@ const Header = ({ handleChangeLogin }) => {
             open={Boolean(linkPara)}
             onClose={fecharMenu}
           >
-            <MenuItem
-              onClick={() => {
-                fecharMenu();
-                redirecionarPara('/');
-              }}
-            >
-              Veículos
-            </MenuItem>
-            <MenuItem
-              onClick={() => {
-                fecharMenu();
-                redirecionarPara('/listar-marcas');
-              }}
-            >
-              Marcas
-            </MenuItem>
+            {renderMenuItems().map((menuItem, index) => (
+              <MenuItem
+                key={index}
+                onClick={() => {
+                  fecharMenu();
+                  redirecionarPara(menuItem.rota);
+                }}
+              >
+                {menuItem.titulo}
+              </MenuItem>
+            ))}
           </Menu>
           <Title component="h1" variant="h6" onClick={() => history.push('/')}>
             Carango Bom
