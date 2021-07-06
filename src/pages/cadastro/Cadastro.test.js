@@ -1,9 +1,10 @@
 import React from 'react';
 import { Router } from 'react-router-dom';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 
 import Cadastro from './Cadastro';
+import UsuarioService from '../../services/UsuarioService';
 
 describe('Testes de Login', () => {
   describe('Testes de renderização e exibição', () => {
@@ -49,7 +50,7 @@ describe('Testes de Login', () => {
 
         fireEvent.change(senha, { target: { value: 'thefamemonster' } });
         expect(
-          screen.getByRole('button', { name: 'Cadastrar' }),
+          screen.getByRole('button', { name: 'Cadastrar' })
         ).toBeDisabled();
       });
 
@@ -63,7 +64,7 @@ describe('Testes de Login', () => {
 
         fireEvent.change(senha, { target: { value: 'the' } });
         expect(
-          screen.getByRole('button', { name: 'Cadastrar' }),
+          screen.getByRole('button', { name: 'Cadastrar' })
         ).toBeDisabled();
       });
 
@@ -80,7 +81,7 @@ describe('Testes de Login', () => {
         fireEvent.change(confirmarSenha, { target: { value: 'thefame' } });
 
         expect(
-          screen.getByRole('button', { name: 'Cadastrar' }),
+          screen.getByRole('button', { name: 'Cadastrar' })
         ).toBeDisabled();
       });
     });
@@ -101,7 +102,7 @@ describe('Testes de Login', () => {
         });
 
         expect(
-          screen.getByRole('button', { name: 'Cadastrar' }),
+          screen.getByRole('button', { name: 'Cadastrar' })
         ).not.toBeDisabled();
       });
     });
@@ -116,11 +117,12 @@ describe('Testes de Login', () => {
       render(
         <Router history={history}>
           <Cadastro />
-        </Router>,
+        </Router>
       );
     });
 
-    it('Deve redirecionar para tela de Login quando cadastro for realizado com sucesso', () => {
+    it('Deve redirecionar para tela de Login quando cadastro for realizado com sucesso', async () => {
+      UsuarioService.cadastrar = jest.fn(() => Promise.resolve({ data: {} }));
       const usuario = screen.getByTestId('usuario');
       const senha = screen.getByTestId('senha');
       const confirmarSenha = screen.getByTestId('confirmarSenha');
@@ -135,6 +137,12 @@ describe('Testes de Login', () => {
 
       fireEvent.click(botaoCadastro);
 
+      await waitFor(() =>
+        expect(UsuarioService.cadastrar).toHaveBeenCalledWith({
+          nome: 'alejandro',
+          senha: 'thefamemonster',
+        })
+      );
       expect(history.push).toHaveBeenCalledWith('/login');
       expect(history.push).toHaveBeenCalledTimes(1);
     });

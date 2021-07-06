@@ -68,7 +68,7 @@ const ListagemVeiculos = () => {
   };
 
   const renderAcoes = () => {
-    if (usuarioAutenticado.token?.length > 0) {
+    if (usuarioAutenticado?.token?.length > 0) {
       return (
         <>
           <ActionsToolbar>
