@@ -27,9 +27,13 @@ const Header = ({ handleChangeLogin }) => {
     redirecionarPara('/');
   };
 
+  const estaAutenticado = () => {
+    return !!usuarioAutenticado?.nome;
+  };
+
   const renderMenuItems = () => {
     let menuItems = [{ titulo: 'Veículos', rota: '/' }];
-    if (usuarioAutenticado?.nome) {
+    if (estaAutenticado()) {
       menuItems.push({
         titulo: 'Marcas',
         rota: '/listar-marcas',
@@ -44,7 +48,7 @@ const Header = ({ handleChangeLogin }) => {
         Login
       </Button>
     );
-    if (usuarioAutenticado?.nome) {
+    if (estaAutenticado()) {
       component = (
         <div>
           <MenuButton

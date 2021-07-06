@@ -2,9 +2,9 @@ import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const PrivateRoute = ({ component, estaAutorizado, ...rest }) => {
+const PrivateRoute = ({ component, estaAutenticado, ...rest }) => {
   const renderRotaPrivada = (component, props) => {
-    return estaAutorizado() ? (
+    return estaAutenticado() ? (
       component
     ) : (
       <Redirect to={{ pathname: '/', state: { from: props.location } }} />
@@ -18,7 +18,7 @@ const PrivateRoute = ({ component, estaAutorizado, ...rest }) => {
 
 PrivateRoute.propTypes = {
   component: PropTypes.any,
-  estaAutorizado: PropTypes.func,
+  estaAutenticado: PropTypes.func,
   location: PropTypes.object,
 };
 

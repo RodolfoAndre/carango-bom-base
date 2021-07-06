@@ -59,13 +59,9 @@ function App() {
     setUsuarioAutenticado(novoLogin);
   };
 
-  const estaAutorizado = () => {
+  const estaAutenticado = () => {
     return !!usuarioAutenticado?.token;
   };
-
-  // const renderRotaPrivada = (component) => {
-  //   return usuarioAutenticado?.token ? component : <Redirect to={'/'} />;
-  // };
 
   return (
     <ThemeProvider theme={muiTheme}>
@@ -77,57 +73,35 @@ function App() {
             <div className={classes.toolbar} />
             <Container component="article" maxWidth="md">
               <Switch>
-                {/* <Route
-                  path="/cadastro-marca"
-                  exact
-                  render={() => renderRotaPrivada(<CadastroMarca />)}
-                />
-                <Route
-                  path="/alteracao-marca/:id"
-                  render={() => renderRotaPrivada(<CadastroMarca />)}
-                />
-                <Route
-                  path="/listar-marcas"
-                  render={() => renderRotaPrivada(<ListagemMarcas />)}
-                />
-                <Route
-                  path="/cadastro-veiculo"
-                  exact
-                  render={() => renderRotaPrivada(<CadastroVeiculo />)}
-                />
-                <Route
-                  path="/alteracao-veiculo/:id"
-                  render={() => renderRotaPrivada(<CadastroVeiculo />)}
-                /> */}
                 <PrivateRoute
                   path="/cadastro-marca"
                   exact
                   component={<CadastroMarca />}
-                  estaAutorizado={estaAutorizado}
+                  estaAutenticado={estaAutenticado}
                 />
                 <PrivateRoute
                   path="/alteracao-marca/:id"
                   exact
                   component={<CadastroMarca />}
-                  estaAutorizado={estaAutorizado}
+                  estaAutenticado={estaAutenticado}
                 />
                 <PrivateRoute
                   path="/listar-marcas"
                   exact
                   component={<ListagemMarcas />}
-                  estaAutorizado={estaAutorizado}
+                  estaAutenticado={estaAutenticado}
                 />
                 <PrivateRoute
                   path="/cadastro-veiculo"
                   exact
                   component={<CadastroVeiculo />}
-                  estaAutorizado={estaAutorizado}
+                  estaAutenticado={estaAutenticado}
                 />
                 <PrivateRoute
                   path="/alteracao-veiculo/:id"
                   exact
                   component={<CadastroVeiculo />}
-                  estaAutorizado={estaAutorizado}
+                  estaAutenticado={estaAutenticado}
                 />
                 <Route path="/" exact>
                   <ListagemVeiculos />
