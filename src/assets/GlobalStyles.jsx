@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { Button, Fab, Avatar } from '@material-ui/core';
+import { Button, Fab, Avatar, Typography } from '@material-ui/core';
 
 export const MainContent = styled.main`
   height: 300px;
@@ -41,4 +41,8 @@ export const LoginForm = styled.form`
 
 export const LoginButton = styled(Button)`
   margin: 24px 0 16px;
+`;
+
+export const PageTitle = styled(Typography)`
+  margin-bottom: 16px;
 `;

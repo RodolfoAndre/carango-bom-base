@@ -9,6 +9,7 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Header from './components/header/Header';
 import CadastroMarca from './pages/marca/CadastroMarca';
 import ListagemMarcas from './pages/marca/ListagemMarcas';
+import CadastroVeiculo from './pages/veiculo/CadastroVeiculo';
 import ListagemVeiculos from './pages/veiculo/ListagemVeiculos';
 import Login from './pages/login/Login';
 import Cadastro from './pages/cadastro/Cadastro';
@@ -61,6 +62,12 @@ function App() {
               </Route>
               <Route path='/listar-marcas'>
                 <ListagemMarcas />
+              </Route>
+              <Route path='/cadastro-veiculo' exact>
+                <CadastroVeiculo />
+              </Route>
+              <Route path='/alteracao-veiculo/:id'>
+                <CadastroVeiculo />
               </Route>
               <Route path='/' exact>
                 <ListagemVeiculos />
