@@ -15,6 +15,7 @@ import Login from './pages/login/Login';
 import Cadastro from './pages/cadastro/Cadastro';
 import UsuarioAutenticado from './contexts/UsuarioAutenticado';
 import { NAME_KEY, TOKEN_KEY } from './Constants';
+import PrivateRoute from './components/private-route/PrivateRoute';
 
 const muiTheme = createMuiTheme(
   {
@@ -58,6 +59,14 @@ function App() {
     setUsuarioAutenticado(novoLogin);
   };
 
+  const estaAutorizado = () => {
+    return !!usuarioAutenticado?.token;
+  };
+
+  // const renderRotaPrivada = (component) => {
+  //   return usuarioAutenticado?.token ? component : <Redirect to={'/'} />;
+  // };
+
   return (
     <ThemeProvider theme={muiTheme}>
       <UsuarioAutenticado.Provider value={usuarioAutenticado}>
@@ -68,21 +77,58 @@ function App() {
             <div className={classes.toolbar} />
             <Container component="article" maxWidth="md">
               <Switch>
-                <Route path="/cadastro-marca" exact>
-                  <CadastroMarca />
-                </Route>
-                <Route path="/alteracao-marca/:id">
-                  <CadastroMarca />
-                </Route>
-                <Route path="/listar-marcas">
-                  <ListagemMarcas />
-                </Route>
-                <Route path="/cadastro-veiculo" exact>
-                  <CadastroVeiculo />
-                </Route>
-                <Route path="/alteracao-veiculo/:id">
-                  <CadastroVeiculo />
-                </Route>
+                {/* <Route
+                  path="/cadastro-marca"
+                  exact
+                  render={() => renderRotaPrivada(<CadastroMarca />)}
+                />
+                <Route
+                  path="/alteracao-marca/:id"
+                  render={() => renderRotaPrivada(<CadastroMarca />)}
+                />
+                <Route
+                  path="/listar-marcas"
+                  render={() => renderRotaPrivada(<ListagemMarcas />)}
+                />
+                <Route
+                  path="/cadastro-veiculo"
+                  exact
+                  render={() => renderRotaPrivada(<CadastroVeiculo />)}
+                />
+                <Route
+                  path="/alteracao-veiculo/:id"
+                  render={() => renderRotaPrivada(<CadastroVeiculo />)}
+                /> */}
+                <PrivateRoute
+                  path="/cadastro-marca"
+                  exact
+                  component={<CadastroMarca />}
+                  estaAutorizado={estaAutorizado}
+                />
+                <PrivateRoute
+                  path="/alteracao-marca/:id"
+                  exact
+                  component={<CadastroMarca />}
+                  estaAutorizado={estaAutorizado}
+                />
+                <PrivateRoute
+                  path="/listar-marcas"
+                  exact
+                  component={<ListagemMarcas />}
+                  estaAutorizado={estaAutorizado}
+                />
+                <PrivateRoute
+                  path="/cadastro-veiculo"
+                  exact
+                  component={<CadastroVeiculo />}
+                  estaAutorizado={estaAutorizado}
+                />
+                <PrivateRoute
+                  path="/alteracao-veiculo/:id"
+                  exact
+                  component={<CadastroVeiculo />}
+                  estaAutorizado={estaAutorizado}
+                />
                 <Route path="/" exact>
                   <ListagemVeiculos />
                 </Route>
