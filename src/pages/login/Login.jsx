@@ -2,9 +2,6 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-
-import useErros from '../../hooks/useErros';
-
 import {
   CssBaseline,
   Container,
@@ -13,6 +10,10 @@ import {
   Grid,
   Link,
 } from '@material-ui/core';
+
+import useErros from '../../hooks/useErros';
+import AutenticacaoService from '../../services/AutenticacaoService';
+import { NAME_KEY, TOKEN_KEY } from '../../Constants';
 
 import {
   LoginContainer,
@@ -50,18 +51,24 @@ const Login = () => {
   const logar = (e) => {
     if (possoEnviar) {
       e.preventDefault();
-      history.push('/');
+      AutenticacaoService.autenticar({ nome: usuario, senha }).then(
+        (response) => {
+          localStorage.setItem(NAME_KEY, usuario);
+          localStorage.setItem(TOKEN_KEY, response.token);
+          history.push('/');
+        }
+      );
     }
   };
 
   return (
-    <Container component='main' maxWidth='xs'>
+    <Container component="main" maxWidth="xs">
       <CssBaseline />
       <LoginContainer>
         <LoginAvatar>
           <LockOutlinedIcon />
         </LoginAvatar>
-        <Typography component='h1' variant='h5'>
+        <Typography component="h1" variant="h5">
           Login
         </Typography>
         <LoginForm onSubmit={(e) => logar(e)}>
@@ -74,12 +81,12 @@ const Login = () => {
             }}
             error={!erros.usuario.valido}
             helperText={erros.usuario.texto}
-            variant='outlined'
-            margin='normal'
-            id='usuario'
-            name='usuario'
-            label='Usuário'
-            type='text'
+            variant="outlined"
+            margin="normal"
+            id="usuario"
+            name="usuario"
+            label="Usuário"
+            type="text"
             inputProps={{ 'data-testid': 'usuario' }}
             fullWidth
             required
@@ -93,12 +100,12 @@ const Login = () => {
             }}
             error={!erros.senha.valido}
             helperText={erros.senha.texto}
-            variant='outlined'
-            margin='normal'
-            id='senha'
-            name='senha'
-            label='Senha'
-            type='password'
+            variant="outlined"
+            margin="normal"
+            id="senha"
+            name="senha"
+            label="Senha"
+            type="password"
             inputProps={{ 'data-testid': 'senha' }}
             fullWidth
             required
@@ -106,16 +113,16 @@ const Login = () => {
 
           <LoginButton
             disabled={!possoEnviar()}
-            type='submit'
-            variant='contained'
-            color='primary'
+            type="submit"
+            variant="contained"
+            color="primary"
             fullWidth
           >
             Entrar
           </LoginButton>
         </LoginForm>
         <Grid container>
-          <Link href='/cadastro'>Não possui conta? Cadastrar</Link>
+          <Link href="/cadastro">Não possui conta? Cadastrar</Link>
         </Grid>
       </LoginContainer>
     </Container>
