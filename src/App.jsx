@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import { Container, CssBaseline, makeStyles } from '@material-ui/core';
@@ -13,6 +13,8 @@ import CadastroVeiculo from './pages/veiculo/CadastroVeiculo';
 import ListagemVeiculos from './pages/veiculo/ListagemVeiculos';
 import Login from './pages/login/Login';
 import Cadastro from './pages/cadastro/Cadastro';
+import UsuarioAutenticado from './contexts/UsuarioAutenticado';
+import { NAME_KEY, TOKEN_KEY } from './Constants';
 
 const muiTheme = createMuiTheme(
   {
@@ -22,7 +24,7 @@ const muiTheme = createMuiTheme(
       },
     },
   },
-  ptBR,
+  ptBR
 );
 
 const useStyles = makeStyles((theme) => ({
@@ -43,45 +45,58 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function App() {
+  const [usuarioAutenticado, setUsuarioAutenticado] = useState({});
   const classes = useStyles();
+
+  const handleChangeLogin = (novoLogin) => {
+    if (novoLogin) {
+      localStorage.setItem(NAME_KEY, novoLogin.nome);
+      localStorage.setItem(TOKEN_KEY, novoLogin.token);
+    } else {
+      localStorage.clear();
+    }
+    setUsuarioAutenticado(novoLogin);
+  };
 
   return (
     <ThemeProvider theme={muiTheme}>
-      <Header />
-      <div className={classes.root}>
-        <CssBaseline />
-        <main className={classes.content}>
-          <div className={classes.toolbar} />
-          <Container component='article' maxWidth='md'>
-            <Switch>
-              <Route path='/cadastro-marca'>
-                <CadastroMarca />
-              </Route>
-              <Route path='/alteracao-marca/:id'>
-                <CadastroMarca />
-              </Route>
-              <Route path='/listar-marcas'>
-                <ListagemMarcas />
-              </Route>
-              <Route path='/cadastro-veiculo' exact>
-                <CadastroVeiculo />
-              </Route>
-              <Route path='/alteracao-veiculo/:id'>
-                <CadastroVeiculo />
-              </Route>
-              <Route path='/' exact>
-                <ListagemVeiculos />
-              </Route>
-              <Route path='/login'>
-                <Login />
-              </Route>
-              <Route path='/cadastro'>
-                <Cadastro />
-              </Route>
-            </Switch>
-          </Container>
-        </main>
-      </div>
+      <UsuarioAutenticado.Provider value={usuarioAutenticado}>
+        <Header handleChangeLogin={handleChangeLogin} />
+        <div className={classes.root}>
+          <CssBaseline />
+          <main className={classes.content}>
+            <div className={classes.toolbar} />
+            <Container component="article" maxWidth="md">
+              <Switch>
+                <Route path="/cadastro-marca" exact>
+                  <CadastroMarca />
+                </Route>
+                <Route path="/alteracao-marca/:id">
+                  <CadastroMarca />
+                </Route>
+                <Route path="/listar-marcas">
+                  <ListagemMarcas />
+                </Route>
+                <Route path="/cadastro-veiculo" exact>
+                  <CadastroVeiculo />
+                </Route>
+                <Route path="/alteracao-veiculo/:id">
+                  <CadastroVeiculo />
+                </Route>
+                <Route path="/" exact>
+                  <ListagemVeiculos />
+                </Route>
+                <Route path="/login">
+                  <Login handleChangeLogin={handleChangeLogin} />
+                </Route>
+                <Route path="/cadastro">
+                  <Cadastro />
+                </Route>
+              </Switch>
+            </Container>
+          </main>
+        </div>
+      </UsuarioAutenticado.Provider>
     </ThemeProvider>
   );
 }

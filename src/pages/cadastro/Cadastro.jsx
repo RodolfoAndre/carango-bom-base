@@ -59,7 +59,7 @@ const Login = () => {
     // TODO - Mostrar mensagem de cadastro com sucesso
     if (possoEnviar) {
       e.preventDefault();
-      UsuarioService.cadastrar({ nome: usuario, senha }).then((res) => {
+      UsuarioService.cadastrar({ nome: usuario, senha }).then(() => {
         history.push('/login');
       });
     }

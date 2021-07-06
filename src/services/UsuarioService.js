@@ -1,13 +1,15 @@
-const baseUrl = 'http://localhost:8080/usuarios';
+import { TOKEN_KEY } from '../Constants';
 
-const headers = new Headers({
-  'Content-Type': 'application/json',
-  Authorization: 'Bearer ',
-});
+const baseUrl = 'http://localhost:8080/usuarios';
+const headers = () =>
+  new Headers({
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${localStorage.getItem(TOKEN_KEY)}`,
+  });
 
 const UsuarioService = {
   listar() {
-    return fetch(baseUrl, { headers: headers }).then((response) =>
+    return fetch(baseUrl, { headers: headers() }).then((response) =>
       response.json()
     );
   },
@@ -15,23 +17,23 @@ const UsuarioService = {
   cadastrar(usuario) {
     return fetch(baseUrl, {
       method: 'POST',
-      headers: headers,
+      headers: headers(),
       body: JSON.stringify(usuario),
     }).then((response) => response.json());
   },
 
   alterarSenha(usuario) {
-    return fetch(`${baseUrl}${usuario.id}`, {
+    return fetch(`${baseUrl}/${usuario.id}`, {
       method: 'PUT',
-      headers: headers,
+      headers: headers(),
       body: JSON.stringify(usuario),
     }).then((response) => response.json());
   },
 
   excluir(usuario) {
-    return fetch(`${baseUrl}${usuario.id}`, {
+    return fetch(`${baseUrl}/${usuario.id}`, {
       method: 'DELETE',
-      headers: headers,
+      headers: headers(),
     }).then((response) => response.json());
   },
 };

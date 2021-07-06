@@ -11,8 +11,6 @@ import {
 } from '../../assets/GlobalStyles.jsx';
 
 import MarcaService from '../../services/MarcaService';
-import UsuarioAutenticado from '../../contexts/UsuarioAutenticado.js';
-import { useContext } from 'react';
 
 const colunas = [{ field: 'nome', headerName: 'Marca', width: 200 }];
 
@@ -20,7 +18,6 @@ function ListagemMarcas() {
   const [marcas, setMarcas] = useState([]);
   const [marcaSelecionada, setMarcaSelecionada] = useState(null);
   const history = useHistory();
-  const usuarioAutenticado = useContext(UsuarioAutenticado);
 
   function alterar() {
     history.push('/alteracao-marca/' + marcaSelecionada.id);
@@ -36,7 +33,11 @@ function ListagemMarcas() {
   useEffect(() => carregarMarcas(), []);
 
   function carregarMarcas() {
-    MarcaService.listar().then((dados) => setMarcas(dados));
+    MarcaService.listar().then((dados) => {
+      if (!dados?.error) {
+        setMarcas(dados);
+      }
+    });
   }
 
   return (

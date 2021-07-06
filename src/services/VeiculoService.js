@@ -1,36 +1,45 @@
-const baseUrl = 'http://localhost:8080/veiculos/';
+import { TOKEN_KEY } from '../Constants';
 
-const headers = new Headers({ 'Content-Type': 'application/json' });
+const baseUrl = 'http://localhost:8080/veiculos';
+const headers = () =>
+  new Headers({
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${localStorage.getItem(TOKEN_KEY)}`,
+  });
 
 const VeiculoService = {
   listar() {
-    return fetch(baseUrl).then((response) => response.json());
+    return fetch(baseUrl, { headers: headers() }).then((response) =>
+      response.json()
+    );
   },
 
   consultar(id) {
-    return fetch(`${baseUrl}${id}`).then((response) => response.json());
+    return fetch(`${baseUrl}/${id}`, { headers: headers() }).then((response) =>
+      response.json()
+    );
   },
 
   cadastrar(veiculo) {
     return fetch(baseUrl, {
       method: 'POST',
-      headers: headers,
+      headers: headers(),
       body: JSON.stringify(veiculo),
     }).then((response) => response.json());
   },
 
   alterar(veiculo) {
-    return fetch(`${baseUrl}${veiculo.id}`, {
+    return fetch(`${baseUrl}/${veiculo.id}`, {
       method: 'PUT',
-      headers: headers,
+      headers: headers(),
       body: JSON.stringify(veiculo),
     }).then((response) => response.json());
   },
 
   excluir(veiculo) {
-    return fetch(`${baseUrl}${veiculo.id}`, {
+    return fetch(`${baseUrl}/${veiculo.id}`, {
       method: 'DELETE',
-      headers: headers,
+      headers: headers(),
     }).then((response) => response.json());
   },
 };

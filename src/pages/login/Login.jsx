@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
+import PropTypes from 'prop-types';
 
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import {
@@ -13,7 +14,6 @@ import {
 
 import useErros from '../../hooks/useErros';
 import AutenticacaoService from '../../services/AutenticacaoService';
-import { NAME_KEY, TOKEN_KEY } from '../../Constants';
 
 import {
   LoginContainer,
@@ -22,7 +22,7 @@ import {
   LoginButton,
 } from '../../assets/GlobalStyles';
 
-const Login = () => {
+const Login = ({ handleChangeLogin }) => {
   const [usuario, setUsuario] = useState('');
   const [senha, setSenha] = useState('');
 
@@ -53,8 +53,10 @@ const Login = () => {
       e.preventDefault();
       AutenticacaoService.autenticar({ nome: usuario, senha }).then(
         (response) => {
-          localStorage.setItem(NAME_KEY, usuario);
-          localStorage.setItem(TOKEN_KEY, response.token);
+          handleChangeLogin({
+            nome: usuario,
+            token: response.token,
+          });
           history.push('/');
         }
       );
@@ -127,6 +129,10 @@ const Login = () => {
       </LoginContainer>
     </Container>
   );
+};
+
+Login.propTypes = {
+  handleChangeLogin: PropTypes.func,
 };
 
 export default Login;
