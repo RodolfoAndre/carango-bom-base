@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router';
 import PropTypes from 'prop-types';
 
@@ -6,7 +6,6 @@ import { AppBar, Toolbar, Button, Menu, MenuItem } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 
 import { StyledHeader, MenuButton, Title, MenuIconButton } from './styles';
-import { useContext } from 'react';
 import UsuarioAutenticado from '../../contexts/UsuarioAutenticado';
 
 const Header = ({ handleChangeLogin }) => {
@@ -15,11 +14,12 @@ const Header = ({ handleChangeLogin }) => {
 
   const history = useHistory();
 
+  const usuarioAutenticado = useContext(UsuarioAutenticado);
+
   const abrirMenu = (e) => setLinkPara(e.currentTarget);
   const fecharMenu = () => setLinkPara(null);
   const redirecionarPara = (pagina) => history.push(pagina);
 
-  const usuarioAutenticado = useContext(UsuarioAutenticado);
   const abrirLogout = (e) => setMenuLogout(e.currentTarget);
   const fecharLogout = () => setMenuLogout(null);
   const logout = () => {
@@ -28,7 +28,7 @@ const Header = ({ handleChangeLogin }) => {
   };
 
   const estaAutenticado = () => {
-    return !!usuarioAutenticado?.nome;
+    return usuarioAutenticado?.nome;
   };
 
   const renderMenuItems = () => {

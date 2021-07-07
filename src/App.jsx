@@ -60,7 +60,7 @@ function App() {
   };
 
   const estaAutenticado = () => {
-    return !!usuarioAutenticado?.token;
+    return usuarioAutenticado?.token;
   };
 
   return (
