@@ -27,7 +27,7 @@
     "test:dev": "react-scripts test",
     "eject": "react-scripts eject",
     "prepare": "husky install",
-    "test:ci": "npm run test -- --ci --testResultsProcessor=\"jest-sonar-reporter\""
+    "test:ci": "react-scripts test --reporters=default --coverage --testResultsProcessor ./node_modules/jest-sonar-reporter/index.js"
   },
   "eslintConfig": {
     "extends": [
