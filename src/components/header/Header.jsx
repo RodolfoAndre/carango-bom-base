@@ -52,6 +52,14 @@ const Header = () => {
             >
               Marcas
             </MenuItem>
+            <MenuItem
+              onClick={() => {
+                fecharMenu();
+                redirecionarPara('/dashboard');
+              }}
+            >
+              Dashboard
+            </MenuItem>
           </Menu>
           <Title component='h1' variant='h6' onClick={() => history.push('/')}>
             Carango Bom

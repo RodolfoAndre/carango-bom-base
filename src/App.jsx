@@ -13,6 +13,7 @@ import CadastroVeiculo from './pages/veiculo/CadastroVeiculo';
 import ListagemVeiculos from './pages/veiculo/ListagemVeiculos';
 import Login from './pages/login/Login';
 import Cadastro from './pages/cadastro/Cadastro';
+import Dashboard from './pages/dashboard/Dashboard';
 
 const muiTheme = createMuiTheme(
   {
@@ -78,6 +79,7 @@ function App() {
               <Route path='/cadastro'>
                 <Cadastro />
               </Route>
+              <Route path='/dashboard' component={Dashboard} exact />
             </Switch>
           </Container>
         </main>

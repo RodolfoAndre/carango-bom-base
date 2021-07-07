@@ -29,7 +29,7 @@ export const LoginContainer = styled.div`
   margin-top: 64px;
 `;
 
-export const LoginAvatar = styled(Avatar)`
+export const IconAvatar = styled(Avatar)`
   margin: 16px;
   background-color: #0d47a1;
 `;

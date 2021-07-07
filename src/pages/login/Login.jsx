@@ -17,7 +17,7 @@ import {
 import {
   LoginContainer,
   LoginForm,
-  LoginAvatar,
+  IconAvatar,
   LoginButton,
 } from '../../assets/GlobalStyles';
 
@@ -58,9 +58,9 @@ const Login = () => {
     <Container component='main' maxWidth='xs'>
       <CssBaseline />
       <LoginContainer>
-        <LoginAvatar>
+        <IconAvatar>
           <LockOutlinedIcon />
-        </LoginAvatar>
+        </IconAvatar>
         <Typography component='h1' variant='h5'>
           Login
         </Typography>
