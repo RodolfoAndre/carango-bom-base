@@ -47,6 +47,7 @@
     ]
   },
   "jestSonar": {
+    "sonar56x": true,
     "reportPath": "reports",
     "reportFile": "test-reporter.xml",
     "indent": 4
