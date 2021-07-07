@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 
 import { Button, Fab, Avatar, Typography } from '@material-ui/core';
+import { DataGrid } from '@material-ui/data-grid';
 
-export const MainContent = styled.main`
+export const MainContent = styled.div`
   height: 300px;
   width: 100%;
 `;
@@ -44,5 +45,11 @@ export const LoginButton = styled(Button)`
 `;
 
 export const PageTitle = styled(Typography)`
-  margin-bottom: 16px;
+  margin-top: 16px;
+  margin-bottom: 42px;
+  text-align: center;
+`;
+
+export const StyledDataGrid = styled(DataGrid)`
+  background-color: #fff;
 `;

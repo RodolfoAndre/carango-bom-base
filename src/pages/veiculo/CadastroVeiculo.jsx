@@ -31,7 +31,7 @@ const CadastroVeiculo = () => {
     modelo: (dado) => {
       if (!dado || !dado.length)
         return { valido: false, texto: 'Campo obrigatório' };
-      if (dado.length <= 3)
+      if (dado.length < 3)
         return { valido: false, texto: 'Modelo deve ter ao menos 3 letras' };
       return { valido: true };
     },

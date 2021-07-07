@@ -34,8 +34,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
   },
-  // necessary for content to be below app bar
-  toolbar: theme.mixins.toolbar,
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
     color: '#fff',
@@ -72,7 +70,6 @@ function App() {
         <div className={classes.root}>
           <CssBaseline />
           <main className={classes.content}>
-            <div className={classes.toolbar} />
             <Container component='article' maxWidth='md'>
               <Switch>
                 <PrivateRoute

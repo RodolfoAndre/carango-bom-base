@@ -4,6 +4,7 @@ import NumberFormat from 'react-number-format';
 
 import { DataGrid } from '@material-ui/data-grid';
 import AddIcon from '@material-ui/icons/Add';
+
 import {
   MainContent,
   PageTitle,
@@ -12,6 +13,8 @@ import {
   StyledFab,
 } from '../../assets/GlobalStyles.jsx';
 
+import { useStyles } from './styles';
+
 import VeiculoService from '../../services/VeiculoService';
 import UsuarioAutenticado from '../../contexts/UsuarioAutenticado.js';
 
@@ -19,10 +22,10 @@ const formatarValor = (params) => (
   <NumberFormat
     value={params.value.toFixed(2)}
     isNumericString
-    displayType="text"
-    thousandSeparator="."
-    decimalSeparator=","
-    prefix="R$"
+    displayType='text'
+    thousandSeparator='.'
+    decimalSeparator=','
+    prefix='R$'
   />
 );
 
@@ -50,6 +53,8 @@ const ListagemVeiculos = () => {
 
   useEffect(() => carregarVeiculos(), []);
 
+  const classes = useStyles();
+
   const carregarVeiculos = () => {
     VeiculoService.listar().then((dados) => {
       setVeiculos(dados);
@@ -73,16 +78,16 @@ const ListagemVeiculos = () => {
         <>
           <ActionsToolbar>
             <ActionButton
-              variant="contained"
-              color="secondary"
+              variant='contained'
+              color='secondary'
               disabled={!veiculoSelecionado}
               onClick={() => excluirVeiculo()}
             >
               Excluir
             </ActionButton>
             <ActionButton
-              variant="contained"
-              color="primary"
+              variant='contained'
+              color='primary'
               disabled={!veiculoSelecionado}
               onClick={() => alterarVeiculo()}
             >
@@ -90,8 +95,8 @@ const ListagemVeiculos = () => {
             </ActionButton>
           </ActionsToolbar>
           <StyledFab
-            color="primary"
-            aria-label="add"
+            color='primary'
+            aria-label='add'
             onClick={() => history.push('/cadastro-veiculo')}
           >
             <AddIcon />
@@ -104,10 +109,11 @@ const ListagemVeiculos = () => {
 
   return (
     <MainContent>
-      <PageTitle component="h2" variant="h4">
+      <PageTitle component='h2' variant='h4'>
         Lista de veículos
       </PageTitle>
       <DataGrid
+        className={classes.root}
         rows={veiculos}
         columns={colunas}
         onRowSelected={(gridSelection) =>
