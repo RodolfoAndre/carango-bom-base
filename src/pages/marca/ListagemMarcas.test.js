@@ -20,7 +20,6 @@ const renderWithRouter = (history) => {
   );
 };
 
-// TODO revisar quando tivermos implementado a feature de autenticação
 describe('Component de ListagemMarcas', () => {
   beforeEach(() => {
     MarcaService.listar.mockResolvedValue([]);
