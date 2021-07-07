@@ -26,7 +26,7 @@
     "test:dev": "react-scripts test",
     "eject": "react-scripts eject",
     "prepare": "husky install",
-    "test:ci": "npm run test -- --ci --testResultsProcessor=\"jest-junit\""
+    "test:ci": "npm run test -- --ci --testResultsProcessor=\"jest-sonar-reporter\""
   },
   "eslintConfig": {
     "extends": [
@@ -47,8 +47,8 @@
     ]
   },
   "jestSonar": {
-    "reportPath": "",
-    "reportFile": "junit.xml",
+    "reportPath": "reports",
+    "reportFile": "test-reporter.xml",
     "indent": 4
   },
   "devDependencies": {
