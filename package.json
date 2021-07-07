@@ -23,11 +23,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "lint": "npx eslint src --ext .js,.jsx",
-    "test": "react-scripts test --coverage --watchAll=false --ci --testResultsProcessor=\"jest-sonar-reporter\"",
+    "test": "react-scripts test --coverage --watchAll=false --ci --testResultsProcessor ./node_modules/jest-sonar-reporter/index.js",
     "test:dev": "react-scripts test",
     "eject": "react-scripts eject",
     "prepare": "husky install",
-    "test:ci": "react-scripts test --reporters=default --coverage --testResultsProcessor ./node_modules/jest-sonar-reporter/index.js"
+    "test:ci": "react-scripts test --reporters=default --coverage --testResultsProcessor "
   },
   "eslintConfig": {
     "extends": [
