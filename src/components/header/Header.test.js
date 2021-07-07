@@ -5,21 +5,24 @@ import { createMemoryHistory } from 'history';
 
 import Header from './Header';
 import UsuarioAutenticado from '../../contexts/UsuarioAutenticado';
+import { Button } from '@material-ui/core';
 
 describe('Testes do componente Header', () => {
   const history = createMemoryHistory();
   history.push = jest.fn();
 
-  beforeEach(() => {
-    render(
-      <Router history={history}>
-        <Header />
-      </Router>
-    );
-  });
+  const usuario = { nome: 'admin', token: 'thisisavalidtoken' };
 
-  describe('Testes de renderização e exibição', () => {
-    describe('Com o usuário não logado', () => {
+  describe('Usuário não logado', () => {
+    beforeEach(() => {
+      render(
+        <Router history={history}>
+          <Header />
+        </Router>
+      );
+    });
+
+    describe('Testes de renderização e exibição', () => {
       it('Deve renderizar componente corretamente', () => {
         const tituloHeader = screen.getByRole('heading', {
           name: 'Carango Bom',
@@ -41,57 +44,105 @@ describe('Testes do componente Header', () => {
         expect(opcaoVeiculos).toBeInTheDocument();
       });
     });
+
+    describe('Testes de redirecionamento', () => {
+      describe('Testes de Home e Login', () => {
+        it('Deve redirecionar para a Home ao clicar no título', () => {
+          const tituloHeader = screen.getByRole('heading', {
+            name: 'Carango Bom',
+          });
+
+          fireEvent.click(tituloHeader);
+
+          expect(history.push).toHaveBeenCalledWith('/');
+          expect(history.push).toHaveBeenCalledTimes(1);
+        });
+
+        it('Deve redirecionar para a tela de Login ao clicar no botão Login', () => {
+          const linkLogin = screen.getByRole('button', { name: 'Login' });
+
+          fireEvent.click(linkLogin);
+
+          expect(history.push).toHaveBeenCalledWith('/login');
+          expect(history.push).toHaveBeenCalledTimes(1);
+        });
+      });
+
+      describe('Testes dos itens de menu', () => {
+        beforeEach(() => {
+          const menu = screen.getByLabelText('pages-menu');
+          fireEvent.click(menu);
+        });
+
+        it('Deve redirecionar para a página de listagem de veículos ao clicar na opção Veículos', () => {
+          const opcaoVeiculos = screen.getByText('Veículos');
+
+          fireEvent.click(opcaoVeiculos);
+
+          expect(history.push).toHaveBeenCalledWith('/');
+          expect(history.push).toHaveBeenCalledTimes(1);
+        });
+      });
+    });
   });
 
-  describe('Testes de redirecionamento', () => {
-    describe('Testes da Home e Login', () => {
-      it('Deve redirecionar para a Home ao clicar no título', () => {
+  describe('Usuário logado', () => {
+    const handleChangeLogin = jest.fn();
+    beforeEach(() => {
+      render(
+        <UsuarioAutenticado.Provider value={usuario}>
+          <Router history={history}>
+            <Header handleChangeLogin={handleChangeLogin} />
+          </Router>
+        </UsuarioAutenticado.Provider>
+      );
+    });
+
+    describe('Testes de renderização e exibição', () => {
+      it('Deve renderizar componente corretamente, incluindo nome do usuário logado', () => {
         const tituloHeader = screen.getByRole('heading', {
           name: 'Carango Bom',
         });
+        const linkLogin = screen.getByText(usuario.nome);
+        const menu = screen.getByLabelText('pages-menu');
 
-        fireEvent.click(tituloHeader);
-
-        expect(history.push).toHaveBeenCalledWith('/');
-        expect(history.push).toHaveBeenCalledTimes(1);
+        expect(tituloHeader).toBeInTheDocument();
+        expect(linkLogin).toBeInTheDocument();
+        expect(menu).toBeInTheDocument();
       });
 
-      it('Deve redirecionar para a tela de Login ao clicar no botão Login', () => {
-        const linkLogin = screen.getByRole('button', { name: 'Login' });
+      it('Deve exibir opções corretamente ao clicar no menu', () => {
+        const menu = screen.getByLabelText('pages-menu');
+        const opcaoVeiculos = screen.getByText('Veículos');
+        const opcaoMarcas = screen.getByText('Marcas');
 
-        fireEvent.click(linkLogin);
+        fireEvent.click(menu);
 
-        expect(history.push).toHaveBeenCalledWith('/login');
-        expect(history.push).toHaveBeenCalledTimes(1);
+        expect(opcaoVeiculos).toBeInTheDocument();
+        expect(opcaoMarcas).toBeInTheDocument();
       });
     });
 
-    describe('Testes dos itens do menu', () => {
-      beforeEach(() => {
-        const menu = screen.getByLabelText('pages-menu');
-        fireEvent.click(menu);
+    describe('Testes de redirecionamento', () => {
+      describe('Testes de Logout', () => {
+        it('Deve exibir opção de logout e limpar dados do usuário autenticado ao clicá-la', () => {
+          const menuUsuario = screen.getByText(usuario.nome);
+          fireEvent.click(menuUsuario);
+
+          const opcaoLogout = screen.getByText('Logout');
+          fireEvent.click(opcaoLogout);
+
+          expect(handleChangeLogin).toHaveBeenCalledWith({});
+          expect(handleChangeLogin).toHaveBeenCalledTimes(1);
+          expect(history.push).toHaveBeenCalledWith('/');
+          expect(history.push).toHaveBeenCalledTimes(1);
+        });
       });
 
-      it('Deve redirecionar para a página de listagem de veículos ao clicar na opção Veículos', () => {
-        const opcaoVeiculos = screen.getByText('Veículos');
-
-        fireEvent.click(opcaoVeiculos);
-
-        expect(history.push).toHaveBeenCalledWith('/');
-        expect(history.push).toHaveBeenCalledTimes(1);
-      });
-
-      describe('Com o usuário logado', () => {
+      describe('Testes dos itens de menu', () => {
         beforeEach(() => {
-          render(
-            <UsuarioAutenticado.Provider
-              value={{ nome: 'admin', token: 'thisisavalidtoken' }}
-            >
-              <Router history={history}>
-                <Header />
-              </Router>
-            </UsuarioAutenticado.Provider>
-          );
+          const menu = screen.getByLabelText('pages-menu');
+          fireEvent.click(menu);
         });
 
         it('Deve redirecionar para a página de listagem de marcas ao clicar na opção Marcas', () => {
