@@ -13,7 +13,7 @@ import {
   StyledFab,
 } from '../../assets/GlobalStyles.jsx';
 
-import { useStyles } from './styles';
+import { useStyles } from '../../assets/DataGridStyles';
 
 import VeiculoService from '../../services/VeiculoService';
 import UsuarioAutenticado from '../../contexts/UsuarioAutenticado.js';
