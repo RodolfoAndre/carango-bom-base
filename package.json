@@ -9,6 +9,7 @@
     "@testing-library/jest-dom": "^5.11.10",
     "@testing-library/react": "^11.2.6",
     "fontsource-roboto": "^4.0.0",
+    "jest-junit": "^12.2.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-number-format": "^4.6.3",
@@ -25,7 +26,8 @@
     "test": "react-scripts test --coverage --watchAll=false",
     "test:dev": "react-scripts test",
     "eject": "react-scripts eject",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "test:ci": "npm run test -- --ci --testResultsProcessor=\"jest-sonar-reporter\""
   },
   "eslintConfig": {
     "extends": [
@@ -45,10 +47,17 @@
       "last 1 safari version"
     ]
   },
+  "jestSonar": {
+    "sonar56x": true,
+    "reportPath": "reports",
+    "reportFile": "test-reporter.xml",
+    "indent": 4
+  },
   "devDependencies": {
     "@testing-library/user-event": "^12.8.3",
     "eslint": "^7.29.0",
     "eslint-plugin-react": "^7.24.0",
-    "husky": "^6.0.0"
+    "husky": "^6.0.0",
+    "jest-sonar-reporter": "^2.0.0"
   }
 }
