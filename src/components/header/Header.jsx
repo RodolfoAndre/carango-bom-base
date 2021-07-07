@@ -52,8 +52,9 @@ const Header = ({ handleChangeLogin }) => {
       component = (
         <div>
           <MenuButton
-            aria-controls="logout-menu"
+            aria-controls="menu"
             aria-haspopup="true"
+            aria-label="logout-menu"
             onClick={abrirLogout}
           >
             {usuarioAutenticado.nome}
@@ -87,7 +88,7 @@ const Header = ({ handleChangeLogin }) => {
           <MenuIconButton
             edge="start"
             color="inherit"
-            aria-label="menu"
+            aria-label="pages-menu"
             onClick={abrirMenu}
           >
             <MenuIcon aria-controls="menu" aria-haspopup="true" />
