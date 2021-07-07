@@ -34,17 +34,23 @@ const Header = ({ handleChangeLogin }) => {
   const renderMenuItems = () => {
     let menuItems = [{ titulo: 'Veículos', rota: '/' }];
     if (estaAutenticado()) {
-      menuItems.push({
-        titulo: 'Marcas',
-        rota: '/listar-marcas',
-      });
+      menuItems.push(
+        {
+          titulo: 'Marcas',
+          rota: '/listar-marcas',
+        },
+        {
+          titulo: 'Dashboard',
+          rota: '/dashboard',
+        },
+      );
     }
     return menuItems;
   };
 
   const renderLogin = () => {
     let component = (
-      <Button onClick={() => history.push('/login')} color="inherit">
+      <Button onClick={() => history.push('/login')} color='inherit'>
         Login
       </Button>
     );
@@ -52,15 +58,15 @@ const Header = ({ handleChangeLogin }) => {
       component = (
         <div>
           <MenuButton
-            aria-controls="menu"
-            aria-haspopup="true"
-            aria-label="logout-menu"
+            aria-controls='menu'
+            aria-haspopup='true'
+            aria-label='logout-menu'
             onClick={abrirLogout}
           >
             {usuarioAutenticado.nome}
           </MenuButton>
           <Menu
-            id="simple-menu"
+            id='simple-menu'
             anchorEl={menuLogout}
             keepMounted
             open={Boolean(menuLogout)}
@@ -74,14 +80,6 @@ const Header = ({ handleChangeLogin }) => {
             >
               Logout
             </MenuItem>
-            <MenuItem
-              onClick={() => {
-                fecharMenu();
-                redirecionarPara('/dashboard');
-              }}
-            >
-              Dashboard
-            </MenuItem>
           </Menu>
         </div>
       );
@@ -91,18 +89,18 @@ const Header = ({ handleChangeLogin }) => {
 
   return (
     <StyledHeader>
-      <AppBar position="static">
+      <AppBar position='static'>
         <Toolbar>
           <MenuIconButton
-            edge="start"
-            color="inherit"
-            aria-label="pages-menu"
+            edge='start'
+            color='inherit'
+            aria-label='pages-menu'
             onClick={abrirMenu}
           >
-            <MenuIcon aria-controls="menu" aria-haspopup="true" />
+            <MenuIcon aria-controls='menu' aria-haspopup='true' />
           </MenuIconButton>
           <Menu
-            id="menu"
+            id='menu'
             anchorEl={linkPara}
             keepMounted
             open={Boolean(linkPara)}
@@ -120,7 +118,7 @@ const Header = ({ handleChangeLogin }) => {
               </MenuItem>
             ))}
           </Menu>
-          <Title component="h1" variant="h6" onClick={() => history.push('/')}>
+          <Title component='h1' variant='h6' onClick={() => history.push('/')}>
             Carango Bom
           </Title>
           {renderLogin()}

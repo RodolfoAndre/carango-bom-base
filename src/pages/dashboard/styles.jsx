@@ -2,8 +2,17 @@ import styled from 'styled-components';
 
 import { Typography, Card } from '@material-ui/core';
 
+export const DashboardContainer = styled.section`
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+`;
+
 export const CardContainer = styled(Card)`
-  max-width: 250px;
+  width: 250px;
+  margin-right: 2em;
+  margin-bottom: 2em;
+  box-size: border-box;
 `;
 
 export const CardHeader = styled.div`
