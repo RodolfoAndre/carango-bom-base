@@ -16,7 +16,6 @@ const renderWithRouter = (history, path) => {
   );
 };
 
-// TODO revisar quando tivermos implementado a feature de autenticação
 describe('Component de CadastroMarca', () => {
   beforeEach(() => {
     MarcaService.consultar.mockResolvedValue({});

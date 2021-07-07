@@ -82,7 +82,6 @@ describe('Component de ListagemVeiculos', () => {
     });
   });
 
-  // TODO revisar quando tivermos implementado a feature de autenticação
   describe('Quando um usuário estiver logado', () => {
     const context = { nome: 'user', token: 'thisisavalidtoken' };
     describe('Botão excluir e alterar', () => {
