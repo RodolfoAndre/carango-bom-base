@@ -34,10 +34,16 @@ const Header = ({ handleChangeLogin }) => {
   const renderMenuItems = () => {
     let menuItems = [{ titulo: 'Veículos', rota: '/' }];
     if (estaAutenticado()) {
-      menuItems.push({
-        titulo: 'Marcas',
-        rota: '/listar-marcas',
-      });
+      menuItems.push(
+        {
+          titulo: 'Marcas',
+          rota: '/listar-marcas',
+        },
+        {
+          titulo: 'Usuários',
+          rota: '/listar-usuarios',
+        }
+      );
     }
     return menuItems;
   };
