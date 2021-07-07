@@ -9,6 +9,7 @@
     "@testing-library/jest-dom": "^5.11.10",
     "@testing-library/react": "^11.2.6",
     "fontsource-roboto": "^4.0.0",
+    "jest-junit": "^12.2.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-number-format": "^4.6.3",
@@ -22,8 +23,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "lint": "npx eslint src --ext .js,.jsx",
-    "test": "react-scripts test --coverage --watchAll=false",
-    "test:dev": "react-scripts test",
+    "test": "react-scripts test --coverage --watchAll=false --testResultsProcessor ./node_modules/jest-sonar-reporter/index.js",
+    "test:ci": "react-scripts test --coverage --watchAll=false --testResultsProcessor ./node_modules/jest-sonar-reporter/index.js",
+    "test:dev": "react-scripts test --watchAll=false",
     "eject": "react-scripts eject",
     "prepare": "husky install"
   },
@@ -45,10 +47,17 @@
       "last 1 safari version"
     ]
   },
+  "jestSonar": {
+    "sonar56x": true,
+    "reportPath": "reports",
+    "reportFile": "test-reporter.xml",
+    "indent": 4
+  },
   "devDependencies": {
     "@testing-library/user-event": "^12.8.3",
     "eslint": "^7.29.0",
     "eslint-plugin-react": "^7.24.0",
-    "husky": "^6.0.0"
+    "husky": "^6.0.0",
+    "jest-sonar-reporter": "^2.0.0"
   }
 }
