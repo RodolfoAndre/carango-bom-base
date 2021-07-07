@@ -6,6 +6,7 @@ import {
   MainContent,
   ActionsToolbar,
   ActionButton,
+  PageTitle,
 } from '../../assets/GlobalStyles.jsx';
 
 import UsuarioService from '../../services/UsuarioService';
@@ -35,6 +36,9 @@ const ListagemUsuarios = () => {
 
   return (
     <MainContent>
+      <PageTitle component="h2" variant="h4">
+        Lista de usuários
+      </PageTitle>
       <DataGrid
         rows={usuarios}
         columns={colunas}
