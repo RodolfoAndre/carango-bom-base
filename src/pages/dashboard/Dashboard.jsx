@@ -11,6 +11,10 @@ import {
   CardContent,
   CarBrand,
   CarPrice,
+  Bold,
+  ModelTitle,
+  CarModel,
+  StyledDivider,
 } from './styles.jsx';
 
 import DashboardService from '../../services/DashboardService.js';
@@ -38,6 +42,17 @@ const Dashboard = () => {
     return `${quantidade} veículos disponíveis`;
   };
 
+  const renderizarModelos = (modelos) =>
+    modelos.map((modelo, index) => (
+      <div key={index}>
+        <CarModel>{modelo.modelo}</CarModel>
+        <CarPrice>{formatarValorVeiculo(modelo.valorTotal)}</CarPrice>
+        <Typography color='textSecondary'>
+          {veiculosDisponiveis(modelo.numeroDeVeiculos)}
+        </Typography>
+      </div>
+    ));
+
   return (
     <>
       <PageTitle component='h2' variant='h4'>
@@ -57,10 +72,20 @@ const Dashboard = () => {
               </CardHeader>
               <Divider variant='middle' />
               <CardContent>
-                <CarPrice>{formatarValorVeiculo(veiculo.valorTotal)}</CarPrice>
-                <Typography mb={12} color='textSecondary'>
+                <CarPrice>
+                  <Bold>Valor total </Bold>
+                  <br />
+                  {formatarValorVeiculo(veiculo.valorTotal)}
+                </CarPrice>
+                <Typography color='textSecondary'>
                   {veiculosDisponiveis(veiculo.numeroDeVeiculos)}
                 </Typography>
+                <StyledDivider variant='fullWidth' />
+                <ModelTitle component='h5' variant='h6'>
+                  Modelos
+                </ModelTitle>
+                {renderizarModelos(veiculo.modelos)}
+                <StyledDivider variant='middle' />
               </CardContent>
             </CardContainer>
           ))
