@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router';
 import NumberFormat from 'react-number-format';
 
@@ -13,15 +13,16 @@ import {
 } from '../../assets/GlobalStyles.jsx';
 
 import VeiculoService from '../../services/VeiculoService';
+import UsuarioAutenticado from '../../contexts/UsuarioAutenticado.js';
 
 const formatarValor = (params) => (
   <NumberFormat
     value={params.value.toFixed(2)}
     isNumericString
-    displayType='text'
-    thousandSeparator='.'
-    decimalSeparator=','
-    prefix='R$'
+    displayType="text"
+    thousandSeparator="."
+    decimalSeparator=","
+    prefix="R$"
   />
 );
 
@@ -45,6 +46,7 @@ const ListagemVeiculos = () => {
   const [veiculos, setVeiculos] = useState([]);
   const [veiculoSelecionado, setVeiculoSelecionado] = useState(null);
   const history = useHistory();
+  const usuarioAutenticado = useContext(UsuarioAutenticado);
 
   useEffect(() => carregarVeiculos(), []);
 
@@ -65,9 +67,44 @@ const ListagemVeiculos = () => {
     history.push(`/alteracao-veiculo/${veiculoSelecionado.id}`);
   };
 
+  const renderAcoes = () => {
+    if (usuarioAutenticado?.token?.length > 0) {
+      return (
+        <>
+          <ActionsToolbar>
+            <ActionButton
+              variant="contained"
+              color="secondary"
+              disabled={!veiculoSelecionado}
+              onClick={() => excluirVeiculo()}
+            >
+              Excluir
+            </ActionButton>
+            <ActionButton
+              variant="contained"
+              color="primary"
+              disabled={!veiculoSelecionado}
+              onClick={() => alterarVeiculo()}
+            >
+              Alterar
+            </ActionButton>
+          </ActionsToolbar>
+          <StyledFab
+            color="primary"
+            aria-label="add"
+            onClick={() => history.push('/cadastro-veiculo')}
+          >
+            <AddIcon />
+          </StyledFab>
+        </>
+      );
+    }
+    return <></>;
+  };
+
   return (
     <MainContent>
-      <PageTitle component='h2' variant='h4'>
+      <PageTitle component="h2" variant="h4">
         Lista de veículos
       </PageTitle>
       <DataGrid
@@ -77,31 +114,7 @@ const ListagemVeiculos = () => {
           setVeiculoSelecionado(gridSelection.data)
         }
       />
-      <ActionsToolbar>
-        <ActionButton
-          variant='contained'
-          color='secondary'
-          disabled={!veiculoSelecionado}
-          onClick={() => excluirVeiculo()}
-        >
-          Excluir
-        </ActionButton>
-        <ActionButton
-          variant='contained'
-          color='primary'
-          disabled={!veiculoSelecionado}
-          onClick={() => alterarVeiculo()}
-        >
-          Alterar
-        </ActionButton>
-      </ActionsToolbar>
-      <StyledFab
-        color='primary'
-        aria-label='add'
-        onClick={() => history.push('/cadastro-veiculo')}
-      >
-        <AddIcon />
-      </StyledFab>
+      {renderAcoes()}
     </MainContent>
   );
 };

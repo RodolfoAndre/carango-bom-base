@@ -1,13 +1,14 @@
 import styled from 'styled-components';
 
-import { IconButton, Typography } from '@material-ui/core';
+import { IconButton, Typography, Button } from '@material-ui/core';
 
 export const StyledHeader = styled.header`
   flex-grow: 1;
 `;
 
-export const MenuButton = styled(IconButton)`
+export const MenuIconButton = styled(IconButton)`
   margin-right: 16px;
+  color: #fff;
 `;
 
 export const Title = styled(Typography)`
@@ -17,4 +18,8 @@ export const Title = styled(Typography)`
   &:hover {
     cursor: pointer;
   }
+`;
+
+export const MenuButton = styled(Button)`
+  color: #fff;
 `;

@@ -33,7 +33,11 @@ function ListagemMarcas() {
   useEffect(() => carregarMarcas(), []);
 
   function carregarMarcas() {
-    MarcaService.listar().then((dados) => setMarcas(dados));
+    MarcaService.listar().then((dados) => {
+      if (!dados?.error) {
+        setMarcas(dados);
+      }
+    });
   }
 
   return (

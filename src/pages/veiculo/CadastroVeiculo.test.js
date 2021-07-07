@@ -5,17 +5,20 @@ import { createMemoryHistory } from 'history';
 
 import CadastroVeiculo from './CadastroVeiculo';
 import VeiculoService from '../../services/VeiculoService';
-import MarcaService from '../../services/VeiculoService';
+import MarcaService from '../../services/MarcaService';
 
 jest.mock('../../services/VeiculoService');
+jest.mock('../../services/MarcaService');
 
 const renderWithRouter = (history, path) => {
   return render(
     <Router history={history}>
       <Route component={CadastroVeiculo} path={path} exact />
-    </Router>,
+    </Router>
   );
 };
+
+const marcasLista = [{ nome: 'FORD', id: 1 }];
 
 const veiculoSobTest = {
   id: 134,
@@ -27,15 +30,16 @@ const veiculoSobTest = {
 
 describe('Component de CadastroVeiculo', () => {
   beforeEach(() => {
-    MarcaService.listar.mockResolvedValue({});
-    VeiculoService.consultar.mockResolvedValue(veiculoSobTest);
+    MarcaService.listar.mockResolvedValue(marcasLista);
   });
 
   const path = '/cadastro-veiculo';
   const history = createMemoryHistory({ initialEntries: [path] });
 
-  it('Deve renderizar o componente corretamente', () => {
+  it('Deve renderizar o componente corretamente', async () => {
     const { getByText } = renderWithRouter(history, path);
+
+    await waitFor(() => expect(MarcaService.listar).toHaveBeenCalled());
 
     const marca = getByText('Marca');
     const modelo = screen.getByRole('textbox', { name: 'Modelo' });
@@ -52,15 +56,17 @@ describe('Component de CadastroVeiculo', () => {
     expect(botaoCadastrar).toBeInTheDocument();
   });
 
-  it('Deve abrir a página de cadastro corretamente', () => {
+  it('Deve abrir a página de cadastro corretamente', async () => {
     const { getByText } = renderWithRouter(history, path);
+    await waitFor(() => expect(MarcaService.listar).toHaveBeenCalled());
     expect(getByText('Cadastrar')).toBeInTheDocument();
   });
 
-  it('Ao clicar no botão de cancelar, deve voltar para a página anterior', () => {
+  it('Ao clicar no botão de cancelar, deve voltar para a página anterior', async () => {
     history.goBack = jest.fn();
-
     const { getByTestId } = renderWithRouter(history, path);
+
+    await waitFor(() => expect(MarcaService.listar).toHaveBeenCalled());
     const botaoCancelar = getByTestId('cancelar');
     fireEvent.click(botaoCancelar);
 
@@ -68,9 +74,10 @@ describe('Component de CadastroVeiculo', () => {
     expect(history.goBack).toHaveBeenCalledTimes(1);
   });
 
-  it('Deve desabilitar botão de cadastrar quando o valor informado não for numérico', () => {
+  it('Deve desabilitar botão de cadastrar quando o valor informado não for numérico', async () => {
     const { getByTestId } = renderWithRouter(history, path);
 
+    await waitFor(() => expect(MarcaService.listar).toHaveBeenCalled());
     const valor = screen.getByRole('textbox', { name: 'Valor' });
     const botaoCadastrar = getByTestId('cadastrar-ou-alterar');
 
@@ -78,9 +85,10 @@ describe('Component de CadastroVeiculo', () => {
     expect(botaoCadastrar).not.toBeDisabled();
   });
 
-  it('Deve desabilitar botão de cadastrar ao preencher algum campo incorretamente', () => {
+  it('Deve desabilitar botão de cadastrar ao preencher algum campo incorretamente', async () => {
     const { getByTestId } = renderWithRouter(history, path);
 
+    await waitFor(() => expect(MarcaService.listar).toHaveBeenCalled());
     const botaoCadastrar = getByTestId('cadastrar-ou-alterar');
     const modelo = screen.getByRole('textbox', { name: 'Modelo' });
 
@@ -93,7 +101,6 @@ describe('Component de CadastroVeiculo', () => {
   it('Deve chamar a função cadastrar e voltar para a página anterior ao cadastrar um veículo válido', async () => {
     VeiculoService.cadastrar = jest.fn(() => Promise.resolve({ data: {} }));
     history.goBack = jest.fn();
-
     const { getByTestId } = renderWithRouter(history, path);
 
     const modelo = screen.getByRole('textbox', { name: 'Modelo' });
@@ -112,7 +119,7 @@ describe('Component de CadastroVeiculo', () => {
         modelo: 'Q5 Sportback',
         ano: '2020',
         valor: '80000',
-      }),
+      })
     );
 
     expect(history.goBack).toHaveBeenCalled();
@@ -131,6 +138,7 @@ describe('Component de CadastroVeiculo', () => {
 
     it('Deve abrir página de alteração de veículo corretamente', async () => {
       const { getByText } = renderWithRouter(history, `${path}/:id`);
+      await waitFor(() => expect(MarcaService.listar).toHaveBeenCalled());
       expect(getByText('Alterar')).toBeInTheDocument();
     });
 
@@ -150,6 +158,8 @@ describe('Component de CadastroVeiculo', () => {
 
     it('Deve desabilitar botão de alterar ao preencher algum campo incorretamente', async () => {
       const { getByTestId } = renderWithRouter(history, `${path}/:id`);
+
+      await waitFor(() => expect(MarcaService.listar).toHaveBeenCalled());
       const botaoAlterar = getByTestId('cadastrar-ou-alterar');
       const modelo = screen.getByRole('textbox', { name: 'Modelo' });
 
@@ -182,7 +192,7 @@ describe('Component de CadastroVeiculo', () => {
           modelo: 'Q5 Sportback',
           ano: '2020',
           valor: '80000',
-        }),
+        })
       );
 
       expect(history.goBack).toHaveBeenCalled();

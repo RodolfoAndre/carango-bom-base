@@ -1,9 +1,10 @@
 import React from 'react';
 import { Router } from 'react-router-dom';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 
 import Login from './Login';
+import AutenticacaoService from '../../services/AutenticacaoService';
 
 describe('Testes de Login', () => {
   describe('Testes de renderização e exibição', () => {
@@ -75,7 +76,7 @@ describe('Testes de Login', () => {
         fireEvent.change(senha, { target: { value: 'thefamemonster' } });
 
         expect(
-          screen.getByRole('button', { name: 'Entrar' }),
+          screen.getByRole('button', { name: 'Entrar' })
         ).not.toBeDisabled();
       });
     });
@@ -86,15 +87,19 @@ describe('Testes de Login', () => {
 
     beforeEach(() => {
       history.push = jest.fn();
+      const handleChangedLogin = jest.fn();
 
       render(
         <Router history={history}>
-          <Login />
-        </Router>,
+          <Login handleChangeLogin={handleChangedLogin} />
+        </Router>
       );
     });
 
-    it('Deve redirecionar para Home quando login for realizado com sucesso', () => {
+    it('Deve redirecionar para Home quando login for realizado com sucesso', async () => {
+      AutenticacaoService.autenticar = jest.fn(() =>
+        Promise.resolve({ data: {} })
+      );
       const usuario = screen.getByTestId('usuario');
       const senha = screen.getByTestId('senha');
       const botaoEntrar = screen.getByRole('button', { name: 'Entrar' });
@@ -107,6 +112,12 @@ describe('Testes de Login', () => {
 
       fireEvent.click(botaoEntrar);
 
+      await waitFor(() =>
+        expect(AutenticacaoService.autenticar).toHaveBeenLastCalledWith({
+          nome: 'alejandro',
+          senha: 'thefamemonster',
+        })
+      );
       expect(history.push).toHaveBeenCalledWith('/');
       expect(history.push).toHaveBeenCalledTimes(1);
     });

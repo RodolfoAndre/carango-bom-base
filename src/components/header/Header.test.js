@@ -4,40 +4,42 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 
 import Header from './Header';
+import UsuarioAutenticado from '../../contexts/UsuarioAutenticado';
 
 describe('Testes do componente Header', () => {
   const history = createMemoryHistory();
+  history.push = jest.fn();
 
   beforeEach(() => {
-    history.push = jest.fn();
-
     render(
       <Router history={history}>
         <Header />
-      </Router>,
+      </Router>
     );
   });
 
   describe('Testes de renderização e exibição', () => {
-    it('Deve renderizar componente corretamente', () => {
-      const tituloHeader = screen.getByRole('heading', { name: 'Carango Bom' });
-      const linkLogin = screen.getByRole('button', { name: 'Login' });
-      const menu = screen.getByRole('button', { name: 'menu' });
+    describe('Com o usuário não logado', () => {
+      it('Deve renderizar componente corretamente', () => {
+        const tituloHeader = screen.getByRole('heading', {
+          name: 'Carango Bom',
+        });
+        const linkLogin = screen.getByRole('button', { name: 'Login' });
+        const menu = screen.getByLabelText('pages-menu');
 
-      expect(tituloHeader).toBeInTheDocument();
-      expect(linkLogin).toBeInTheDocument();
-      expect(menu).toBeInTheDocument();
-    });
+        expect(tituloHeader).toBeInTheDocument();
+        expect(linkLogin).toBeInTheDocument();
+        expect(menu).toBeInTheDocument();
+      });
 
-    it('Deve exibir opções corretamente ao clicar no menu', () => {
-      const menu = screen.getByRole('button', { name: 'menu' });
-      const opcaoVeiculos = screen.getByText('Veículos');
-      const opcaoMarcas = screen.getByText('Marcas');
+      it('Deve exibir opções corretamente ao clicar no menu', () => {
+        const menu = screen.getByLabelText('pages-menu');
+        const opcaoVeiculos = screen.getByText('Veículos');
 
-      fireEvent.click(menu);
+        fireEvent.click(menu);
 
-      expect(opcaoVeiculos).toBeInTheDocument();
-      expect(opcaoMarcas).toBeInTheDocument();
+        expect(opcaoVeiculos).toBeInTheDocument();
+      });
     });
   });
 
@@ -66,7 +68,7 @@ describe('Testes do componente Header', () => {
 
     describe('Testes dos itens do menu', () => {
       beforeEach(() => {
-        const menu = screen.getByRole('button', { name: 'menu' });
+        const menu = screen.getByLabelText('pages-menu');
         fireEvent.click(menu);
       });
 
@@ -79,13 +81,27 @@ describe('Testes do componente Header', () => {
         expect(history.push).toHaveBeenCalledTimes(1);
       });
 
-      it('Deve redirecionar para a página de listagem de marcas ao clicar na opção Marcas', () => {
-        const opcaoMarcas = screen.getByText('Marcas');
+      describe('Com o usuário logado', () => {
+        beforeEach(() => {
+          render(
+            <UsuarioAutenticado.Provider
+              value={{ nome: 'admin', token: 'thisisavalidtoken' }}
+            >
+              <Router history={history}>
+                <Header />
+              </Router>
+            </UsuarioAutenticado.Provider>
+          );
+        });
 
-        fireEvent.click(opcaoMarcas);
+        it('Deve redirecionar para a página de listagem de marcas ao clicar na opção Marcas', () => {
+          const opcaoMarcas = screen.getByText('Marcas');
 
-        expect(history.push).toHaveBeenCalledWith('/listar-marcas');
-        expect(history.push).toHaveBeenCalledTimes(1);
+          fireEvent.click(opcaoMarcas);
+
+          expect(history.push).toHaveBeenCalledWith('/listar-marcas');
+          expect(history.push).toHaveBeenCalledTimes(1);
+        });
       });
     });
   });

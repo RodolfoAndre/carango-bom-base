@@ -6,6 +6,7 @@ import { createMemoryHistory } from 'history';
 
 import ListagemVeiculos from './ListagemVeiculos';
 import VeiculoService from '../../services/VeiculoService';
+import UsuarioAutenticado from '../../contexts/UsuarioAutenticado';
 
 jest.mock('../../services/VeiculoService');
 
@@ -13,11 +14,21 @@ const createRender = () => {
   return render(<ListagemVeiculos />);
 };
 
-const renderWithRouter = (history) => {
+const renderWithContext = (context) => {
+  return render(
+    <UsuarioAutenticado.Provider value={context}>
+      <ListagemVeiculos />
+    </UsuarioAutenticado.Provider>
+  );
+};
+
+const renderWithRouter = (history, context) => {
   return render(
     <Router history={history}>
-      <ListagemVeiculos />
-    </Router>,
+      <UsuarioAutenticado.Provider value={context}>
+        <ListagemVeiculos />
+      </UsuarioAutenticado.Provider>
+    </Router>
   );
 };
 
@@ -69,27 +80,14 @@ describe('Component de ListagemVeiculos', () => {
         expect(ano).toBeInTheDocument();
       });
     });
-
-    describe('Botão adicionar', () => {
-      it('deve ser exibido', async () => {
-        const { findByLabelText } = createRender();
-        const botaoAdicionar = await findByLabelText('add');
-        expect(botaoAdicionar).toBeInTheDocument();
-      });
-
-      it('deve estar habilitado', async () => {
-        const { findByLabelText } = createRender();
-        const botaoAdicionar = await findByLabelText('add');
-        expect(botaoAdicionar).not.toBeDisabled();
-      });
-    });
   });
 
   // TODO revisar quando tivermos implementado a feature de autenticação
   describe('Quando um usuário estiver logado', () => {
+    const context = { nome: 'user', token: 'thisisavalidtoken' };
     describe('Botão excluir e alterar', () => {
       it('devem ser exibidos', async () => {
-        const { findByText } = createRender();
+        const { findByText } = renderWithContext(context);
         const botaoExcluir = await findByText('Excluir');
         const botaoAlterar = await findByText('Alterar');
 
@@ -98,7 +96,7 @@ describe('Component de ListagemVeiculos', () => {
       });
 
       it('devem estar desabilitados caso nenhuma linha do DataGrid tenha sido selecionada', async () => {
-        const { findByText } = createRender();
+        const { findByText } = renderWithContext(context);
 
         const botaoExcluir = (await findByText('Excluir')).parentElement;
         const botaoAlterar = (await findByText('Alterar')).parentElement;
@@ -110,7 +108,7 @@ describe('Component de ListagemVeiculos', () => {
       it('devem estar habilitados caso uma linha do DataGrid tenha sido selecionada', async () => {
         VeiculoService.listar.mockResolvedValue([veiculoSobTest]);
 
-        const { findByText } = createRender();
+        const { findByText } = renderWithContext(context);
         const row = await findByText(veiculoSobTest.marca);
         fireEvent.click(row);
 
@@ -122,6 +120,20 @@ describe('Component de ListagemVeiculos', () => {
       });
     });
 
+    describe('Botão adicionar', () => {
+      it('deve ser exibido', async () => {
+        const { findByLabelText } = renderWithContext(context);
+        const botaoAdicionar = await findByLabelText('add');
+        expect(botaoAdicionar).toBeInTheDocument();
+      });
+
+      it('deve estar habilitado', async () => {
+        const { findByLabelText } = renderWithContext(context);
+        const botaoAdicionar = await findByLabelText('add');
+        expect(botaoAdicionar).not.toBeDisabled();
+      });
+    });
+
     describe('Ao clicar no botão', () => {
       describe('Excluir', () => {
         it('deve chamar a função excluir, limpar o veículo selecionado e chamar a função listar', async () => {
@@ -129,7 +141,7 @@ describe('Component de ListagemVeiculos', () => {
           VeiculoService.listar.mockResolvedValue([veiculoSobTest]);
           VeiculoService.excluir = jest.fn(() => Promise.resolve({ data: {} }));
 
-          const { findByText } = createRender();
+          const { findByText } = renderWithContext(context);
           const row = await findByText(veiculoSobTest.marca);
           fireEvent.click(row);
 
@@ -151,7 +163,7 @@ describe('Component de ListagemVeiculos', () => {
           VeiculoService.listar.mockResolvedValue([veiculoSobTest]);
           history.push = jest.fn();
 
-          const { findByText } = renderWithRouter(history);
+          const { findByText } = renderWithRouter(history, context);
           const row = await findByText(veiculoSobTest.marca);
           fireEvent.click(row);
 
@@ -160,7 +172,7 @@ describe('Component de ListagemVeiculos', () => {
 
           expect(history.push).toHaveBeenCalledTimes(1);
           expect(history.push).toHaveBeenCalledWith(
-            `/alteracao-veiculo/${veiculoSobTest.id}`,
+            `/alteracao-veiculo/${veiculoSobTest.id}`
           );
         });
       });
@@ -169,7 +181,7 @@ describe('Component de ListagemVeiculos', () => {
         it('deve redirecionar para a página de cadastro de veículo', async () => {
           history.push = jest.fn();
 
-          const { findByLabelText } = renderWithRouter(history);
+          const { findByLabelText } = renderWithRouter(history, context);
 
           const botaoAdicionar = await findByLabelText('add');
           fireEvent.click(botaoAdicionar);
