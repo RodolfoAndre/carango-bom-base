@@ -5,7 +5,6 @@ import { createMemoryHistory } from 'history';
 
 import Header from './Header';
 import UsuarioAutenticado from '../../contexts/UsuarioAutenticado';
-import { Button } from '@material-ui/core';
 
 describe('Testes do componente Header', () => {
   const history = createMemoryHistory();
