@@ -44,10 +44,14 @@
       "last 1 safari version"
     ]
   },
+  "jest": {
+    "testResultsProcessor": "jest-sonar-reporter"
+  },
   "devDependencies": {
     "@testing-library/user-event": "^12.8.3",
     "eslint": "^7.29.0",
     "eslint-plugin-react": "^7.24.0",
-    "husky": "^6.0.0"
+    "husky": "^6.0.0",
+    "jest-sonar-reporter": "^2.0.0"
   }
 }
