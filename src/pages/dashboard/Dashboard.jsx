@@ -30,7 +30,7 @@ const Dashboard = () => {
   return (
     <>
       <PageTitle component='h2' variant='h4'>
-        Dashboard - Veículos
+        Dashboard
       </PageTitle>
       <DashboardContainer>
         {veiculos
