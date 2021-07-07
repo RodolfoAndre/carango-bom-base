@@ -24,10 +24,9 @@
     "build": "react-scripts build",
     "lint": "npx eslint src --ext .js,.jsx",
     "test": "react-scripts test --coverage --watchAll=false --ci --testResultsProcessor ./node_modules/jest-sonar-reporter/index.js",
-    "test:dev": "react-scripts test",
+    "test:dev": "react-scripts test --watchAll=false",
     "eject": "react-scripts eject",
-    "prepare": "husky install",
-    "test:ci": "react-scripts test --reporters=default --coverage --testResultsProcessor "
+    "prepare": "husky install"
   },
   "eslintConfig": {
     "extends": [
