@@ -23,7 +23,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "lint": "npx eslint src --ext .js,.jsx",
-    "test": "react-scripts test --coverage --ci --testResultsProcessor=\"jest-sonar-reporter\" --watchAll",
+    "test": "react-scripts test --coverage --watchAll=false --ci --testResultsProcessor=\"jest-sonar-reporter\"",
     "test:dev": "react-scripts test",
     "eject": "react-scripts eject",
     "prepare": "husky install",
