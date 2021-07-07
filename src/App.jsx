@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import { Container, CssBaseline, makeStyles } from '@material-ui/core';
@@ -14,6 +14,10 @@ import ListagemVeiculos from './pages/veiculo/ListagemVeiculos';
 import Login from './pages/login/Login';
 import Cadastro from './pages/cadastro/Cadastro';
 import Dashboard from './pages/dashboard/Dashboard';
+
+import UsuarioAutenticado from './contexts/UsuarioAutenticado';
+import { NAME_KEY, TOKEN_KEY } from './Constants';
+import PrivateRoute from './components/private-route/PrivateRoute';
 
 const muiTheme = createMuiTheme(
   {
@@ -44,46 +48,83 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function App() {
+  const [usuarioAutenticado, setUsuarioAutenticado] = useState({});
   const classes = useStyles();
+
+  const handleChangeLogin = (novoLogin) => {
+    if (novoLogin) {
+      localStorage.setItem(NAME_KEY, novoLogin.nome);
+      localStorage.setItem(TOKEN_KEY, novoLogin.token);
+    } else {
+      localStorage.clear();
+    }
+    setUsuarioAutenticado(novoLogin);
+  };
+
+  const estaAutenticado = () => {
+    return usuarioAutenticado?.token;
+  };
 
   return (
     <ThemeProvider theme={muiTheme}>
-      <Header />
-      <div className={classes.root}>
-        <CssBaseline />
-        <main className={classes.content}>
-          <div className={classes.toolbar} />
-          <Container component='article' maxWidth='md'>
-            <Switch>
-              <Route path='/cadastro-marca'>
-                <CadastroMarca />
-              </Route>
-              <Route path='/alteracao-marca/:id'>
-                <CadastroMarca />
-              </Route>
-              <Route path='/listar-marcas'>
-                <ListagemMarcas />
-              </Route>
-              <Route path='/cadastro-veiculo' exact>
-                <CadastroVeiculo />
-              </Route>
-              <Route path='/alteracao-veiculo/:id'>
-                <CadastroVeiculo />
-              </Route>
-              <Route path='/' exact>
-                <ListagemVeiculos />
-              </Route>
-              <Route path='/login'>
-                <Login />
-              </Route>
-              <Route path='/cadastro'>
-                <Cadastro />
-              </Route>
-              <Route path='/dashboard' component={Dashboard} exact />
-            </Switch>
-          </Container>
-        </main>
-      </div>
+      <UsuarioAutenticado.Provider value={usuarioAutenticado}>
+        <Header handleChangeLogin={handleChangeLogin} />
+        <div className={classes.root}>
+          <CssBaseline />
+          <main className={classes.content}>
+            <div className={classes.toolbar} />
+            <Container component='article' maxWidth='md'>
+              <Switch>
+                <PrivateRoute
+                  path='/cadastro-marca'
+                  exact
+                  component={<CadastroMarca />}
+                  estaAutenticado={estaAutenticado}
+                />
+                <PrivateRoute
+                  path='/alteracao-marca/:id'
+                  exact
+                  component={<CadastroMarca />}
+                  estaAutenticado={estaAutenticado}
+                />
+                <PrivateRoute
+                  path='/listar-marcas'
+                  exact
+                  component={<ListagemMarcas />}
+                  estaAutenticado={estaAutenticado}
+                />
+                <PrivateRoute
+                  path='/cadastro-veiculo'
+                  exact
+                  component={<CadastroVeiculo />}
+                  estaAutenticado={estaAutenticado}
+                />
+                <PrivateRoute
+                  path='/alteracao-veiculo/:id'
+                  exact
+                  component={<CadastroVeiculo />}
+                  estaAutenticado={estaAutenticado}
+                />
+                <PrivateRoute
+                  path='/dashboard'
+                  exact
+                  component={<Dashboard />}
+                  estaAutenticado={estaAutenticado}
+                />
+                <Route path='/' exact>
+                  <ListagemVeiculos />
+                </Route>
+                <Route path='/login'>
+                  <Login handleChangeLogin={handleChangeLogin} />
+                </Route>
+                <Route path='/cadastro'>
+                  <Cadastro />
+                </Route>
+              </Switch>
+            </Container>
+          </main>
+        </div>
+      </UsuarioAutenticado.Provider>
     </ThemeProvider>
   );
 }

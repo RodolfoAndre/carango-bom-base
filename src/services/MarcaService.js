@@ -1,40 +1,45 @@
-const baseUrl = 'http://localhost:8080/marcas/';
+import { TOKEN_KEY } from '../Constants';
 
-const headers = new Headers({ 'Content-Type': 'application/json' });
+const baseUrl = 'http://localhost:8080/marcas';
+const headers = () =>
+  new Headers({
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${localStorage.getItem(TOKEN_KEY)}`,
+  });
 
 const MarcaService = {
   cadastrar(marca) {
     return fetch(baseUrl, {
       method: 'POST',
-      headers: headers,
+      headers: headers(),
       body: JSON.stringify(marca),
     }).then((response) => response.json());
   },
 
   alterar(marca) {
-    return fetch(`${baseUrl}${marca.id}`, {
+    return fetch(`${baseUrl}/${marca.id}`, {
       method: 'PUT',
-      headers: headers,
+      headers: headers(),
       body: JSON.stringify(marca),
     }).then((response) => response.json());
   },
 
   consultar(id) {
-    return fetch(`${baseUrl}${id}`, { headers: headers }).then((response) =>
+    return fetch(`${baseUrl}/${id}`, { headers: headers() }).then((response) =>
       response.json()
     );
   },
 
   listar() {
-    return fetch(baseUrl, { headers: headers }).then((response) =>
+    return fetch(baseUrl, { headers: headers() }).then((response) =>
       response.json()
     );
   },
 
   excluir(marca) {
-    return fetch(`${baseUrl}${marca.id}`, {
+    return fetch(`${baseUrl}/${marca.id}`, {
       method: 'DELETE',
-      headers: headers,
+      headers: headers(),
     }).then((response) => response.json());
   },
 };

@@ -4,6 +4,7 @@ import { useHistory } from 'react-router';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 import useErros from '../../hooks/useErros';
+import UsuarioService from '../../services/UsuarioService';
 
 import {
   CssBaseline,
@@ -58,7 +59,9 @@ const Login = () => {
     // TODO - Mostrar mensagem de cadastro com sucesso
     if (possoEnviar) {
       e.preventDefault();
-      history.push('/login');
+      UsuarioService.cadastrar({ nome: usuario, senha }).then(() => {
+        history.push('/login');
+      });
     }
   };
 
