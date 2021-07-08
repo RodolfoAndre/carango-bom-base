@@ -79,57 +79,57 @@ function App() {
         <div className={classes.root}>
           <CssBaseline />
           <main className={classes.content}>
-            <Container component="article" maxWidth="md">
+            <Container component='article' maxWidth='md'>
               <Switch>
                 <PrivateRoute
-                  path="/cadastro-marca"
+                  path='/cadastro-marca'
                   exact
                   component={<CadastroMarca />}
                   estaAutenticado={estaAutenticado}
                 />
                 <PrivateRoute
-                  path="/alteracao-marca/:id"
+                  path='/alteracao-marca/:id'
                   exact
                   component={<CadastroMarca />}
                   estaAutenticado={estaAutenticado}
                 />
                 <PrivateRoute
-                  path="/listar-marcas"
+                  path='/listar-marcas'
                   exact
                   component={<ListagemMarcas />}
                   estaAutenticado={estaAutenticado}
                 />
                 <PrivateRoute
-                  path="/cadastro-veiculo"
+                  path='/cadastro-veiculo'
                   exact
                   component={<CadastroVeiculo />}
                   estaAutenticado={estaAutenticado}
                 />
                 <PrivateRoute
-                  path="/alteracao-veiculo/:id"
+                  path='/alteracao-veiculo/:id'
                   exact
                   component={<CadastroVeiculo />}
                   estaAutenticado={estaAutenticado}
                 />
                 <PrivateRoute
-                  path="/dashboard"
+                  path='/dashboard'
                   exact
                   component={<Dashboard />}
                   estaAutenticado={estaAutenticado}
                 />
                 <PrivateRoute
-                  path="/listar-usuarios"
+                  path='/listar-usuarios'
                   exact
                   component={<ListagemUsuarios />}
                   estaAutenticado={estaAutenticado}
                 />
-                <Route path="/" exact>
+                <Route path='/' exact>
                   <ListagemVeiculos />
                 </Route>
-                <Route path="/login">
+                <Route path='/login'>
                   <Login handleChangeLogin={handleChangeLogin} />
                 </Route>
-                <Route path="/cadastro">
+                <Route path='/cadastro'>
                   <Cadastro />
                 </Route>
               </Switch>

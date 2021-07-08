@@ -57,7 +57,7 @@ const ListagemUsuarios = () => {
 
   return (
     <MainContent>
-      <PageTitle component="h2" variant="h4">
+      <PageTitle component='h2' variant='h4'>
         Lista de usuários
       </PageTitle>
       <DataGrid
@@ -71,8 +71,8 @@ const ListagemUsuarios = () => {
 
       <ActionsToolbar>
         <ActionButton
-          variant="contained"
-          color="secondary"
+          variant='contained'
+          color='secondary'
           disabled={!usuarioSelecionado}
           onClick={() => excluir()}
         >

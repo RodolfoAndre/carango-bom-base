@@ -52,7 +52,7 @@ function CadastroMarca() {
 
   return (
     <>
-      <PageTitle component="h2" variant="h4">
+      <PageTitle component='h2' variant='h4'>
         {titulo}
       </PageTitle>
       <form
@@ -73,29 +73,29 @@ function CadastroMarca() {
           onBlur={validarCampos}
           helperText={erros.marca.texto}
           error={!erros.marca.valido}
-          name="marca"
-          id="marca"
-          data-testid="marca"
-          label="Marca"
-          type="text"
-          variant="outlined"
+          name='marca'
+          id='marca'
+          data-testid='marca'
+          label='Marca'
+          type='text'
+          variant='outlined'
           fullWidth
           required
-          margin="normal"
+          margin='normal'
         />
 
         <ActionsToolbar>
           <ActionButton
-            variant="contained"
-            color="secondary"
+            variant='contained'
+            color='secondary'
             onClick={cancelar}
           >
             Cancelar
           </ActionButton>
           <ActionButton
-            variant="contained"
-            color="primary"
-            type="submit"
+            variant='contained'
+            color='primary'
+            type='submit'
             disabled={!possoEnviar()}
           >
             {nomeMetodo}

@@ -125,7 +125,7 @@ const CadastroVeiculo = () => {
 
   return (
     <>
-      <PageTitle component="h2" variant="h4">
+      <PageTitle component='h2' variant='h4'>
         {id ? 'Alterar veículo' : 'Cadastrar veículo'}
       </PageTitle>
       <form onSubmit={(event) => cadastrarOuAlterarVeiculo(event)}>
@@ -138,17 +138,17 @@ const CadastroVeiculo = () => {
           onBlur={validarCampos}
           helperText={erros.marca.texto}
           error={!erros.marca.valido}
-          name="marca"
-          id="marca"
-          data-testid="marca"
-          label="Marca"
-          variant="outlined"
+          name='marca'
+          id='marca'
+          data-testid='marca'
+          label='Marca'
+          variant='outlined'
           fullWidth
           required
           select
-          margin="normal"
+          margin='normal'
         >
-          <MenuItem value="">
+          <MenuItem value=''>
             <em>Selecione uma marca</em>
           </MenuItem>
           {renderizarMarcas()}
@@ -163,15 +163,15 @@ const CadastroVeiculo = () => {
           onBlur={validarCampos}
           helperText={erros.modelo.texto}
           error={!erros.modelo.valido}
-          name="modelo"
-          id="modelo"
-          data-testid="modelo"
-          label="Modelo"
-          type="text"
-          variant="outlined"
+          name='modelo'
+          id='modelo'
+          data-testid='modelo'
+          label='Modelo'
+          type='text'
+          variant='outlined'
           fullWidth
           required
-          margin="normal"
+          margin='normal'
         />
 
         <TextField
@@ -183,15 +183,15 @@ const CadastroVeiculo = () => {
           onBlur={validarCampos}
           helperText={erros.ano.texto}
           error={!erros.ano.valido}
-          name="ano"
-          id="ano"
-          data-testid="ano"
-          label="Ano"
-          type="text"
-          variant="outlined"
+          name='ano'
+          id='ano'
+          data-testid='ano'
+          label='Ano'
+          type='text'
+          variant='outlined'
           fullWidth
           required
-          margin="normal"
+          margin='normal'
         />
 
         <TextField
@@ -203,31 +203,31 @@ const CadastroVeiculo = () => {
           onBlur={validarCampos}
           helperText={erros.valor.texto}
           error={!erros.valor.valido}
-          name="valor"
-          id="valor"
-          data-testid="valor"
-          label="Valor"
-          type="text"
-          variant="outlined"
+          name='valor'
+          id='valor'
+          data-testid='valor'
+          label='Valor'
+          type='text'
+          variant='outlined'
           fullWidth
           required
-          margin="normal"
+          margin='normal'
         />
 
         <ActionsToolbar>
           <ActionButton
-            variant="contained"
-            color="secondary"
-            data-testid="cancelar"
+            variant='contained'
+            color='secondary'
+            data-testid='cancelar'
             onClick={cancelar}
           >
             Cancelar
           </ActionButton>
           <ActionButton
-            variant="contained"
-            color="primary"
-            type="submit"
-            data-testid="cadastrar-ou-alterar"
+            variant='contained'
+            color='primary'
+            type='submit'
+            data-testid='cadastrar-ou-alterar'
             disabled={!possoEnviar()}
           >
             {id ? 'Alterar' : 'Cadastrar'}
