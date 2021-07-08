@@ -6,7 +6,7 @@ import useErros from '../../hooks/useErros';
 import { TextField } from '@material-ui/core';
 import { LoginForm, LoginButton } from '../../assets/GlobalStyles';
 
-const CustomLoginForm = ({ modo, handleChangeForm }) => {
+const LoginFormComponent = ({ modo, handleChangeForm }) => {
   const [usuario, setUsuario] = useState('');
   const [senha, setSenha] = useState('');
   const [confirmarSenha, setConfirmarSenha] = useState('');
@@ -131,9 +131,9 @@ const CustomLoginForm = ({ modo, handleChangeForm }) => {
   );
 };
 
-CustomLoginForm.propTypes = {
+LoginFormComponent.propTypes = {
   modo: PropTypes.string,
   handleChangeForm: PropTypes.func,
 };
 
-export default CustomLoginForm;
+export default LoginFormComponent;

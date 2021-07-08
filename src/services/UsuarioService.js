@@ -6,7 +6,6 @@ const headers = () =>
     'Content-Type': 'application/json',
     Authorization: `Bearer ${localStorage.getItem(TOKEN_KEY)}`,
   });
-
 const UsuarioService = {
   listar() {
     return fetch(baseUrl, { headers: headers() }).then((response) =>

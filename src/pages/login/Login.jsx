@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core';
 
 import AutenticacaoService from '../../services/AutenticacaoService';
-import CustomLoginForm from '../../components/login-form/LoginForm';
+import LoginFormComponent from '../../components/login-form/LoginFormComponent';
 
 import { LoginContainer, IconAvatar } from '../../assets/GlobalStyles';
 
@@ -43,7 +43,7 @@ const Login = ({ handleChangeLogin }) => {
         <Typography component='h1' variant='h5'>
           Login
         </Typography>
-        <CustomLoginForm modo={'login'} handleChangeForm={logar} />
+        <LoginFormComponent modo={'login'} handleChangeForm={logar} />
         <Grid container>
           <Link href='/cadastro'>Não possui conta? Cadastrar</Link>
         </Grid>

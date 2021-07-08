@@ -11,7 +11,7 @@ import {
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { LoginContainer, IconAvatar } from '../../assets/GlobalStyles';
 
-import CustomLoginForm from '../../components/login-form/LoginForm';
+import LoginFormComponent from '../../components/login-form/LoginFormComponent';
 import UsuarioService from '../../services/UsuarioService';
 
 const Cadastro = () => {
@@ -35,7 +35,7 @@ const Cadastro = () => {
         <Typography component='h1' variant='h5'>
           Cadastro
         </Typography>
-        <CustomLoginForm modo={'cadastrar'} handleChangeForm={cadastrar} />
+        <LoginFormComponent modo={'cadastrar'} handleChangeForm={cadastrar} />
         <Grid container>
           <Grid item>
             <Link href='/login'>Já possui conta? Entrar</Link>

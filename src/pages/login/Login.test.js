@@ -13,14 +13,9 @@ describe('Testes de Login', () => {
     });
 
     it('Deve renderizar componente corretamente', () => {
-      const usuarioInput = screen.getByRole('textbox', { name: 'Usuário' });
-      const senhaInput = screen.getByText('Senha');
-      const botaoEntrar = screen.getByRole('button', { name: 'Entrar' });
+      const tituloLogin = screen.getByText('Login');
 
-      expect(usuarioInput).toBeInTheDocument();
-      expect(senhaInput).toBeInTheDocument();
-
-      expect(botaoEntrar).toBeInTheDocument();
+      expect(tituloLogin).toBeInTheDocument();
     });
 
     it('Deve exibir link para a página de Cadastro', () => {
@@ -29,56 +24,6 @@ describe('Testes de Login', () => {
       });
       expect(linkCadastro).toBeInTheDocument();
       expect(linkCadastro).toHaveAttribute('href', '/cadastro');
-    });
-  });
-
-  describe('Testes de habilitar/desabilitar botão de Entrar', () => {
-    beforeEach(() => {
-      render(<Login />);
-    });
-
-    describe('Deve desabilitar botão de Entrar quando', () => {
-      it('Usuário for inválido', () => {
-        const usuario = screen.getByTestId('usuario');
-        const senha = screen.getByTestId('senha');
-
-        fireEvent.change(usuario, {
-          target: { value: 'ale' },
-        });
-
-        fireEvent.change(senha, { target: { value: 'thefamemonster' } });
-        expect(screen.getByRole('button', { name: 'Entrar' })).toBeDisabled();
-      });
-
-      it('Senha for inválida', () => {
-        const usuario = screen.getByTestId('usuario');
-        const senha = screen.getByTestId('senha');
-
-        fireEvent.change(usuario, {
-          target: { value: 'alejandro' },
-        });
-
-        fireEvent.change(senha, { target: { value: 'the' } });
-
-        expect(screen.getByRole('button', { name: 'Entrar' })).toBeDisabled();
-      });
-    });
-
-    describe('Deve habilitar botão de Entrar quando', () => {
-      it('Os campos estiverem preenchidos corretamente ', () => {
-        const usuario = screen.getByTestId('usuario');
-        const senha = screen.getByTestId('senha');
-
-        fireEvent.change(usuario, {
-          target: { value: 'alejandro' },
-        });
-
-        fireEvent.change(senha, { target: { value: 'thefamemonster' } });
-
-        expect(
-          screen.getByRole('button', { name: 'Entrar' })
-        ).not.toBeDisabled();
-      });
     });
   });
 
