@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import { Container, CssBaseline, makeStyles } from '@material-ui/core';
@@ -19,7 +19,6 @@ import ListagemUsuarios from './pages/usuario/ListagemUsuarios';
 import PrivateRoute from './components/private-route/PrivateRoute';
 import UsuarioAutenticado from './contexts/UsuarioAutenticado';
 import { NAME_KEY, TOKEN_KEY } from './Constants';
-import { useEffect } from 'react';
 
 const muiTheme = createMuiTheme(
   {

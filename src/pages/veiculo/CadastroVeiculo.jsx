@@ -94,32 +94,31 @@ const CadastroVeiculo = () => {
     }
   };
 
-  const avaliarCampoObrigatorio = (valor) => {
-    return !valor || !valor.length;
+  const avaliarCampoObrigatorio = (dado) => {
+    return !dado || !dado.length;
   };
 
-  const avaliarEntradasTexto = (nome, valor) => {
-    if (avaliarCampoObrigatorio(valor))
+  const avaliarEntradasTexto = (nome, dado) => {
+    if (avaliarCampoObrigatorio(dado))
       return { valido: false, texto: 'Campo obrigatório' };
-    if (valor.length < 2)
+    if (dado.length < 2)
       return { valido: false, texto: `${nome} deve ter ao menos 2 letras` };
     return { valido: true };
   };
 
-  const avaliarEntradaAno = (valor) => {
-    if (avaliarCampoObrigatorio(valor))
+  const avaliarEntradaAno = (dado) => {
+    if (avaliarCampoObrigatorio(dado))
       return { valido: false, texto: 'Campo obrigatório' };
-    if (valor.length != 4 || isNaN(valor))
+    if (dado.length != 4 || isNaN(dado))
       return { valido: false, texto: 'Ano deve ter 4 números' };
     return { valido: true };
   };
 
-  const avaliarEntradaNumero = (valor) => {
-    if (avaliarCampoObrigatorio(valor))
+  const avaliarEntradaNumero = (dado) => {
+    if (avaliarCampoObrigatorio(dado))
       return { valido: false, texto: 'Campo obrigatório' };
-    if (isNaN(valor))
-      return { valido: false, texto: 'Valor deve ser numérico' };
-    if (parseInt(valor) <= 0)
+    if (isNaN(dado)) return { valido: false, texto: 'Valor deve ser numérico' };
+    if (parseInt(dado) <= 0)
       return { valido: false, texto: 'Valor deve ser maior que zero' };
     return { valido: true };
   };
