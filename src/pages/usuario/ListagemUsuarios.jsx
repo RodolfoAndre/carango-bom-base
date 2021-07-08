@@ -9,6 +9,8 @@ import {
   PageTitle,
 } from '../../assets/GlobalStyles.jsx';
 
+import { useStyles } from '../../assets/DataGridStyles';
+
 import UsuarioService from '../../services/UsuarioService';
 
 const colunas = [{ field: 'nome', headerName: 'Nome', width: 200 }];
@@ -34,12 +36,15 @@ const ListagemUsuarios = () => {
     carregarUsuarios();
   }, []);
 
+  const classes = useStyles();
+
   return (
     <MainContent>
-      <PageTitle component="h2" variant="h4">
+      <PageTitle component='h2' variant='h4'>
         Lista de usuários
       </PageTitle>
       <DataGrid
+        className={classes.root}
         rows={usuarios}
         columns={colunas}
         onRowSelected={(gridSelection) =>
@@ -49,8 +54,8 @@ const ListagemUsuarios = () => {
 
       <ActionsToolbar>
         <ActionButton
-          variant="contained"
-          color="secondary"
+          variant='contained'
+          color='secondary'
           disabled={!usuarioSelecionado}
           onClick={() => excluir()}
         >

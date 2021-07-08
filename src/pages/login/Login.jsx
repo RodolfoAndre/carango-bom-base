@@ -18,7 +18,7 @@ import AutenticacaoService from '../../services/AutenticacaoService';
 import {
   LoginContainer,
   LoginForm,
-  LoginAvatar,
+  IconAvatar,
   LoginButton,
 } from '../../assets/GlobalStyles';
 
@@ -60,19 +60,19 @@ const Login = ({ handleChangeLogin }) => {
             });
             history.push('/');
           }
-        }
+        },
       );
     }
   };
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component='main' maxWidth='xs'>
       <CssBaseline />
       <LoginContainer>
-        <LoginAvatar>
+        <IconAvatar>
           <LockOutlinedIcon />
-        </LoginAvatar>
-        <Typography component="h1" variant="h5">
+        </IconAvatar>
+        <Typography component='h1' variant='h5'>
           Login
         </Typography>
         <LoginForm onSubmit={(e) => logar(e)}>
@@ -85,12 +85,12 @@ const Login = ({ handleChangeLogin }) => {
             }}
             error={!erros.usuario.valido}
             helperText={erros.usuario.texto}
-            variant="outlined"
-            margin="normal"
-            id="usuario"
-            name="usuario"
-            label="Usuário"
-            type="text"
+            variant='outlined'
+            margin='normal'
+            id='usuario'
+            name='usuario'
+            label='Usuário'
+            type='text'
             inputProps={{ 'data-testid': 'usuario' }}
             fullWidth
             required
@@ -104,12 +104,12 @@ const Login = ({ handleChangeLogin }) => {
             }}
             error={!erros.senha.valido}
             helperText={erros.senha.texto}
-            variant="outlined"
-            margin="normal"
-            id="senha"
-            name="senha"
-            label="Senha"
-            type="password"
+            variant='outlined'
+            margin='normal'
+            id='senha'
+            name='senha'
+            label='Senha'
+            type='password'
             inputProps={{ 'data-testid': 'senha' }}
             fullWidth
             required
@@ -117,16 +117,16 @@ const Login = ({ handleChangeLogin }) => {
 
           <LoginButton
             disabled={!possoEnviar()}
-            type="submit"
-            variant="contained"
-            color="primary"
+            type='submit'
+            variant='contained'
+            color='primary'
             fullWidth
           >
             Entrar
           </LoginButton>
         </LoginForm>
         <Grid container>
-          <Link href="/cadastro">Não possui conta? Cadastrar</Link>
+          <Link href='/cadastro'>Não possui conta? Cadastrar</Link>
         </Grid>
       </LoginContainer>
     </Container>

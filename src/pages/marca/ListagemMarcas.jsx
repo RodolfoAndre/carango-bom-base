@@ -3,12 +3,16 @@ import { useHistory } from 'react-router';
 
 import { DataGrid } from '@material-ui/data-grid';
 import AddIcon from '@material-ui/icons/Add';
+
 import {
   MainContent,
+  PageTitle,
   ActionsToolbar,
   ActionButton,
   StyledFab,
 } from '../../assets/GlobalStyles.jsx';
+
+import { useStyles } from '../../assets/DataGridStyles';
 
 import MarcaService from '../../services/MarcaService';
 
@@ -19,30 +23,36 @@ function ListagemMarcas() {
   const [marcaSelecionada, setMarcaSelecionada] = useState(null);
   const history = useHistory();
 
-  function alterar() {
-    history.push('/alteracao-marca/' + marcaSelecionada.id);
-  }
-
-  function excluir() {
-    MarcaService.excluir(marcaSelecionada).then(() => {
-      setMarcaSelecionada(null);
-      carregarMarcas();
-    });
-  }
-
   useEffect(() => carregarMarcas(), []);
 
-  function carregarMarcas() {
+  const classes = useStyles();
+
+  const carregarMarcas = () => {
     MarcaService.listar().then((dados) => {
       if (!dados?.error) {
         setMarcas(dados);
       }
     });
-  }
+  };
+
+  const alterar = () => {
+    history.push('/alteracao-marca/' + marcaSelecionada.id);
+  };
+
+  const excluir = () => {
+    MarcaService.excluir(marcaSelecionada).then(() => {
+      setMarcaSelecionada(null);
+      carregarMarcas();
+    });
+  };
 
   return (
     <MainContent>
+      <PageTitle component='h2' variant='h4'>
+        Lista de marcas
+      </PageTitle>
       <DataGrid
+        className={classes.root}
         rows={marcas}
         columns={colunas}
         onRowSelected={(gridSelection) =>
@@ -52,16 +62,16 @@ function ListagemMarcas() {
 
       <ActionsToolbar>
         <ActionButton
-          variant="contained"
-          color="secondary"
+          variant='contained'
+          color='secondary'
           disabled={!marcaSelecionada}
           onClick={() => excluir()}
         >
           Excluir
         </ActionButton>
         <ActionButton
-          variant="contained"
-          color="primary"
+          variant='contained'
+          color='primary'
           disabled={!marcaSelecionada}
           onClick={() => alterar()}
         >
@@ -70,8 +80,8 @@ function ListagemMarcas() {
       </ActionsToolbar>
 
       <StyledFab
-        color="primary"
-        aria-label="add"
+        color='primary'
+        aria-label='add'
         onClick={() => history.push('/cadastro-marca')}
       >
         <AddIcon />

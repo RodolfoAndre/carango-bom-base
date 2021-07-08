@@ -2,7 +2,13 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
 
-import { Button, TextField } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
+
+import {
+  PageTitle,
+  ActionsToolbar,
+  ActionButton,
+} from '../../assets/GlobalStyles.jsx';
 
 import useErros from '../../hooks/useErros';
 import MarcaService from '../../services/MarcaService';
@@ -55,63 +61,73 @@ function CadastroMarca() {
   }, [id]);
 
   return (
-    <form
-      onSubmit={(event) => {
-        event.preventDefault();
-        if (possoEnviar()) {
-          if (id) {
-            MarcaService.alterar({ id, nome: marca }).then((response) => {
-              const dados = avaliarResponse(response);
-              if (dados.erro) {
-                validarCampos(dados);
-              } else {
-                history.goBack();
-              }
-            });
-          } else {
-            MarcaService.cadastrar({ nome: marca }).then((response) => {
-              const dados = avaliarResponse(response);
-              if (dados.erro) {
-                validarCampos(dados);
-              } else {
-                setMarca('');
-                history.goBack();
-              }
-            });
+    <>
+      <PageTitle component='h2' variant='h4'>
+        {id ? 'Alterar marca' : 'Cadastrar marca'}
+      </PageTitle>
+      <form
+        onSubmit={(event) => {
+          event.preventDefault();
+          if (possoEnviar()) {
+            if (id) {
+              MarcaService.alterar({ id, nome: marca }).then((response) => {
+                const dados = avaliarResponse(response);
+                if (dados.erro) {
+                  validarCampos(dados);
+                } else {
+                  history.goBack();
+                }
+              });
+            } else {
+              MarcaService.cadastrar({ nome: marca }).then((response) => {
+                const dados = avaliarResponse(response);
+                if (dados.erro) {
+                  validarCampos(dados);
+                } else {
+                  setMarca('');
+                  history.goBack();
+                }
+              });
+            }
           }
-        }
-      }}
-    >
-      <TextField
-        value={marca}
-        onChange={(evt) => setMarca(evt.target.value)}
-        onBlur={validarCampos}
-        helperText={erros.marca.texto}
-        error={!erros.marca.valido}
-        name="marca"
-        id="marca"
-        data-testid="marca"
-        label="Marca"
-        type="text"
-        variant="outlined"
-        fullWidth
-        required
-        margin="normal"
-      />
-
-      <Button
-        variant="contained"
-        color="primary"
-        type="submit"
-        disabled={!possoEnviar()}
+        }}
       >
-        {id ? 'Alterar' : 'Cadastrar'}
-      </Button>
+        <TextField
+          value={marca}
+          onChange={(evt) => setMarca(evt.target.value)}
+          onBlur={validarCampos}
+          helperText={erros.marca.texto}
+          error={!erros.marca.valido}
+          name='marca'
+          id='marca'
+          data-testid='marca'
+          label='Marca'
+          type='text'
+          variant='outlined'
+          fullWidth
+          required
+          margin='normal'
+        />
 
-      <Button variant="contained" color="secondary" onClick={cancelar}>
-        Cancelar
-      </Button>
-    </form>
+        <ActionsToolbar>
+          <ActionButton
+            variant='contained'
+            color='secondary'
+            onClick={cancelar}
+          >
+            Cancelar
+          </ActionButton>
+          <ActionButton
+            variant='contained'
+            color='primary'
+            type='submit'
+            disabled={!possoEnviar()}
+          >
+            {id ? 'Alterar' : 'Cadastrar'}
+          </ActionButton>
+        </ActionsToolbar>
+      </form>
+    </>
   );
 }
 

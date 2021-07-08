@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
 
-import { Typography, TextField, MenuItem } from '@material-ui/core';
+import { TextField, MenuItem } from '@material-ui/core';
 
-import { ActionsToolbar, ActionButton } from '../../assets/GlobalStyles.jsx';
+import {
+  PageTitle,
+  ActionsToolbar,
+  ActionButton,
+} from '../../assets/GlobalStyles.jsx';
 
 import useErros from '../../hooks/useErros';
 import VeiculoService from '../../services/VeiculoService';
@@ -31,7 +35,7 @@ const CadastroVeiculo = () => {
     modelo: (dado) => {
       if (!dado || !dado.length)
         return { valido: false, texto: 'Campo obrigatório' };
-      if (dado.length <= 3)
+      if (dado.length < 3)
         return { valido: false, texto: 'Modelo deve ter ao menos 3 letras' };
       return { valido: true };
     },
@@ -108,9 +112,9 @@ const CadastroVeiculo = () => {
 
   return (
     <>
-      <Typography component='h2' variant='h4'>
+      <PageTitle component='h2' variant='h4'>
         {id ? 'Alterar veículo' : 'Cadastrar veículo'}
-      </Typography>
+      </PageTitle>
       <form onSubmit={(event) => cadastrarOuAlterarVeiculo(event)}>
         <TextField
           value={marcaSelecionada}
