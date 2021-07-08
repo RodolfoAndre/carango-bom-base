@@ -39,11 +39,11 @@ const Header = ({ handleChangeLogin }) => {
           titulo: 'Marcas',
           rota: '/listar-marcas',
         },
+        { titulo: 'Usuários', rota: '/listar-usuarios' },
         {
           titulo: 'Dashboard',
           rota: '/dashboard',
         },
-        { titulo: 'Usuários', rota: '/listar-usuarios' },
       );
     }
     return menuItems;
