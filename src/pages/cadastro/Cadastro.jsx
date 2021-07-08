@@ -1,65 +1,25 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router';
-
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-
-import useErros from '../../hooks/useErros';
-import UsuarioService from '../../services/UsuarioService';
 
 import {
   CssBaseline,
   Container,
   Typography,
-  TextField,
   Grid,
   Link,
 } from '@material-ui/core';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import { LoginContainer, IconAvatar } from '../../assets/GlobalStyles';
 
-import {
-  LoginContainer,
-  LoginForm,
-  IconAvatar,
-  LoginButton,
-} from '../../assets/GlobalStyles';
+import CustomLoginForm from '../../components/login-form/LoginForm';
+import UsuarioService from '../../services/UsuarioService';
 
 const Cadastro = () => {
-  const [usuario, setUsuario] = useState('');
-  const [senha, setSenha] = useState('');
-  const [confirmarSenha, setConfirmarSenha] = useState('');
-
   const history = useHistory();
 
-  const validacoes = {
-    usuario: (usuarioAValidar) => {
-      if (!usuarioAValidar.length)
-        return { valido: false, texto: 'Campo obrigatório' };
-      if (usuarioAValidar.length <= 3)
-        return {
-          valido: false,
-          texto: 'Usuário deve ter ao menos 4 caracteres',
-        };
-      return { valido: true };
-    },
-
-    senha: (senhaAValidar) => {
-      if (!senhaAValidar || senhaAValidar.length < 6)
-        return { valido: false, texto: 'Senha deve ter ao menos 6 caracteres' };
-      return { valido: true };
-    },
-
-    confirmarSenha: (confirmarSenhaAValidar) => {
-      if (confirmarSenhaAValidar !== senha)
-        return { valido: false, texto: 'As senhas devem ser iguais' };
-      return { valido: true };
-    },
-  };
-
-  const [erros, validarCampos, possoEnviar] = useErros(validacoes);
-
-  const cadastrar = (e) => {
-    if (possoEnviar) {
-      e.preventDefault();
-      UsuarioService.cadastrar({ nome: usuario, senha }).then(() => {
+  const cadastrar = (usuario, possoEnviar) => {
+    if (possoEnviar()) {
+      UsuarioService.cadastrar(usuario).then(() => {
         history.push('/login');
       });
     }
@@ -75,76 +35,7 @@ const Cadastro = () => {
         <Typography component='h1' variant='h5'>
           Cadastro
         </Typography>
-        <LoginForm onSubmit={(e) => cadastrar(e)}>
-          <TextField
-            value={usuario}
-            onBlur={validarCampos}
-            onChange={(e) => {
-              setUsuario(e.target.value);
-              validarCampos(e);
-            }}
-            error={!erros.usuario.valido}
-            helperText={erros.usuario.texto}
-            variant='outlined'
-            margin='normal'
-            id='usuario'
-            name='usuario'
-            label='Usuário'
-            type='text'
-            inputProps={{ 'data-testid': 'usuario' }}
-            fullWidth
-            required
-          />
-          <TextField
-            value={senha}
-            onBlur={validarCampos}
-            onChange={(e) => {
-              setSenha(e.target.value);
-              validarCampos(e);
-            }}
-            error={!erros.senha.valido}
-            helperText={erros.senha.texto}
-            variant='outlined'
-            margin='normal'
-            id='senha'
-            name='senha'
-            label='Senha'
-            type='password'
-            inputProps={{ 'data-testid': 'senha' }}
-            fullWidth
-            required
-          />
-
-          <TextField
-            value={confirmarSenha}
-            onBlur={validarCampos}
-            onChange={(e) => {
-              setConfirmarSenha(e.target.value);
-              validarCampos(e);
-            }}
-            error={!erros.confirmarSenha.valido}
-            helperText={erros.confirmarSenha.texto}
-            variant='outlined'
-            margin='normal'
-            id='confirmarSenha'
-            name='confirmarSenha'
-            label='Confirmar senha'
-            type='password'
-            inputProps={{ 'data-testid': 'confirmarSenha' }}
-            fullWidth
-            required
-          />
-
-          <LoginButton
-            disabled={!possoEnviar()}
-            type='submit'
-            variant='contained'
-            color='primary'
-            fullWidth
-          >
-            Cadastrar
-          </LoginButton>
-        </LoginForm>
+        <CustomLoginForm modo={'cadastrar'} handleChangeForm={cadastrar} />
         <Grid container>
           <Grid item>
             <Link href='/login'>Já possui conta? Entrar</Link>
