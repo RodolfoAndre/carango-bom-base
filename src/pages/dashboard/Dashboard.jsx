@@ -46,8 +46,13 @@ const Dashboard = () => {
     modelos.map((modelo, index) => (
       <div key={index}>
         <CarModel>{modelo.modelo}</CarModel>
-        <CarPrice>{formatarValorVeiculo(modelo.valorTotal)}</CarPrice>
-        <Typography color='textSecondary'>
+        <CarPrice data-testid={`valor-modelo-${index}`}>
+          {formatarValorVeiculo(modelo.valorTotal)}
+        </CarPrice>
+        <Typography
+          color='textSecondary'
+          data-testid={`veiculo-modelo-${index}`}
+        >
           {veiculosDisponiveis(modelo.numeroDeVeiculos)}
         </Typography>
       </div>
@@ -55,11 +60,11 @@ const Dashboard = () => {
 
   return (
     <>
-      <PageTitle component='h2' variant='h4'>
+      <PageTitle component='h2' variant='h4' data-testid='titulo-pagina'>
         Dashboard
       </PageTitle>
       <DashboardContainer>
-        {veiculos ? (
+        {veiculos?.length ? (
           veiculos.map((veiculo, index) => (
             <CardContainer key={index} variant='outlined'>
               <CardHeader>
@@ -75,9 +80,11 @@ const Dashboard = () => {
                 <CarPrice>
                   <Bold>Valor total </Bold>
                   <br />
-                  {formatarValorVeiculo(veiculo.valorTotal)}
+                  <Typography component='span' data-testid='valor-veiculo'>
+                    {formatarValorVeiculo(veiculo.valorTotal)}
+                  </Typography>
                 </CarPrice>
-                <Typography color='textSecondary'>
+                <Typography color='textSecondary' data-testid='numero-veiculos'>
                   {veiculosDisponiveis(veiculo.numeroDeVeiculos)}
                 </Typography>
                 <StyledDivider variant='fullWidth' />
@@ -90,7 +97,9 @@ const Dashboard = () => {
             </CardContainer>
           ))
         ) : (
-          <Typography>Nenhum veículo encontrado</Typography>
+          <Typography data-testid='nao-encontrado'>
+            Nenhum veículo encontrado
+          </Typography>
         )}
       </DashboardContainer>
     </>
