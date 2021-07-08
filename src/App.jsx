@@ -14,10 +14,11 @@ import ListagemVeiculos from './pages/veiculo/ListagemVeiculos';
 import Login from './pages/login/Login';
 import Cadastro from './pages/cadastro/Cadastro';
 import Dashboard from './pages/dashboard/Dashboard';
+import ListagemUsuarios from './pages/usuario/ListagemUsuarios';
 
+import PrivateRoute from './components/private-route/PrivateRoute';
 import UsuarioAutenticado from './contexts/UsuarioAutenticado';
 import { NAME_KEY, TOKEN_KEY } from './Constants';
-import PrivateRoute from './components/private-route/PrivateRoute';
 
 const muiTheme = createMuiTheme(
   {
@@ -106,6 +107,12 @@ function App() {
                   path='/dashboard'
                   exact
                   component={<Dashboard />}
+                  estaAutenticado={estaAutenticado}
+                />
+                <PrivateRoute
+                  path='/listar-usuarios'
+                  exact
+                  component={<ListagemUsuarios />}
                   estaAutenticado={estaAutenticado}
                 />
                 <Route path='/' exact>

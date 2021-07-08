@@ -53,11 +53,13 @@ const Login = ({ handleChangeLogin }) => {
       e.preventDefault();
       AutenticacaoService.autenticar({ nome: usuario, senha }).then(
         (response) => {
-          handleChangeLogin({
-            nome: usuario,
-            token: response.token,
-          });
-          history.push('/');
+          if (!response?.error) {
+            handleChangeLogin({
+              nome: usuario,
+              token: response.token,
+            });
+            history.push('/');
+          }
         },
       );
     }
