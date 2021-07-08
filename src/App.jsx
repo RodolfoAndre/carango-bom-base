@@ -13,9 +13,10 @@ import CadastroVeiculo from './pages/veiculo/CadastroVeiculo';
 import ListagemVeiculos from './pages/veiculo/ListagemVeiculos';
 import Login from './pages/login/Login';
 import Cadastro from './pages/cadastro/Cadastro';
+import ListagemUsuarios from './pages/usuario/ListagemUsuarios';
+import PrivateRoute from './components/private-route/PrivateRoute';
 import UsuarioAutenticado from './contexts/UsuarioAutenticado';
 import { NAME_KEY, TOKEN_KEY } from './Constants';
-import PrivateRoute from './components/private-route/PrivateRoute';
 
 const muiTheme = createMuiTheme(
   {
@@ -101,6 +102,11 @@ function App() {
                   path="/alteracao-veiculo/:id"
                   exact
                   component={<CadastroVeiculo />}
+                  estaAutenticado={estaAutenticado}
+                />
+                <PrivateRoute
+                  path="/listar-usuarios"
+                  component={<ListagemUsuarios />}
                   estaAutenticado={estaAutenticado}
                 />
                 <Route path="/" exact>
