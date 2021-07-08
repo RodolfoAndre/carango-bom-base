@@ -9,6 +9,7 @@ const headers = () =>
 
 const MarcaService = {
   cadastrar(marca) {
+    delete marca.id;
     return fetch(baseUrl, {
       method: 'POST',
       headers: headers(),

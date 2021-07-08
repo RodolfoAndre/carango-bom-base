@@ -29,9 +29,10 @@ const Login = ({ handleChangeLogin }) => {
   const history = useHistory();
 
   const validacoes = {
-    usuario: (usuario) => {
-      if (!usuario.length) return { valido: false, texto: 'Campo obrigatório' };
-      if (usuario.length <= 3)
+    usuario: (usuarioAValidar) => {
+      if (!usuarioAValidar.length)
+        return { valido: false, texto: 'Campo obrigatório' };
+      if (usuarioAValidar.length <= 3)
         return {
           valido: false,
           texto: 'Usuário deve ter ao menos 4 caracteres',
@@ -39,8 +40,8 @@ const Login = ({ handleChangeLogin }) => {
       return { valido: true };
     },
 
-    senha: (senha) => {
-      if (!senha || senha.length < 6)
+    senha: (senhaAValidar) => {
+      if (!senhaAValidar || senhaAValidar.length < 6)
         return { valido: false, texto: 'Senha deve ter ao menos 6 caracteres' };
       return { valido: true };
     },
@@ -60,7 +61,7 @@ const Login = ({ handleChangeLogin }) => {
             });
             history.push('/');
           }
-        },
+        }
       );
     }
   };

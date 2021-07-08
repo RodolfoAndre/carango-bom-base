@@ -6,7 +6,7 @@ import { createMemoryHistory } from 'history';
 import Cadastro from './Cadastro';
 import UsuarioService from '../../services/UsuarioService';
 
-describe('Testes de Login', () => {
+describe('Testes de Cadastro', () => {
   describe('Testes de renderização e exibição', () => {
     beforeEach(() => {
       render(<Cadastro />);

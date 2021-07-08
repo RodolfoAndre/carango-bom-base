@@ -3,9 +3,9 @@ import { Redirect, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const PrivateRoute = ({ component, estaAutenticado, ...rest }) => {
-  const renderRotaPrivada = (component, props) => {
+  const renderRotaPrivada = (componentToRoute, props) => {
     return estaAutenticado() ? (
-      component
+      componentToRoute
     ) : (
       <Redirect to={{ pathname: '/', state: { from: props.location } }} />
     );

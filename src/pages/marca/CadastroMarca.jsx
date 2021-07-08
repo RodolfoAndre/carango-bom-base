@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
 
@@ -15,17 +14,17 @@ import MarcaService from '../../services/MarcaService';
 
 function CadastroMarca() {
   const [marca, setMarca] = useState('');
+  const [titulo, setTitutlo] = useState('');
+  const [nomeMetodo, setNomeMetodo] = useState('');
 
   const history = useHistory();
 
   const { id } = useParams();
 
   const validacoes = {
-    marca: (dado) => {
-      if (dado && dado.erro) {
-        return { valido: false, texto: dado.erro };
-      } else if (dado && dado.length < 3) {
-        return { valido: false, texto: 'Marca deve ter ao menos 3 letras.' };
+    marca: (marcaAValidar) => {
+      if (marcaAValidar && marcaAValidar.length < 2) {
+        return { valido: false, texto: 'Marca deve ter ao menos 2 letras.' };
       } else {
         return { valido: true };
       }
@@ -38,57 +37,33 @@ function CadastroMarca() {
     history.goBack();
   }
 
-  const avaliarResponse = (response) => {
-    let wrappedResponse = {};
-    if (response.status === 500) {
-      wrappedResponse = {
-        erro: true,
-        target: {
-          name: 'marca',
-          value: { erro: response.message },
-        },
-      };
-    } else {
-      wrappedResponse = { erro: false, dados: response.data };
-    }
-    return wrappedResponse;
-  };
-
   useEffect(() => {
     if (id) {
-      MarcaService.consultar(id).then((marca) => setMarca(marca.nome));
+      setTitutlo('Alterar marca');
+      setNomeMetodo('alterar');
+      MarcaService.consultar(id).then((marcaConsultada) =>
+        setMarca(marcaConsultada.nome)
+      );
+    } else {
+      setTitutlo('Cadastrar marca');
+      setNomeMetodo('cadastrar');
     }
   }, [id]);
 
   return (
     <>
       <PageTitle component='h2' variant='h4'>
-        {id ? 'Alterar marca' : 'Cadastrar marca'}
+        {titulo}
       </PageTitle>
       <form
         onSubmit={(event) => {
           event.preventDefault();
           if (possoEnviar()) {
-            if (id) {
-              MarcaService.alterar({ id, nome: marca }).then((response) => {
-                const dados = avaliarResponse(response);
-                if (dados.erro) {
-                  validarCampos(dados);
-                } else {
-                  history.goBack();
-                }
-              });
-            } else {
-              MarcaService.cadastrar({ nome: marca }).then((response) => {
-                const dados = avaliarResponse(response);
-                if (dados.erro) {
-                  validarCampos(dados);
-                } else {
-                  setMarca('');
-                  history.goBack();
-                }
-              });
-            }
+            MarcaService[nomeMetodo]({ id, nome: marca }).then((response) => {
+              if (!response?.error) {
+                history.goBack();
+              }
+            });
           }
         }}
       >
@@ -123,7 +98,7 @@ function CadastroMarca() {
             type='submit'
             disabled={!possoEnviar()}
           >
-            {id ? 'Alterar' : 'Cadastrar'}
+            {nomeMetodo}
           </ActionButton>
         </ActionsToolbar>
       </form>

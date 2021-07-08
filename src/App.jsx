@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import { Container, CssBaseline, makeStyles } from '@material-ui/core';
@@ -28,7 +28,7 @@ const muiTheme = createMuiTheme(
       },
     },
   },
-  ptBR,
+  ptBR
 );
 
 const useStyles = makeStyles((theme) => ({
@@ -49,6 +49,14 @@ const useStyles = makeStyles((theme) => ({
 function App() {
   const [usuarioAutenticado, setUsuarioAutenticado] = useState({});
   const classes = useStyles();
+
+  useEffect(() => {
+    const nome = localStorage.getItem(NAME_KEY);
+    const token = localStorage.getItem(TOKEN_KEY);
+    if (nome && token) {
+      setUsuarioAutenticado({ nome, token });
+    }
+  }, []);
 
   const handleChangeLogin = (novoLogin) => {
     if (novoLogin) {

@@ -23,7 +23,7 @@ const Header = ({ handleChangeLogin }) => {
   const abrirLogout = (e) => setMenuLogout(e.currentTarget);
   const fecharLogout = () => setMenuLogout(null);
   const logout = () => {
-    handleChangeLogin({});
+    handleChangeLogin(null);
     redirecionarPara('/');
   };
 
@@ -43,7 +43,7 @@ const Header = ({ handleChangeLogin }) => {
         {
           titulo: 'Dashboard',
           rota: '/dashboard',
-        },
+        }
       );
     }
     return menuItems;

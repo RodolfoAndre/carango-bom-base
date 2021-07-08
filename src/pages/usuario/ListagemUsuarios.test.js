@@ -75,6 +75,19 @@ describe('Component de ListagemUsuarios', () => {
         expect(botaoExcluir).toBeDisabled();
       });
 
+      it('deve estar desabilitado caso o usuário selecionado do DataGrid for o mesmo que estiver autenticado', async () => {
+        UsuarioService.listar.mockResolvedValue([
+          { id: 2, nome: context.nome, senha: null },
+        ]);
+        const { findByText } = renderWithContext(context);
+
+        const row = await findByText(context.nome);
+        fireEvent.click(row);
+        const botaoExcluir = (await findByText('Excluir')).parentElement;
+
+        expect(botaoExcluir).toBeDisabled();
+      });
+
       it('deve estar habilitado caso uma linha do DataGrid tenha sido selecionada', async () => {
         UsuarioService.listar.mockResolvedValue([usuarioSobTest]);
 

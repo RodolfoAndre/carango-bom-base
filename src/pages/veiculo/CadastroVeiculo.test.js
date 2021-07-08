@@ -59,7 +59,7 @@ describe('Component de CadastroVeiculo', () => {
   it('Deve abrir a página de cadastro corretamente', async () => {
     const { getByText } = renderWithRouter(history, path);
     await waitFor(() => expect(MarcaService.listar).toHaveBeenCalled());
-    expect(getByText('Cadastrar')).toBeInTheDocument();
+    expect(getByText('Cadastrar veículo')).toBeInTheDocument();
   });
 
   it('Ao clicar no botão de cancelar, deve voltar para a página anterior', async () => {
@@ -139,7 +139,7 @@ describe('Component de CadastroVeiculo', () => {
     it('Deve abrir página de alteração de veículo corretamente', async () => {
       const { getByText } = renderWithRouter(history, `${path}/:id`);
       await waitFor(() => expect(MarcaService.listar).toHaveBeenCalled());
-      expect(getByText('Alterar')).toBeInTheDocument();
+      expect(getByText('Alterar veículo')).toBeInTheDocument();
     });
 
     it('Deve carregar página com os dados do veículo selecionado ao clicar no botão de alterar veículo', async () => {

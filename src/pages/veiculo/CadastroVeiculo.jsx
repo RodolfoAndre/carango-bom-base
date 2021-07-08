@@ -26,34 +26,16 @@ const CadastroVeiculo = () => {
 
   const validacoes = {
     marca: (dado) => {
-      if (!dado || !dado.length)
-        return { valido: false, texto: 'Campo obrigatório' };
-      if (dado.length <= 3)
-        return { valido: false, texto: 'Marca deve ter ao menos 3 letras' };
-      return { valido: true };
+      return avaliarEntradasTexto('Marca', dado);
     },
     modelo: (dado) => {
-      if (!dado || !dado.length)
-        return { valido: false, texto: 'Campo obrigatório' };
-      if (dado.length < 3)
-        return { valido: false, texto: 'Modelo deve ter ao menos 3 letras' };
-      return { valido: true };
+      return avaliarEntradasTexto('Modelo', dado);
     },
     ano: (dado) => {
-      if (!dado || !dado.length)
-        return { valido: false, texto: 'Campo obrigatório' };
-      if (dado.length != 4 || isNaN(dado))
-        return { valido: false, texto: 'Ano deve ter 4 números' };
-      return { valido: true };
+      return avaliarEntradaAno(dado);
     },
     valor: (dado) => {
-      if (!dado || !dado.length)
-        return { valido: false, texto: 'Campo obrigatório' };
-      if (isNaN(dado))
-        return { valido: false, texto: 'Valor deve ser numérico' };
-      if (parseInt(dado) <= 0)
-        return { valido: false, texto: 'Valor deve ser maior que zero' };
-      return { valido: true };
+      return avaliarEntradaNumero(dado);
     },
   };
 
@@ -64,15 +46,14 @@ const CadastroVeiculo = () => {
       setMarcas(dados);
 
       if (id) {
-        VeiculoService.consultar(id).then(({ marca, modelo, ano, valor }) => {
-          setMarcaSelecionada(marca);
-          setModelo(modelo);
-          setAno(ano);
-          setValor(valor);
+        VeiculoService.consultar(id).then((veiculoRetornado) => {
+          setMarcaSelecionada(veiculoRetornado.marca);
+          setModelo(veiculoRetornado.modelo);
+          setAno(veiculoRetornado.ano);
+          setValor(veiculoRetornado.valor);
         });
       }
     });
-
     return () => setMarcas([]);
   }, [id]);
 
@@ -103,12 +84,44 @@ const CadastroVeiculo = () => {
     } else cadastrarVeiculo(veiculo);
   };
 
-  const renderizarMarcas = () =>
-    marcas.map((marca) => (
-      <MenuItem value={marca.nome} key={marca.id}>
-        {marca.nome}
-      </MenuItem>
-    ));
+  const renderizarMarcas = () => {
+    if (marcas.length > 0) {
+      return marcas.map((marca) => (
+        <MenuItem value={marca.nome} key={marca?.id}>
+          {marca?.nome}
+        </MenuItem>
+      ));
+    }
+  };
+
+  const avaliarCampoObrigatorio = (dado) => {
+    return !dado || !dado.length;
+  };
+
+  const avaliarEntradasTexto = (nome, dado) => {
+    if (avaliarCampoObrigatorio(dado))
+      return { valido: false, texto: 'Campo obrigatório' };
+    if (dado.length < 2)
+      return { valido: false, texto: `${nome} deve ter ao menos 2 letras` };
+    return { valido: true };
+  };
+
+  const avaliarEntradaAno = (dado) => {
+    if (avaliarCampoObrigatorio(dado))
+      return { valido: false, texto: 'Campo obrigatório' };
+    if (dado.length != 4 || isNaN(dado))
+      return { valido: false, texto: 'Ano deve ter 4 números' };
+    return { valido: true };
+  };
+
+  const avaliarEntradaNumero = (dado) => {
+    if (avaliarCampoObrigatorio(dado))
+      return { valido: false, texto: 'Campo obrigatório' };
+    if (isNaN(dado)) return { valido: false, texto: 'Valor deve ser numérico' };
+    if (parseInt(dado) <= 0)
+      return { valido: false, texto: 'Valor deve ser maior que zero' };
+    return { valido: true };
+  };
 
   return (
     <>
@@ -117,7 +130,7 @@ const CadastroVeiculo = () => {
       </PageTitle>
       <form onSubmit={(event) => cadastrarOuAlterarVeiculo(event)}>
         <TextField
-          value={marcaSelecionada}
+          value={marcaSelecionada ? marcaSelecionada : ''}
           onChange={(evt) => {
             setMarcaSelecionada(evt.target.value);
             validarCampos(evt);
