@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
 
-import { Typography, TextField, MenuItem } from '@material-ui/core';
+import { TextField, MenuItem } from '@material-ui/core';
 
 import {
   PageTitle,
