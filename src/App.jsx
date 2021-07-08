@@ -19,6 +19,7 @@ import ListagemUsuarios from './pages/usuario/ListagemUsuarios';
 import PrivateRoute from './components/private-route/PrivateRoute';
 import UsuarioAutenticado from './contexts/UsuarioAutenticado';
 import { NAME_KEY, TOKEN_KEY } from './Constants';
+import { useEffect } from 'react';
 
 const muiTheme = createMuiTheme(
   {
@@ -28,7 +29,7 @@ const muiTheme = createMuiTheme(
       },
     },
   },
-  ptBR,
+  ptBR
 );
 
 const useStyles = makeStyles((theme) => ({
@@ -49,6 +50,14 @@ const useStyles = makeStyles((theme) => ({
 function App() {
   const [usuarioAutenticado, setUsuarioAutenticado] = useState({});
   const classes = useStyles();
+
+  useEffect(() => {
+    const nome = localStorage.getItem(NAME_KEY);
+    const token = localStorage.getItem(TOKEN_KEY);
+    if (nome && token) {
+      setUsuarioAutenticado({ nome, token });
+    }
+  }, []);
 
   const handleChangeLogin = (novoLogin) => {
     if (novoLogin) {
@@ -71,57 +80,57 @@ function App() {
         <div className={classes.root}>
           <CssBaseline />
           <main className={classes.content}>
-            <Container component='article' maxWidth='md'>
+            <Container component="article" maxWidth="md">
               <Switch>
                 <PrivateRoute
-                  path='/cadastro-marca'
+                  path="/cadastro-marca"
                   exact
                   component={<CadastroMarca />}
                   estaAutenticado={estaAutenticado}
                 />
                 <PrivateRoute
-                  path='/alteracao-marca/:id'
+                  path="/alteracao-marca/:id"
                   exact
                   component={<CadastroMarca />}
                   estaAutenticado={estaAutenticado}
                 />
                 <PrivateRoute
-                  path='/listar-marcas'
+                  path="/listar-marcas"
                   exact
                   component={<ListagemMarcas />}
                   estaAutenticado={estaAutenticado}
                 />
                 <PrivateRoute
-                  path='/cadastro-veiculo'
+                  path="/cadastro-veiculo"
                   exact
                   component={<CadastroVeiculo />}
                   estaAutenticado={estaAutenticado}
                 />
                 <PrivateRoute
-                  path='/alteracao-veiculo/:id'
+                  path="/alteracao-veiculo/:id"
                   exact
                   component={<CadastroVeiculo />}
                   estaAutenticado={estaAutenticado}
                 />
                 <PrivateRoute
-                  path='/dashboard'
+                  path="/dashboard"
                   exact
                   component={<Dashboard />}
                   estaAutenticado={estaAutenticado}
                 />
                 <PrivateRoute
-                  path='/listar-usuarios'
+                  path="/listar-usuarios"
                   exact
                   component={<ListagemUsuarios />}
                   estaAutenticado={estaAutenticado}
                 />
-                <Route path='/' exact>
+                <Route path="/" exact>
                   <ListagemVeiculos />
                 </Route>
-                <Route path='/login'>
+                <Route path="/login">
                   <Login handleChangeLogin={handleChangeLogin} />
                 </Route>
-                <Route path='/cadastro'>
+                <Route path="/cadastro">
                   <Cadastro />
                 </Route>
               </Switch>

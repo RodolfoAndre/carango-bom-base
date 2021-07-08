@@ -131,7 +131,7 @@ describe('Testes do componente Header', () => {
           const opcaoLogout = screen.getByText('Logout');
           fireEvent.click(opcaoLogout);
 
-          expect(handleChangeLogin).toHaveBeenCalledWith({});
+          expect(handleChangeLogin).toHaveBeenCalledWith(null);
           expect(handleChangeLogin).toHaveBeenCalledTimes(1);
           expect(history.push).toHaveBeenCalledWith('/');
           expect(history.push).toHaveBeenCalledTimes(1);

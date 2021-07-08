@@ -50,15 +50,15 @@ describe('Component de CadastroMarca', () => {
     it('Quando acesso /cadastro-marca, estou na página de cadastro', async () => {
       const { findByText } = renderWithRouter(history, path);
 
-      expect(await findByText('Cadastrar')).toBeInTheDocument();
+      expect(await findByText('Cadastrar marca')).toBeInTheDocument();
     });
 
     it('Quando tento cadastrar uma marca inválida, o botão de cadastrar deve estar desabilitado', async () => {
       const { findByText, getByTestId } = renderWithRouter(history, path);
 
-      const botaoCadastrar = (await findByText('Cadastrar')).parentElement;
+      const botaoCadastrar = (await findByText('cadastrar')).parentElement;
       const nomeInput = getByTestId('marca').childNodes[1].firstChild;
-      fireEvent.change(nomeInput, { target: { value: 'Au' } });
+      fireEvent.change(nomeInput, { target: { value: 'A' } });
       fireEvent.focusOut(nomeInput);
 
       expect(botaoCadastrar).toBeDisabled();
@@ -69,7 +69,7 @@ describe('Component de CadastroMarca', () => {
       history.goBack = jest.fn();
       const { findByText, getByTestId } = renderWithRouter(history, path);
 
-      const botaoCadastrar = (await findByText('Cadastrar')).parentElement;
+      const botaoCadastrar = (await findByText('cadastrar')).parentElement;
       const nomeInput = getByTestId('marca').childNodes[1].firstChild;
       fireEvent.change(nomeInput, { target: { value: 'Audi' } });
       fireEvent.click(botaoCadastrar);
@@ -93,7 +93,7 @@ describe('Component de CadastroMarca', () => {
       history.goBack = jest.fn();
       const { findByText } = renderWithRouter(history, `${path}/:id`);
 
-      expect(await findByText('Alterar')).toBeInTheDocument();
+      expect(await findByText('Alterar marca')).toBeInTheDocument();
     });
 
     it('Quando tento alterar a marca FORD, seu nome aparece no campo', async () => {
@@ -115,9 +115,9 @@ describe('Component de CadastroMarca', () => {
           `${path}/:id`
         );
 
-        const botaoAlterar = (await findByText('Alterar')).parentElement;
+        const botaoAlterar = (await findByText('alterar')).parentElement;
         const nomeInput = getByDisplayValue('FORD');
-        fireEvent.change(nomeInput, { target: { value: 'Au' } });
+        fireEvent.change(nomeInput, { target: { value: 'A' } });
         fireEvent.focusOut(nomeInput);
 
         expect(botaoAlterar).toBeDisabled();
@@ -130,7 +130,7 @@ describe('Component de CadastroMarca', () => {
           `${path}/:id`
         );
 
-        const botaoAlterar = (await findByText('Alterar')).parentElement;
+        const botaoAlterar = (await findByText('alterar')).parentElement;
         const nomeInput = getByDisplayValue('FORD');
         fireEvent.change(nomeInput, { target: { value: 'Audi' } });
         fireEvent.click(botaoAlterar);
