@@ -23,7 +23,13 @@ function ListagemMarcas() {
   const [marcaSelecionada, setMarcaSelecionada] = useState(null);
   const history = useHistory();
 
-  useEffect(() => carregarMarcas(), []);
+  useEffect(() => {
+    carregarMarcas();
+    return () => {
+      setMarcas([]);
+      setMarcaSelecionada(null);
+    };
+  }, []);
 
   const classes = useStyles();
 

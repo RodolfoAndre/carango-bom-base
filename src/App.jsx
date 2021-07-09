@@ -15,10 +15,11 @@ import Login from './pages/login/Login';
 import Cadastro from './pages/cadastro/Cadastro';
 import Dashboard from './pages/dashboard/Dashboard';
 import ListagemUsuarios from './pages/usuario/ListagemUsuarios';
+import AlterarSenha from './pages/alterar-senha/AlterarSenha';
 
 import PrivateRoute from './components/private-route/PrivateRoute';
 import UsuarioAutenticado from './contexts/UsuarioAutenticado';
-import { NAME_KEY, TOKEN_KEY } from './Constants';
+import { NAME_KEY, TOKEN_KEY, ID_USER_KEY } from './Constants';
 
 const muiTheme = createMuiTheme(
   {
@@ -53,8 +54,9 @@ function App() {
   useEffect(() => {
     const nome = localStorage.getItem(NAME_KEY);
     const token = localStorage.getItem(TOKEN_KEY);
+    const idUsuario = localStorage.getItem(ID_USER_KEY);
     if (nome && token) {
-      setUsuarioAutenticado({ nome, token });
+      setUsuarioAutenticado({ nome, token, idUsuario });
     }
   }, []);
 
@@ -62,6 +64,7 @@ function App() {
     if (novoLogin) {
       localStorage.setItem(NAME_KEY, novoLogin.nome);
       localStorage.setItem(TOKEN_KEY, novoLogin.token);
+      localStorage.setItem(ID_USER_KEY, novoLogin.idUsuario);
     } else {
       localStorage.clear();
     }
@@ -121,6 +124,12 @@ function App() {
                   path='/listar-usuarios'
                   exact
                   component={<ListagemUsuarios />}
+                  estaAutenticado={estaAutenticado}
+                />
+                <PrivateRoute
+                  path='/alterar-senha/:id'
+                  exact
+                  component={<AlterarSenha />}
                   estaAutenticado={estaAutenticado}
                 />
                 <Route path='/' exact>

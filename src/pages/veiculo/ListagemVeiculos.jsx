@@ -51,7 +51,13 @@ const ListagemVeiculos = () => {
   const history = useHistory();
   const usuarioAutenticado = useContext(UsuarioAutenticado);
 
-  useEffect(() => carregarVeiculos(), []);
+  useEffect(() => {
+    carregarVeiculos();
+    return () => {
+      setVeiculos([]);
+      setVeiculoSelecionado(null);
+    };
+  }, []);
 
   const classes = useStyles();
 

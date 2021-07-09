@@ -10,7 +10,7 @@ import UsuarioAutenticado from '../../contexts/UsuarioAutenticado';
 
 const Header = ({ handleChangeLogin }) => {
   const [linkPara, setLinkPara] = useState(null);
-  const [menuLogout, setMenuLogout] = useState(null);
+  const [menuLogado, setMenuLogado] = useState(null);
 
   const history = useHistory();
 
@@ -20,8 +20,8 @@ const Header = ({ handleChangeLogin }) => {
   const fecharMenu = () => setLinkPara(null);
   const redirecionarPara = (pagina) => history.push(pagina);
 
-  const abrirLogout = (e) => setMenuLogout(e.currentTarget);
-  const fecharLogout = () => setMenuLogout(null);
+  const abrirMenuLogado = (e) => setMenuLogado(e.currentTarget);
+  const fecharMenuLogado = () => setMenuLogado(null);
   const logout = () => {
     handleChangeLogin(null);
     redirecionarPara('/');
@@ -31,21 +31,22 @@ const Header = ({ handleChangeLogin }) => {
     return usuarioAutenticado?.nome;
   };
 
+  const adicionarItensMenu = (menuItems) =>
+    menuItems.push(
+      {
+        titulo: 'Marcas',
+        rota: '/listar-marcas',
+      },
+      { titulo: 'Usuários', rota: '/listar-usuarios' },
+      {
+        titulo: 'Dashboard',
+        rota: '/dashboard',
+      }
+    );
+
   const renderMenuItems = () => {
     let menuItems = [{ titulo: 'Veículos', rota: '/' }];
-    if (estaAutenticado()) {
-      menuItems.push(
-        {
-          titulo: 'Marcas',
-          rota: '/listar-marcas',
-        },
-        { titulo: 'Usuários', rota: '/listar-usuarios' },
-        {
-          titulo: 'Dashboard',
-          rota: '/dashboard',
-        }
-      );
-    }
+    if (estaAutenticado()) adicionarItensMenu(menuItems);
     return menuItems;
   };
 
@@ -61,21 +62,29 @@ const Header = ({ handleChangeLogin }) => {
           <MenuButton
             aria-controls='menu'
             aria-haspopup='true'
-            aria-label='logout-menu'
-            onClick={abrirLogout}
+            aria-label='menu-logado'
+            onClick={abrirMenuLogado}
           >
             {usuarioAutenticado.nome}
           </MenuButton>
           <Menu
             id='simple-menu'
-            anchorEl={menuLogout}
+            anchorEl={menuLogado}
             keepMounted
-            open={Boolean(menuLogout)}
-            onClose={fecharLogout}
+            open={Boolean(menuLogado)}
+            onClose={fecharMenuLogado}
           >
             <MenuItem
               onClick={() => {
-                fecharLogout();
+                fecharMenuLogado();
+                redirecionarPara(`/alterar-senha/${usuarioAutenticado.id}`);
+              }}
+            >
+              Alterar senha
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                fecharMenuLogado();
                 logout();
               }}
             >
