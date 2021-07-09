@@ -1,6 +1,6 @@
 import { TOKEN_KEY } from '../Constants';
 
-const baseUrl = 'http://localhost:8080/marcas';
+const baseUrl = 'https://carango-bom-withfliters.herokuapp.com/marcas';
 const headers = () =>
   new Headers({
     'Content-Type': 'application/json',
