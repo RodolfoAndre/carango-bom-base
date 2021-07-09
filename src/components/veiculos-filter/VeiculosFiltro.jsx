@@ -7,11 +7,11 @@ import {
   Select,
   FormControl,
   InputLabel,
+  Typography,
 } from '@material-ui/core';
 import { ActionsToolbar, ActionButton } from '../../assets/GlobalStyles.jsx';
 
 import useErros from '../../hooks/useErros';
-import { Typography } from '@material-ui/core';
 
 const VeiculosFiltro = ({
   marcasOpcoes,
