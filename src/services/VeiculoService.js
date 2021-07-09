@@ -6,7 +6,8 @@ const headers = () =>
   new Headers({
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${localStorage.getItem(TOKEN_KEY)}`,
-    'X-XSRF-TOKEN': CookiesUtils.getCookie('XSRF-TOKEN')
+    'X-XSRF-TOKEN': CookiesUtils.getCookie('XSRF-TOKEN'),
+    'Access-Control-Allow-Origin': 'true'
   });
 
 const VeiculoService = {
