@@ -17,6 +17,14 @@ const VeiculoService = {
     );
   },
 
+  filtrar(filtro) {
+    return fetch(`${baseUrl}/filtro`, {
+      method: 'POST',
+      headers: headers(),
+      body: JSON.stringify(filtro),
+    }).then((response) => response.json());
+  },
+
   consultar(id) {
     const reqHeaders = headers();
     reqHeaders.delete('X-XSRF-TOKEN');
