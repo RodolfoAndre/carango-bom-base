@@ -19,8 +19,13 @@ export const ActionButton = styled(Button)`
 
 export const StyledFab = styled(Fab)`
   position: absolute;
-  bottom: 100px;
+  bottom: 70px;
   right: 100px;
+
+  @media (max-width: 500px) {
+    bottom: 50px;
+    right: 50px;
+  }
 `;
 
 export const LoginContainer = styled.div`

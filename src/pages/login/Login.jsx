@@ -25,6 +25,7 @@ const Login = ({ handleChangeLogin }) => {
         if (!response?.error) {
           handleChangeLogin({
             nome: usuario.nome,
+            id: response.idUsuario,
             token: response.token,
           });
           history.push('/');

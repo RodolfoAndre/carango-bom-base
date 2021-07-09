@@ -56,10 +56,13 @@ const ListagemVeiculos = () => {
   const usuarioAutenticado = useContext(UsuarioAutenticado);
 
   useEffect(() => {
-    if (usuarioAutenticado?.token?.length > 0) {
-      carregarMarcas();
-    }
+    carregarMarcas();
     carregarVeiculos();
+    return () => {
+      setVeiculos([]);
+      setVeiculoSelecionado(null);
+      setMarcas([]);
+    };
   }, []);
 
   const classes = useStyles();
