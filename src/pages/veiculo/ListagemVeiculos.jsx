@@ -17,7 +17,7 @@ import { useStyles } from '../../assets/DataGridStyles';
 
 import VeiculoService from '../../services/VeiculoService';
 import UsuarioAutenticado from '../../contexts/UsuarioAutenticado.js';
-import VeiculosFiltro from '../../components/veiculos-filter/VeiculosFiltro.jsx';
+import VeiculosFiltro from '../../components/veiculos-filtro/VeiculosFiltro.jsx';
 import MarcaService from '../../services/MarcaService.js';
 
 const formatarValor = (params) => (

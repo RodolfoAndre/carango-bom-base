@@ -165,27 +165,27 @@ const VeiculosFiltro = ({
           variant='outlined'
           margin='normal'
         />
+        <ActionsToolbar>
+          <ActionButton
+            variant='contained'
+            color='secondary'
+            data-testid='limpar-filtros'
+            disabled={!checarHaFiltros()}
+            onClick={limparFiltros}
+          >
+            Limpar Filtros
+          </ActionButton>
+          <ActionButton
+            variant='contained'
+            color='primary'
+            type='submit'
+            data-testid='filtrar'
+            disabled={!checarHaFiltros() || !possoEnviar()}
+          >
+            Filtrar
+          </ActionButton>
+        </ActionsToolbar>
       </FormFiltro>
-      <ActionsToolbar>
-        <ActionButton
-          variant='contained'
-          color='secondary'
-          data-testid='limpar-filtros'
-          disabled={!checarHaFiltros()}
-          onClick={limparFiltros}
-        >
-          Limpar Filtros
-        </ActionButton>
-        <ActionButton
-          variant='contained'
-          color='primary'
-          type='submit'
-          data-testid='filtrar'
-          disabled={!checarHaFiltros() || !possoEnviar()}
-        >
-          Filtrar
-        </ActionButton>
-      </ActionsToolbar>
     </FiltroWrapper>
   );
 };

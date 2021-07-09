@@ -1,106 +1,116 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <unitTest version="1">
-    <file path="/Users/louise/Documents/acelera/carango-bom-base/src/pages/alterar-senha/AlterarSenha.test.js">
-        <testCase name="Testes do componente AlterarSenha Teste de renderização e exibição Deve renderizar componente corretamente" duration="573"/>
-        <testCase name="Testes do componente AlterarSenha Teste de renderização e exibição Deve redirecionar para Home ao alterar uma senha corretamente" duration="564"/>
+    <file path="/Users/felipetorresmagalhaes/Documents/ACELERA/projeto/carango-bom-base/src/pages/dashboard/Dashboard.test.js">
+        <testCase name="Testes do componente Dashboard Deve renderizar o componente corretamente" duration="786"/>
+        <testCase name="Testes do componente Dashboard Deve exibir aviso de nenhum veículo encontrado caso não exista veículo cadastrado" duration="113"/>
     </file>
-    <file path="/Users/louise/Documents/acelera/carango-bom-base/src/components/header/Header.test.js">
-        <testCase name="Testes do componente Header Usuário não logado Testes de renderização e exibição Deve renderizar componente corretamente" duration="1118"/>
-        <testCase name="Testes do componente Header Usuário não logado Testes de renderização e exibição Deve exibir opções corretamente ao clicar no menu" duration="411"/>
-        <testCase name="Testes do componente Header Usuário não logado Testes de redirecionamento Testes de Home e Login Deve redirecionar para a Home ao clicar no título" duration="298"/>
-        <testCase name="Testes do componente Header Usuário não logado Testes de redirecionamento Testes de Home e Login Deve redirecionar para a tela de Login ao clicar no botão Login" duration="380"/>
-        <testCase name="Testes do componente Header Usuário não logado Testes de redirecionamento Testes dos itens de menu Deve redirecionar para a página de listagem de veículos ao clicar na opção Veículos" duration="233"/>
-        <testCase name="Testes do componente Header Usuário logado Testes de renderização e exibição Deve renderizar componente corretamente, incluindo nome do usuário logado" duration="285"/>
-        <testCase name="Testes do componente Header Usuário logado Testes de renderização e exibição Deve exibir opções corretamente ao clicar no menu" duration="244"/>
-        <testCase name="Testes do componente Header Usuário logado Testes de redirecionamento Testes de Logout Deve exibir opção de logout e limpar dados do usuário autenticado ao clicá-la" duration="329"/>
-        <testCase name="Testes do componente Header Usuário logado Testes de redirecionamento Testes dos itens de menu Deve redirecionar para a página de listagem de marcas ao clicar na opção Marcas" duration="259"/>
+    <file path="/Users/felipetorresmagalhaes/Documents/ACELERA/projeto/carango-bom-base/src/pages/marca/CadastroMarca.test.js">
+        <testCase name="Component de CadastroMarca O component deve sempre exibir o campo de marca" duration="1022"/>
+        <testCase name="Component de CadastroMarca O component deve sempre exibir o botão de cancelar" duration="166"/>
+        <testCase name="Component de CadastroMarca Quando aperto o botão de cancelar, o component deve voltar para a página anterior" duration="333"/>
+        <testCase name="Component de CadastroMarca Página de cadastro Quando acesso /cadastro-marca, estou na página de cadastro" duration="125"/>
+        <testCase name="Component de CadastroMarca Página de cadastro Quando tento cadastrar uma marca inválida, o botão de cadastrar deve estar desabilitado" duration="454"/>
+        <testCase name="Component de CadastroMarca Página de cadastro Quando tento cadastrar uma marca válida, o component deve chamar a função cadastrar e voltar para a página anterior" duration="268"/>
+        <testCase name="Component de CadastroMarca Página de alteração Quando acesso /alteracao-marca/:id, estou na página de alteração" duration="280"/>
+        <testCase name="Component de CadastroMarca Página de alteração Quando tento alterar a marca FORD, seu nome aparece no campo" duration="267"/>
+        <testCase name="Component de CadastroMarca Página de alteração Quando tento alterar uma marca com um nome inválido, o botão de alterar deve estar desabilitado" duration="363"/>
+        <testCase name="Component de CadastroMarca Página de alteração Quando tento alterar uma marca com um nome válido, o component deve chamar a função alterar e voltar para a página anterior" duration="236"/>
     </file>
-    <file path="/Users/louise/Documents/acelera/carango-bom-base/src/pages/marca/CadastroMarca.test.js">
-        <testCase name="Component de CadastroMarca O component deve sempre exibir o campo de marca" duration="564"/>
-        <testCase name="Component de CadastroMarca O component deve sempre exibir o botão de cancelar" duration="116"/>
-        <testCase name="Component de CadastroMarca Quando aperto o botão de cancelar, o component deve voltar para a página anterior" duration="124"/>
-        <testCase name="Component de CadastroMarca Página de cadastro Quando acesso /cadastro-marca, estou na página de cadastro" duration="128"/>
-        <testCase name="Component de CadastroMarca Página de cadastro Quando tento cadastrar uma marca inválida, o botão de cadastrar deve estar desabilitado" duration="173"/>
-        <testCase name="Component de CadastroMarca Página de cadastro Quando tento cadastrar uma marca válida, o component deve chamar a função cadastrar e voltar para a página anterior" duration="195"/>
-        <testCase name="Component de CadastroMarca Página de alteração Quando acesso /alteracao-marca/:id, estou na página de alteração" duration="159"/>
-        <testCase name="Component de CadastroMarca Página de alteração Quando tento alterar a marca FORD, seu nome aparece no campo" duration="139"/>
-        <testCase name="Component de CadastroMarca Página de alteração Quando tento alterar uma marca com um nome inválido, o botão de alterar deve estar desabilitado" duration="142"/>
-        <testCase name="Component de CadastroMarca Página de alteração Quando tento alterar uma marca com um nome válido, o component deve chamar a função alterar e voltar para a página anterior" duration="101"/>
+    <file path="/Users/felipetorresmagalhaes/Documents/ACELERA/projeto/carango-bom-base/src/pages/cadastro/Cadastro.test.js">
+        <testCase name="Testes de Cadastro Testes de renderização e exibição Deve renderizar componente corretamente" duration="1008"/>
+        <testCase name="Testes de Cadastro Testes de renderização e exibição Deve exibir link para a página de Login" duration="1076"/>
+        <testCase name="Testes de Cadastro Testes de redirecionamento Deve redirecionar para tela de Login quando cadastro for realizado com sucesso" duration="886"/>
     </file>
-    <file path="/Users/louise/Documents/acelera/carango-bom-base/src/pages/cadastro/Cadastro.test.js">
-        <testCase name="Testes de Cadastro Testes de renderização e exibição Deve renderizar componente corretamente" duration="529"/>
-        <testCase name="Testes de Cadastro Testes de renderização e exibição Deve exibir link para a página de Login" duration="534"/>
-        <testCase name="Testes de Cadastro Testes de redirecionamento Deve redirecionar para tela de Login quando cadastro for realizado com sucesso" duration="400"/>
+    <file path="/Users/felipetorresmagalhaes/Documents/ACELERA/projeto/carango-bom-base/src/pages/login/Login.test.js">
+        <testCase name="Testes de Login Testes de renderização e exibição Deve renderizar componente corretamente" duration="988"/>
+        <testCase name="Testes de Login Testes de renderização e exibição Deve exibir link para a página de Cadastro" duration="825"/>
+        <testCase name="Testes de Login Testes de redirecionamento Deve redirecionar para Home quando login for realizado com sucesso" duration="616"/>
     </file>
-    <file path="/Users/louise/Documents/acelera/carango-bom-base/src/pages/usuario/ListagemUsuarios.test.js">
-        <testCase name="Component de ListagemUsuarios Quando entrar na página Datagrid deve ser exibido" duration="1541"/>
-        <testCase name="Component de ListagemUsuarios Quando entrar na página Datagrid deve exibir coluna de nome" duration="498"/>
-        <testCase name="Component de ListagemUsuarios Quando entrar na página Datagrid deve exibir linha com valor de nome" duration="350"/>
-        <testCase name="Component de ListagemUsuarios Quando um usuário estiver logado Botão excluir deve ser exibido" duration="271"/>
-        <testCase name="Component de ListagemUsuarios Quando um usuário estiver logado Botão excluir deve estar desabilitado caso nenhuma linha do DataGrid tenha sido selecionada" duration="344"/>
-        <testCase name="Component de ListagemUsuarios Quando um usuário estiver logado Botão excluir deve estar desabilitado caso o usuário selecionado do DataGrid for o mesmo que estiver autenticado" duration="449"/>
-        <testCase name="Component de ListagemUsuarios Quando um usuário estiver logado Botão excluir deve estar habilitado caso uma linha do DataGrid tenha sido selecionada" duration="464"/>
-        <testCase name="Component de ListagemUsuarios Quando um usuário estiver logado Ao clicar no botão excluir deve chamar a função excluir, limpar o usuario selecionado e chamar a função listar" duration="420"/>
+    <file path="/Users/felipetorresmagalhaes/Documents/ACELERA/projeto/carango-bom-base/src/components/header/Header.test.js">
+        <testCase name="Testes do componente Header Usuário não logado Testes de renderização e exibição Deve renderizar componente corretamente" duration="1971"/>
+        <testCase name="Testes do componente Header Usuário não logado Testes de renderização e exibição Deve exibir opções corretamente ao clicar no menu" duration="473"/>
+        <testCase name="Testes do componente Header Usuário não logado Testes de redirecionamento Testes de Home e Login Deve redirecionar para a Home ao clicar no título" duration="529"/>
+        <testCase name="Testes do componente Header Usuário não logado Testes de redirecionamento Testes de Home e Login Deve redirecionar para a tela de Login ao clicar no botão Login" duration="527"/>
+        <testCase name="Testes do componente Header Usuário não logado Testes de redirecionamento Testes dos itens de menu Deve redirecionar para a página de listagem de veículos ao clicar na opção Veículos" duration="354"/>
+        <testCase name="Testes do componente Header Usuário logado Testes de renderização e exibição Deve renderizar componente corretamente, incluindo nome do usuário logado" duration="484"/>
+        <testCase name="Testes do componente Header Usuário logado Testes de renderização e exibição Deve exibir opções corretamente ao clicar no menu" duration="308"/>
+        <testCase name="Testes do componente Header Usuário logado Testes de redirecionamento Testes de Logout Deve exibir opção de logout e limpar dados do usuário autenticado ao clicá-la" duration="395"/>
+        <testCase name="Testes do componente Header Usuário logado Testes de redirecionamento Testes dos itens de menu Deve redirecionar para a página de listagem de marcas ao clicar na opção Marcas" duration="302"/>
     </file>
-    <file path="/Users/louise/Documents/acelera/carango-bom-base/src/components/login-form/LoginFormComponent.test.js">
-        <testCase name="Testes de LoginFormComponent Testes com o modo login Deve renderizar componente corretamente" duration="567"/>
-        <testCase name="Testes de LoginFormComponent Testes com o modo login Deve desabilitar botão de Entrar quando Usuário for inválido" duration="185"/>
-        <testCase name="Testes de LoginFormComponent Testes com o modo login Deve desabilitar botão de Entrar quando Senha for inválida" duration="163"/>
-        <testCase name="Testes de LoginFormComponent Testes com o modo login Deve habilitar botão de Entrar quando Os campos estiverem preenchidos corretamente " duration="146"/>
-        <testCase name="Testes de LoginFormComponent Testes com o modo cadastrar Deve renderizar componente corretamente" duration="233"/>
-        <testCase name="Testes de LoginFormComponent Testes com o modo cadastrar Deve desabilitar botão de Cadastrar quando Usuário for inválido" duration="154"/>
-        <testCase name="Testes de LoginFormComponent Testes com o modo cadastrar Deve desabilitar botão de Cadastrar quando Senha for inválida" duration="142"/>
-        <testCase name="Testes de LoginFormComponent Testes com o modo cadastrar Deve desabilitar botão de Cadastrar quando Senhas forem diferentes" duration="159"/>
-        <testCase name="Testes de LoginFormComponent Testes com o modo cadastrar Deve habilitar o botão de Cadastrar quando Os campos estiverem preenchidos corretamente " duration="160"/>
+    <file path="/Users/felipetorresmagalhaes/Documents/ACELERA/projeto/carango-bom-base/src/pages/alterar-senha/AlterarSenha.test.js">
+        <testCase name="Testes do componente AlterarSenha Teste de renderização e exibição Deve renderizar componente corretamente" duration="495"/>
+        <testCase name="Testes do componente AlterarSenha Teste de renderização e exibição Deve redirecionar para Home ao alterar uma senha corretamente" duration="835"/>
     </file>
-    <file path="/Users/louise/Documents/acelera/carango-bom-base/src/pages/veiculo/CadastroVeiculo.test.js">
-        <testCase name="Component de CadastroVeiculo Deve renderizar o componente corretamente" duration="1322"/>
-        <testCase name="Component de CadastroVeiculo Deve abrir a página de cadastro corretamente" duration="99"/>
-        <testCase name="Component de CadastroVeiculo Ao clicar no botão de cancelar, deve voltar para a página anterior" duration="185"/>
-        <testCase name="Component de CadastroVeiculo Deve desabilitar botão de cadastrar quando o valor informado não for numérico" duration="335"/>
-        <testCase name="Component de CadastroVeiculo Deve desabilitar botão de cadastrar ao preencher algum campo incorretamente" duration="364"/>
-        <testCase name="Component de CadastroVeiculo Deve chamar a função cadastrar e voltar para a página anterior ao cadastrar um veículo válido" duration="774"/>
-        <testCase name="Component de CadastroVeiculo Alteração de veículo Deve abrir página de alteração de veículo corretamente" duration="268"/>
-        <testCase name="Component de CadastroVeiculo Alteração de veículo Deve carregar página com os dados do veículo selecionado ao clicar no botão de alterar veículo" duration="253"/>
-        <testCase name="Component de CadastroVeiculo Alteração de veículo Deve desabilitar botão de alterar ao preencher algum campo incorretamente" duration="347"/>
-        <testCase name="Component de CadastroVeiculo Alteração de veículo Deve chamar a função alterar e voltar para a página anterior ao alterar um veículo com sucesso" duration="516"/>
+    <file path="/Users/felipetorresmagalhaes/Documents/ACELERA/projeto/carango-bom-base/src/components/login-form/LoginFormComponent.test.js">
+        <testCase name="Testes de LoginFormComponent Testes com o modo login Deve renderizar componente corretamente" duration="1528"/>
+        <testCase name="Testes de LoginFormComponent Testes com o modo login Deve desabilitar botão de Entrar quando Usuário for inválido" duration="533"/>
+        <testCase name="Testes de LoginFormComponent Testes com o modo login Deve desabilitar botão de Entrar quando Senha for inválida" duration="531"/>
+        <testCase name="Testes de LoginFormComponent Testes com o modo login Deve habilitar botão de Entrar quando Os campos estiverem preenchidos corretamente " duration="432"/>
+        <testCase name="Testes de LoginFormComponent Testes com o modo cadastrar Deve renderizar componente corretamente" duration="444"/>
+        <testCase name="Testes de LoginFormComponent Testes com o modo cadastrar Deve desabilitar botão de Cadastrar quando Usuário for inválido" duration="347"/>
+        <testCase name="Testes de LoginFormComponent Testes com o modo cadastrar Deve desabilitar botão de Cadastrar quando Senha for inválida" duration="268"/>
+        <testCase name="Testes de LoginFormComponent Testes com o modo cadastrar Deve desabilitar botão de Cadastrar quando Senhas forem diferentes" duration="290"/>
+        <testCase name="Testes de LoginFormComponent Testes com o modo cadastrar Deve habilitar o botão de Cadastrar quando Os campos estiverem preenchidos corretamente " duration="181"/>
     </file>
-    <file path="/Users/louise/Documents/acelera/carango-bom-base/src/pages/marca/ListagemMarcas.test.js">
-        <testCase name="Component de ListagemMarcas Quando entrar na página deve exibir datagrid" duration="1427"/>
-        <testCase name="Component de ListagemMarcas Quando entrar na página datagrid deve exibir coluna de marca" duration="504"/>
-        <testCase name="Component de ListagemMarcas Quando entrar na página datagrid deve exibir linha com valores de marca" duration="301"/>
-        <testCase name="Component de ListagemMarcas Quando entrar na página botão excluir deve ser exibido" duration="411"/>
-        <testCase name="Component de ListagemMarcas Quando entrar na página botão alterar deve ser exibido" duration="276"/>
-        <testCase name="Component de ListagemMarcas Quando entrar na página botão adicionar deve ser exibido" duration="319"/>
-        <testCase name="Component de ListagemMarcas O botão excluir deve estar desabilitado caso nenhuma linha do DataGrid tenha sido selecionada" duration="336"/>
-        <testCase name="Component de ListagemMarcas O botão excluir deve estar habilitado caso uma linha do DataGrid tenha sido selecionada" duration="394"/>
-        <testCase name="Component de ListagemMarcas O botão excluir deve chamar a função excluir, limpar a marca selecionada e chamar a função listar" duration="477"/>
-        <testCase name="Component de ListagemMarcas O botão alterar deve estar desabilitado caso nenhuma linha do DataGrid tenha sido selecionada" duration="267"/>
-        <testCase name="Component de ListagemMarcas O botão alterar deve estar habilitado caso uma linha do DataGrid tenha sido selecionada" duration="270"/>
-        <testCase name="Component de ListagemMarcas O botão alterar deve rotear para a página /alteracao-marca/:id" duration="272"/>
-        <testCase name="Component de ListagemMarcas O botão adicionar deve estar habilitado" duration="146"/>
-        <testCase name="Component de ListagemMarcas O botão adicionar deve rotear para a página de cadastrar marca" duration="137"/>
+    <file path="/Users/felipetorresmagalhaes/Documents/ACELERA/projeto/carango-bom-base/src/pages/usuario/ListagemUsuarios.test.js">
+        <testCase name="Component de ListagemUsuarios Quando entrar na página Datagrid deve ser exibido" duration="3029"/>
+        <testCase name="Component de ListagemUsuarios Quando entrar na página Datagrid deve exibir coluna de nome" duration="1185"/>
+        <testCase name="Component de ListagemUsuarios Quando entrar na página Datagrid deve exibir linha com valor de nome" duration="1093"/>
+        <testCase name="Component de ListagemUsuarios Quando um usuário estiver logado Botão excluir deve ser exibido" duration="668"/>
+        <testCase name="Component de ListagemUsuarios Quando um usuário estiver logado Botão excluir deve estar desabilitado caso nenhuma linha do DataGrid tenha sido selecionada" duration="421"/>
+        <testCase name="Component de ListagemUsuarios Quando um usuário estiver logado Botão excluir deve estar desabilitado caso o usuário selecionado do DataGrid for o mesmo que estiver autenticado" duration="453"/>
+        <testCase name="Component de ListagemUsuarios Quando um usuário estiver logado Botão excluir deve estar habilitado caso uma linha do DataGrid tenha sido selecionada" duration="288"/>
+        <testCase name="Component de ListagemUsuarios Quando um usuário estiver logado Ao clicar no botão excluir deve chamar a função excluir, limpar o usuario selecionado e chamar a função listar" duration="410"/>
     </file>
-    <file path="/Users/louise/Documents/acelera/carango-bom-base/src/pages/veiculo/ListagemVeiculos.test.js">
-        <testCase name="Component de ListagemVeiculos Quando entrar na página Datagrid deve ser exibido" duration="1014"/>
-        <testCase name="Component de ListagemVeiculos Quando entrar na página Datagrid deve exibir colunas de marca, modelo, ano e valor" duration="507"/>
-        <testCase name="Component de ListagemVeiculos Quando entrar na página Datagrid deve exibir linha com valores de marca, modelo, ano e valor" duration="560"/>
-        <testCase name="Component de ListagemVeiculos Quando um usuário estiver logado Botão excluir e alterar devem ser exibidos" duration="674"/>
-        <testCase name="Component de ListagemVeiculos Quando um usuário estiver logado Botão excluir e alterar devem estar desabilitados caso nenhuma linha do DataGrid tenha sido selecionada" duration="522"/>
-        <testCase name="Component de ListagemVeiculos Quando um usuário estiver logado Botão excluir e alterar devem estar habilitados caso uma linha do DataGrid tenha sido selecionada" duration="566"/>
-        <testCase name="Component de ListagemVeiculos Quando um usuário estiver logado Botão adicionar deve ser exibido" duration="339"/>
-        <testCase name="Component de ListagemVeiculos Quando um usuário estiver logado Botão adicionar deve estar habilitado" duration="249"/>
-        <testCase name="Component de ListagemVeiculos Quando um usuário estiver logado Ao clicar no botão Excluir deve chamar a função excluir, limpar o veículo selecionado e chamar a função listar" duration="330"/>
-        <testCase name="Component de ListagemVeiculos Quando um usuário estiver logado Ao clicar no botão Alterar deve redirecionar para a rota de alteração de veículo" duration="291"/>
-        <testCase name="Component de ListagemVeiculos Quando um usuário estiver logado Ao clicar no botão Adicionar deve redirecionar para a página de cadastro de veículo" duration="223"/>
+    <file path="/Users/felipetorresmagalhaes/Documents/ACELERA/projeto/carango-bom-base/src/pages/veiculo/CadastroVeiculo.test.js">
+        <testCase name="Component de CadastroVeiculo Deve renderizar o componente corretamente" duration="3632"/>
+        <testCase name="Component de CadastroVeiculo Deve abrir a página de cadastro corretamente" duration="389"/>
+        <testCase name="Component de CadastroVeiculo Ao clicar no botão de cancelar, deve voltar para a página anterior" duration="434"/>
+        <testCase name="Component de CadastroVeiculo Deve desabilitar botão de cadastrar quando o valor informado não for numérico" duration="738"/>
+        <testCase name="Component de CadastroVeiculo Deve desabilitar botão de cadastrar ao preencher algum campo incorretamente" duration="508"/>
+        <testCase name="Component de CadastroVeiculo Deve chamar a função cadastrar e voltar para a página anterior ao cadastrar um veículo válido" duration="654"/>
+        <testCase name="Component de CadastroVeiculo Alteração de veículo Deve abrir página de alteração de veículo corretamente" duration="185"/>
+        <testCase name="Component de CadastroVeiculo Alteração de veículo Deve carregar página com os dados do veículo selecionado ao clicar no botão de alterar veículo" duration="238"/>
+        <testCase name="Component de CadastroVeiculo Alteração de veículo Deve desabilitar botão de alterar ao preencher algum campo incorretamente" duration="374"/>
+        <testCase name="Component de CadastroVeiculo Alteração de veículo Deve chamar a função alterar e voltar para a página anterior ao alterar um veículo com sucesso" duration="469"/>
     </file>
-    <file path="/Users/louise/Documents/acelera/carango-bom-base/src/pages/dashboard/Dashboard.test.js">
-        <testCase name="Testes do componente Dashboard Deve renderizar o componente corretamente" duration="96"/>
-        <testCase name="Testes do componente Dashboard Deve exibir aviso de nenhum veículo encontrado caso não exista veículo cadastrado" duration="11"/>
+    <file path="/Users/felipetorresmagalhaes/Documents/ACELERA/projeto/carango-bom-base/src/components/veiculos-filtro/VeiculosFiltro.test.js">
+        <testCase name="Testes de VeiculosFiltro Deve renderizar select de marcas e modelos, input de preço máximo e mínimo e botões de limpar filtros e filtrar" duration="845"/>
+        <testCase name="Testes de VeiculosFiltro Teste com campos de filtro vazios Botão de limpar filtros deve estar desabilitado" duration="100"/>
+        <testCase name="Testes de VeiculosFiltro Teste com campos de filtro vazios Botão de filtrar deve estar desabilitado" duration="72"/>
+        <testCase name="Testes de VeiculosFiltro Teste com campos de filtro preenchidos Botão de limpar filtros deve estar habilitado" duration="375"/>
+        <testCase name="Testes de VeiculosFiltro Teste com campos de filtro preenchidos Botão de filtrar deve limpar os valores do filtro" duration="389"/>
+        <testCase name="Testes de VeiculosFiltro Teste com campos de filtro preenchidos Botão de limpar filtros deve limpar os valores do filtro" duration="274"/>
+        <testCase name="Testes de VeiculosFiltro Teste com campos de filtro preenchidos Botão de filtrar deve enviar objeto com valores dos filtros" duration="266"/>
     </file>
-    <file path="/Users/louise/Documents/acelera/carango-bom-base/src/pages/login/Login.test.js">
-        <testCase name="Testes de Login Testes de renderização e exibição Deve renderizar componente corretamente" duration="128"/>
-        <testCase name="Testes de Login Testes de renderização e exibição Deve exibir link para a página de Cadastro" duration="125"/>
-        <testCase name="Testes de Login Testes de redirecionamento Deve redirecionar para Home quando login for realizado com sucesso" duration="110"/>
+    <file path="/Users/felipetorresmagalhaes/Documents/ACELERA/projeto/carango-bom-base/src/pages/marca/ListagemMarcas.test.js">
+        <testCase name="Component de ListagemMarcas Quando entrar na página deve exibir datagrid" duration="3058"/>
+        <testCase name="Component de ListagemMarcas Quando entrar na página datagrid deve exibir coluna de marca" duration="1011"/>
+        <testCase name="Component de ListagemMarcas Quando entrar na página datagrid deve exibir linha com valores de marca" duration="1038"/>
+        <testCase name="Component de ListagemMarcas Quando entrar na página botão excluir deve ser exibido" duration="589"/>
+        <testCase name="Component de ListagemMarcas Quando entrar na página botão alterar deve ser exibido" duration="376"/>
+        <testCase name="Component de ListagemMarcas Quando entrar na página botão adicionar deve ser exibido" duration="281"/>
+        <testCase name="Component de ListagemMarcas O botão excluir deve estar desabilitado caso nenhuma linha do DataGrid tenha sido selecionada" duration="203"/>
+        <testCase name="Component de ListagemMarcas O botão excluir deve estar habilitado caso uma linha do DataGrid tenha sido selecionada" duration="361"/>
+        <testCase name="Component de ListagemMarcas O botão excluir deve chamar a função excluir, limpar a marca selecionada e chamar a função listar" duration="409"/>
+        <testCase name="Component de ListagemMarcas O botão alterar deve estar desabilitado caso nenhuma linha do DataGrid tenha sido selecionada" duration="189"/>
+        <testCase name="Component de ListagemMarcas O botão alterar deve estar habilitado caso uma linha do DataGrid tenha sido selecionada" duration="236"/>
+        <testCase name="Component de ListagemMarcas O botão alterar deve rotear para a página /alteracao-marca/:id" duration="252"/>
+        <testCase name="Component de ListagemMarcas O botão adicionar deve estar habilitado" duration="134"/>
+        <testCase name="Component de ListagemMarcas O botão adicionar deve rotear para a página de cadastrar marca" duration="124"/>
+    </file>
+    <file path="/Users/felipetorresmagalhaes/Documents/ACELERA/projeto/carango-bom-base/src/pages/veiculo/ListagemVeiculos.test.js">
+        <testCase name="Component de ListagemVeiculos Quando entrar na página Datagrid deve ser exibido" duration="2176"/>
+        <testCase name="Component de ListagemVeiculos Quando entrar na página Datagrid deve exibir colunas de marca, modelo, ano e valor" duration="567"/>
+        <testCase name="Component de ListagemVeiculos Quando entrar na página Datagrid deve exibir linha com valores de marca, modelo, ano e valor" duration="346"/>
+        <testCase name="Component de ListagemVeiculos Quando um usuário estiver logado Botão excluir e alterar devem ser exibidos" duration="624"/>
+        <testCase name="Component de ListagemVeiculos Quando um usuário estiver logado Botão excluir e alterar devem estar desabilitados caso nenhuma linha do DataGrid tenha sido selecionada" duration="363"/>
+        <testCase name="Component de ListagemVeiculos Quando um usuário estiver logado Botão excluir e alterar devem estar habilitados caso uma linha do DataGrid tenha sido selecionada" duration="459"/>
+        <testCase name="Component de ListagemVeiculos Quando um usuário estiver logado Botão adicionar deve ser exibido" duration="260"/>
+        <testCase name="Component de ListagemVeiculos Quando um usuário estiver logado Botão adicionar deve estar habilitado" duration="261"/>
+        <testCase name="Component de ListagemVeiculos Quando um usuário estiver logado Ao clicar no botão Excluir deve chamar a função excluir, limpar o veículo selecionado e chamar a função listar" duration="299"/>
+        <testCase name="Component de ListagemVeiculos Quando um usuário estiver logado Ao clicar no botão Alterar deve redirecionar para a rota de alteração de veículo" duration="270"/>
+        <testCase name="Component de ListagemVeiculos Quando um usuário estiver logado Ao clicar no botão Adicionar deve redirecionar para a página de cadastro de veículo" duration="211"/>
+        <testCase name="Component de ListagemVeiculos Quando um usuário estiver logado Filtros deve ser exibido" duration="211"/>
     </file>
 </unitTest>
