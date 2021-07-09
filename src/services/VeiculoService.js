@@ -1,6 +1,6 @@
 import { TOKEN_KEY } from '../Constants';
 
-const baseUrl = 'http://localhost:8080/veiculos';
+const baseUrl = 'https://carango-bom-withfliters.herokuapp.com/veiculos';
 const headers = () =>
   new Headers({
     'Content-Type': 'application/json',
@@ -15,6 +15,14 @@ const VeiculoService = {
     return fetch(baseUrl, { headers: reqHeaders }).then((response) =>
       response.json()
     );
+  },
+
+  filtrar(filtro) {
+    return fetch(`${baseUrl}/filtro`, {
+      method: 'POST',
+      headers: headers(),
+      body: JSON.stringify(filtro),
+    }).then((response) => response.json());
   },
 
   consultar(id) {

@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:8080/auth';
+const baseUrl = 'https://carango-bom-withfliters.herokuapp.com/auth';
 
 const headers = new Headers({
   'Content-Type': 'application/json',
