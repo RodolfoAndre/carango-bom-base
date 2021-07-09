@@ -1,12 +1,12 @@
 import { TOKEN_KEY } from '../Constants';
+import CookiesUtils from "../utils/CookiesUtils";
 
 const baseUrl = 'https://carango-bom-withfliters.herokuapp.com/usuarios';
 const headers = () =>
   new Headers({
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${localStorage.getItem(TOKEN_KEY)}`,
-    'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),
-    'Access-Control-Allow-Credentials': 'true',
+    'X-XSRF-TOKEN': CookiesUtils.getCookie('XSRF-TOKEN')
   });
 
 const UsuarioService = {

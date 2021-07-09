@@ -1,9 +1,11 @@
+import CookiesUtils from "../utils/CookiesUtils";
+
 const baseUrl = 'https://carango-bom-withfliters.herokuapp.com/auth';
 
 const headers = new Headers({
   'Content-Type': 'application/json',
-  'X-XSRF-TOKEN': '',
-  Authorization: 'Bearer ',
+  'Authorization': 'Bearer ',
+  'X-XSRF-TOKEN': CookiesUtils.getCookie('XSRF-TOKEN')
 });
 
 const AutenticacaoService = {
@@ -12,6 +14,8 @@ const AutenticacaoService = {
       method: 'POST',
       headers: headers,
       body: JSON.stringify(usuario),
+      withCredentials: true,
+      credentials : 'include'
     }).then((response) => response.json());
   },
 };

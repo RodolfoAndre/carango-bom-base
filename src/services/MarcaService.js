@@ -1,11 +1,12 @@
 import { TOKEN_KEY } from '../Constants';
+import CookiesUtils from "../utils/CookiesUtils";
 
 const baseUrl = 'https://carango-bom-withfliters.herokuapp.com/marcas';
 const headers = () =>
   new Headers({
     'Content-Type': 'application/json',
-    'X-XSRF-TOKEN': '',
-    Authorization: `Bearer ${localStorage.getItem(TOKEN_KEY)}`,
+    'Authorization': `Bearer ${localStorage.getItem(TOKEN_KEY)}`,
+    'X-XSRF-TOKEN': CookiesUtils.getCookie('XSRF-TOKEN')
   });
 
 const MarcaService = {
@@ -15,6 +16,8 @@ const MarcaService = {
       method: 'POST',
       headers: headers(),
       body: JSON.stringify(marca),
+      withCredentials: true,
+      credentials : 'include'
     }).then((response) => response.json());
   },
 
@@ -23,13 +26,15 @@ const MarcaService = {
       method: 'PUT',
       headers: headers(),
       body: JSON.stringify(marca),
+      withCredentials: true,
+      credentials : 'include'
     }).then((response) => response.json());
   },
 
   consultar(id) {
     const reqHeaders = headers();
     reqHeaders.delete('X-XSRF-TOKEN');
-    return fetch(`${baseUrl}/${id}`, { headers: reqHeaders }).then((response) =>
+    return fetch(`${baseUrl}/${id}`, { headers: reqHeaders, withCredentials: true, credentials : 'include' }).then((response) =>
       response.json()
     );
   },
@@ -37,7 +42,7 @@ const MarcaService = {
   listar() {
     const reqHeaders = headers();
     reqHeaders.delete('X-XSRF-TOKEN');
-    return fetch(baseUrl, { headers: reqHeaders }).then((response) =>
+    return fetch(baseUrl, { headers: reqHeaders, withCredentials: true, credentials : 'include' }).then((response) =>
       response.json()
     );
   },
@@ -46,6 +51,8 @@ const MarcaService = {
     return fetch(`${baseUrl}/${marca.id}`, {
       method: 'DELETE',
       headers: headers(),
+      withCredentials: true,
+      credentials : 'include'
     }).then((response) => response.json());
   },
 };

@@ -1,11 +1,12 @@
 import { TOKEN_KEY } from '../Constants';
+import CookiesUtils from "../utils/CookiesUtils";
 
 const baseUrl = 'https://carango-bom-withfliters.herokuapp.com/veiculos';
 const headers = () =>
   new Headers({
     'Content-Type': 'application/json',
-    'X-XSRF-TOKEN': '',
-    'Authorization': `Bearer ${localStorage.getItem(TOKEN_KEY)}`
+    'Authorization': `Bearer ${localStorage.getItem(TOKEN_KEY)}`,
+    'X-XSRF-TOKEN': CookiesUtils.getCookie('XSRF-TOKEN')
   });
 
 const VeiculoService = {
@@ -22,13 +23,15 @@ const VeiculoService = {
       method: 'POST',
       headers: headers(),
       body: JSON.stringify(filtro),
+      withCredentials: true,
+      credentials : 'include'
     }).then((response) => response.json());
   },
 
   consultar(id) {
     const reqHeaders = headers();
     reqHeaders.delete('X-XSRF-TOKEN');
-    return fetch(`${baseUrl}/${id}`, { headers: reqHeaders }).then((response) =>
+    return fetch(`${baseUrl}/${id}`, { headers: reqHeaders, withCredentials: true, credentials : 'include' }).then((response) =>
       response.json()
     );
   },
@@ -38,6 +41,8 @@ const VeiculoService = {
       method: 'POST',
       headers: headers(),
       body: JSON.stringify(veiculo),
+      withCredentials: true,
+      credentials : 'include'
     }).then((response) => response.json());
   },
 
@@ -46,6 +51,8 @@ const VeiculoService = {
       method: 'PUT',
       headers: headers(),
       body: JSON.stringify(veiculo),
+      withCredentials: true,
+      credentials : 'include'
     }).then((response) => response.json());
   },
 
@@ -53,6 +60,8 @@ const VeiculoService = {
     return fetch(`${baseUrl}/${veiculo.id}`, {
       method: 'DELETE',
       headers: headers(),
+      withCredentials: true,
+      credentials : 'include'
     }).then((response) => response.json());
   },
 };
