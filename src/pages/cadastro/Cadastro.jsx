@@ -18,6 +18,7 @@ const Cadastro = () => {
   const history = useHistory();
 
   const cadastrar = (usuario, possoEnviar) => {
+    console.log(document.cookie);
     if (possoEnviar()) {
       UsuarioService.cadastrar(usuario).then(() => {
         history.push('/login');
