@@ -7,7 +7,9 @@ import { createMemoryHistory } from 'history';
 import ListagemVeiculos from './ListagemVeiculos';
 import VeiculoService from '../../services/VeiculoService';
 import UsuarioAutenticado from '../../contexts/UsuarioAutenticado';
+import MarcaService from '../../services/MarcaService';
 
+jest.mock('../../services/MarcaService');
 jest.mock('../../services/VeiculoService');
 
 const createRender = () => {
@@ -34,6 +36,7 @@ const renderWithRouter = (history, context) => {
 
 describe('Component de ListagemVeiculos', () => {
   beforeEach(() => {
+    MarcaService.listar.mockResolvedValue([]);
     VeiculoService.listar.mockResolvedValue([]);
   });
 

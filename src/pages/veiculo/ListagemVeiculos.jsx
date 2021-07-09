@@ -17,6 +17,8 @@ import { useStyles } from '../../assets/DataGridStyles';
 
 import VeiculoService from '../../services/VeiculoService';
 import UsuarioAutenticado from '../../contexts/UsuarioAutenticado.js';
+import VeiculosFiltro from '../../components/veiculos-filter/VeiculosFiltro.jsx';
+import MarcaService from '../../services/MarcaService.js';
 
 const formatarValor = (params) => (
   <NumberFormat
@@ -47,7 +49,9 @@ const colunas = [
 
 const ListagemVeiculos = () => {
   const [veiculos, setVeiculos] = useState([]);
+  const [veiculosAFiltrar, setVeiculosAFiltrar] = useState([]);
   const [veiculoSelecionado, setVeiculoSelecionado] = useState(null);
+  const [marcas, setMarcas] = useState([]);
   const history = useHistory();
   const usuarioAutenticado = useContext(UsuarioAutenticado);
 
@@ -64,6 +68,13 @@ const ListagemVeiculos = () => {
   const carregarVeiculos = () => {
     VeiculoService.listar().then((dados) => {
       setVeiculos(dados);
+      setVeiculosAFiltrar(dados);
+    });
+  };
+
+  const carregarMarcas = () => {
+    MarcaService.listar().then((dados) => {
+      setMarcas(dados);
     });
   };
 
@@ -76,6 +87,16 @@ const ListagemVeiculos = () => {
 
   const alterarVeiculo = () => {
     history.push(`/alteracao-veiculo/${veiculoSelecionado.id}`);
+  };
+
+  const aplicarFiltro = (filtroObj) => {
+    if (filtroObj) {
+      VeiculoService.filtrar(filtroObj).then((response) => {
+        setVeiculos(response);
+      });
+    } else {
+      carregarVeiculos();
+    }
   };
 
   const renderAcoes = () => {
@@ -113,11 +134,25 @@ const ListagemVeiculos = () => {
     return <></>;
   };
 
+  const renderFiltro = () => {
+    if (usuarioAutenticado?.token?.length > 0) {
+      return (
+        <VeiculosFiltro
+          marcasOpcoes={marcas}
+          modelosOpcoes={veiculosAFiltrar}
+          handleChangeFiltro={aplicarFiltro}
+        />
+      );
+    }
+    return <></>;
+  };
+
   return (
     <MainContent>
       <PageTitle component='h2' variant='h4'>
         Lista de veículos
       </PageTitle>
+      {renderFiltro()}
       <DataGrid
         className={classes.root}
         rows={veiculos}

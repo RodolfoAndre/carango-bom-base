@@ -1,9 +1,10 @@
 import { TOKEN_KEY } from '../Constants';
 
-const baseUrl = 'http://localhost:8080/marcas';
+const baseUrl = 'https://carango-bom-withfliters.herokuapp.com/marcas';
 const headers = () =>
   new Headers({
     'Content-Type': 'application/json',
+    'X-XSRF-TOKEN': '',
     Authorization: `Bearer ${localStorage.getItem(TOKEN_KEY)}`,
   });
 
@@ -26,13 +27,17 @@ const MarcaService = {
   },
 
   consultar(id) {
-    return fetch(`${baseUrl}/${id}`, { headers: headers() }).then((response) =>
+    const reqHeaders = headers();
+    reqHeaders.delete('X-XSRF-TOKEN');
+    return fetch(`${baseUrl}/${id}`, { headers: reqHeaders }).then((response) =>
       response.json()
     );
   },
 
   listar() {
-    return fetch(baseUrl, { headers: headers() }).then((response) =>
+    const reqHeaders = headers();
+    reqHeaders.delete('X-XSRF-TOKEN');
+    return fetch(baseUrl, { headers: reqHeaders }).then((response) =>
       response.json()
     );
   },

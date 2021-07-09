@@ -1,5 +1,6 @@
 import { TOKEN_KEY } from '../Constants';
-const baseUrl = 'http://localhost:8080/veiculos/dashboard';
+const baseUrl =
+  'https://carango-bom-withfliters.herokuapp.com/veiculos/dashboard';
 
 const headers = () =>
   new Headers({
@@ -10,7 +11,7 @@ const headers = () =>
 const DashboardService = {
   listar() {
     return fetch(baseUrl, { headers: headers() }).then((response) =>
-      response.json(),
+      response.json()
     );
   },
 };

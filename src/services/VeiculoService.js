@@ -1,21 +1,34 @@
 import { TOKEN_KEY } from '../Constants';
 
-const baseUrl = 'http://localhost:8080/veiculos';
+const baseUrl = 'https://carango-bom-withfliters.herokuapp.com/veiculos';
 const headers = () =>
   new Headers({
     'Content-Type': 'application/json',
+    'X-XSRF-TOKEN': '',
     Authorization: `Bearer ${localStorage.getItem(TOKEN_KEY)}`,
   });
 
 const VeiculoService = {
   listar() {
-    return fetch(baseUrl, { headers: headers() }).then((response) =>
+    const reqHeaders = headers();
+    reqHeaders.delete('X-XSRF-TOKEN');
+    return fetch(baseUrl, { headers: reqHeaders }).then((response) =>
       response.json()
     );
   },
 
+  filtrar(filtro) {
+    return fetch(`${baseUrl}/filtro`, {
+      method: 'POST',
+      headers: headers(),
+      body: JSON.stringify(filtro),
+    }).then((response) => response.json());
+  },
+
   consultar(id) {
-    return fetch(`${baseUrl}/${id}`, { headers: headers() }).then((response) =>
+    const reqHeaders = headers();
+    reqHeaders.delete('X-XSRF-TOKEN');
+    return fetch(`${baseUrl}/${id}`, { headers: reqHeaders }).then((response) =>
       response.json()
     );
   },
