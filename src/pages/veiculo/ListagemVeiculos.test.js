@@ -193,5 +193,15 @@ describe('Component de ListagemVeiculos', () => {
         });
       });
     });
+
+    describe('Filtros', () => {
+      it('deve ser exibido', async () => {
+        const { findByText } = renderWithContext(context);
+
+        const tituloFiltro = await findByText('Filtros');
+
+        expect(tituloFiltro).toBeInTheDocument();
+      });
+    });
   });
 });
