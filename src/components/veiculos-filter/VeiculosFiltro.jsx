@@ -7,9 +7,11 @@ import {
   Select,
   FormControl,
   InputLabel,
-  Typography,
 } from '@material-ui/core';
+
 import { ActionsToolbar, ActionButton } from '../../assets/GlobalStyles.jsx';
+
+import { FiltroWrapper, FiltroTitle, FormFiltro } from './styles';
 
 import useErros from '../../hooks/useErros';
 
@@ -93,9 +95,9 @@ const VeiculosFiltro = ({
   };
 
   return (
-    <>
-      <Typography variant='h5'>Filtros</Typography>
-      <form onSubmit={(event) => enviarFiltro(event)}>
+    <FiltroWrapper>
+      <FiltroTitle variant='h5'>Filtros</FiltroTitle>
+      <FormFiltro onSubmit={(event) => enviarFiltro(event)}>
         <FormControl variant='outlined' margin='normal' fullWidth size='medium'>
           <InputLabel>Marcas</InputLabel>
           <Select
@@ -163,29 +165,28 @@ const VeiculosFiltro = ({
           variant='outlined'
           margin='normal'
         />
-
-        <ActionsToolbar>
-          <ActionButton
-            variant='contained'
-            color='secondary'
-            data-testid='limpar-filtros'
-            disabled={!checarHaFiltros()}
-            onClick={limparFiltros}
-          >
-            Limpar Filtros
-          </ActionButton>
-          <ActionButton
-            variant='contained'
-            color='primary'
-            type='submit'
-            data-testid='filtrar'
-            disabled={!checarHaFiltros() || !possoEnviar()}
-          >
-            Filtrar
-          </ActionButton>
-        </ActionsToolbar>
-      </form>
-    </>
+      </FormFiltro>
+      <ActionsToolbar>
+        <ActionButton
+          variant='contained'
+          color='secondary'
+          data-testid='limpar-filtros'
+          disabled={!checarHaFiltros()}
+          onClick={limparFiltros}
+        >
+          Limpar Filtros
+        </ActionButton>
+        <ActionButton
+          variant='contained'
+          color='primary'
+          type='submit'
+          data-testid='filtrar'
+          disabled={!checarHaFiltros() || !possoEnviar()}
+        >
+          Filtrar
+        </ActionButton>
+      </ActionsToolbar>
+    </FiltroWrapper>
   );
 };
 

@@ -56,10 +56,12 @@ const ListagemVeiculos = () => {
   const usuarioAutenticado = useContext(UsuarioAutenticado);
 
   useEffect(() => {
+    carregarMarcas();
     carregarVeiculos();
     return () => {
       setVeiculos([]);
       setVeiculoSelecionado(null);
+      setMarcas([]);
     };
   }, []);
 
