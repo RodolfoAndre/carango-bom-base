@@ -5,14 +5,14 @@ const headers = () =>
   new Headers({
     'Content-Type': 'application/json',
     'X-XSRF-TOKEN': '',
-    Authorization: `Bearer ${localStorage.getItem(TOKEN_KEY)}`,
+    'Authorization': `Bearer ${localStorage.getItem(TOKEN_KEY)}`
   });
 
 const VeiculoService = {
   listar() {
     const reqHeaders = headers();
     reqHeaders.delete('X-XSRF-TOKEN');
-    return fetch(baseUrl, { headers: reqHeaders }).then((response) =>
+    return fetch(baseUrl, { headers: reqHeaders, withCredentials: true, credentials : 'include' }).then((response) =>
       response.json()
     );
   },

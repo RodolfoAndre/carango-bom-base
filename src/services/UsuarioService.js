@@ -4,9 +4,11 @@ const baseUrl = 'https://carango-bom-withfliters.herokuapp.com/usuarios';
 const headers = () =>
   new Headers({
     'Content-Type': 'application/json',
-    'X-XSRF-TOKEN': '',
-    Authorization: `Bearer ${localStorage.getItem(TOKEN_KEY)}`,
+    'Authorization': `Bearer ${localStorage.getItem(TOKEN_KEY)}`,
+    'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),
+    'Access-Control-Allow-Credentials': 'true',
   });
+
 const UsuarioService = {
   listar() {
     const reqHeaders = headers();
@@ -21,6 +23,8 @@ const UsuarioService = {
       method: 'POST',
       headers: headers(),
       body: JSON.stringify(usuario),
+      withCredentials: true,
+      credentials : 'include'
     }).then((response) => response.json());
   },
 
