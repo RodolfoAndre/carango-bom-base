@@ -12,6 +12,7 @@ import {
 import useErros from '../../hooks/useErros';
 import VeiculoService from '../../services/VeiculoService';
 import MarcaService from '../../services/MarcaService.js';
+import ValidacoesVeiculo from '../../utils/ValidacoesVeiculo.js';
 
 const CadastroVeiculo = () => {
   const [marcas, setMarcas] = useState([]);
@@ -24,20 +25,7 @@ const CadastroVeiculo = () => {
 
   const { id } = useParams();
 
-  const validacoes = {
-    marca: (dado) => {
-      return avaliarEntradasTexto('Marca', dado);
-    },
-    modelo: (dado) => {
-      return avaliarEntradasTexto('Modelo', dado);
-    },
-    ano: (dado) => {
-      return avaliarEntradaAno(dado);
-    },
-    valor: (dado) => {
-      return avaliarEntradaNumero(dado);
-    },
-  };
+  const validacoes = ValidacoesVeiculo;
 
   const [erros, validarCampos, possoEnviar] = useErros(validacoes);
 
@@ -94,35 +82,6 @@ const CadastroVeiculo = () => {
     }
   };
 
-  const avaliarCampoObrigatorio = (dado) => {
-    return !dado || !dado.length;
-  };
-
-  const avaliarEntradasTexto = (nome, dado) => {
-    if (avaliarCampoObrigatorio(dado))
-      return { valido: false, texto: 'Campo obrigatório' };
-    if (dado.length < 2)
-      return { valido: false, texto: `${nome} deve ter ao menos 2 letras` };
-    return { valido: true };
-  };
-
-  const avaliarEntradaAno = (dado) => {
-    if (avaliarCampoObrigatorio(dado))
-      return { valido: false, texto: 'Campo obrigatório' };
-    if (dado.length != 4 || isNaN(dado))
-      return { valido: false, texto: 'Ano deve ter 4 números' };
-    return { valido: true };
-  };
-
-  const avaliarEntradaNumero = (dado) => {
-    if (avaliarCampoObrigatorio(dado))
-      return { valido: false, texto: 'Campo obrigatório' };
-    if (isNaN(dado)) return { valido: false, texto: 'Valor deve ser numérico' };
-    if (parseInt(dado) <= 0)
-      return { valido: false, texto: 'Valor deve ser maior que zero' };
-    return { valido: true };
-  };
-
   return (
     <>
       <PageTitle component='h2' variant='h4'>
@@ -130,7 +89,7 @@ const CadastroVeiculo = () => {
       </PageTitle>
       <form onSubmit={(event) => cadastrarOuAlterarVeiculo(event)}>
         <TextField
-          value={marcaSelecionada ? marcaSelecionada : ''}
+          value={marcaSelecionada}
           onChange={(evt) => {
             setMarcaSelecionada(evt.target.value);
             validarCampos(evt);

@@ -4,18 +4,23 @@ const baseUrl = 'http://localhost:8080/veiculos';
 const headers = () =>
   new Headers({
     'Content-Type': 'application/json',
+    'X-XSRF-TOKEN': '',
     Authorization: `Bearer ${localStorage.getItem(TOKEN_KEY)}`,
   });
 
 const VeiculoService = {
   listar() {
-    return fetch(baseUrl, { headers: headers() }).then((response) =>
+    const reqHeaders = headers();
+    reqHeaders.delete('X-XSRF-TOKEN');
+    return fetch(baseUrl, { headers: reqHeaders }).then((response) =>
       response.json()
     );
   },
 
   consultar(id) {
-    return fetch(`${baseUrl}/${id}`, { headers: headers() }).then((response) =>
+    const reqHeaders = headers();
+    reqHeaders.delete('X-XSRF-TOKEN');
+    return fetch(`${baseUrl}/${id}`, { headers: reqHeaders }).then((response) =>
       response.json()
     );
   },
