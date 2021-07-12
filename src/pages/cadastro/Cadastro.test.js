@@ -6,10 +6,12 @@ import { createMemoryHistory } from 'history';
 import Cadastro from './Cadastro';
 import UsuarioService from '../../services/UsuarioService';
 
+const handleOpenSnackbar = jest.fn();
+
 describe('Testes de Cadastro', () => {
   describe('Testes de renderização e exibição', () => {
     beforeEach(() => {
-      render(<Cadastro />);
+      render(<Cadastro handleOpenSnackbar={handleOpenSnackbar} />);
     });
 
     it('Deve renderizar componente corretamente', () => {
@@ -35,7 +37,7 @@ describe('Testes de Cadastro', () => {
 
       render(
         <Router history={history}>
-          <Cadastro />
+          <Cadastro handleOpenSnackbar={handleOpenSnackbar} />
         </Router>
       );
     });

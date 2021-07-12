@@ -15,8 +15,9 @@ import AutenticacaoService from '../../services/AutenticacaoService';
 import LoginFormComponent from '../../components/login-form/LoginFormComponent';
 
 import { LoginContainer, IconAvatar } from '../../assets/GlobalStyles';
+import { ERROR_ALERT } from '../../Constants';
 
-const Login = ({ handleChangeLogin }) => {
+const Login = ({ handleChangeLogin, handleOpenSnackbar }) => {
   const history = useHistory();
 
   const logar = (usuario, possoEnviar) => {
@@ -29,7 +30,7 @@ const Login = ({ handleChangeLogin }) => {
             token: response.token,
           });
           history.push('/');
-        }
+        } else handleOpenSnackbar(response.message, ERROR_ALERT);
       });
     }
   };
@@ -55,6 +56,7 @@ const Login = ({ handleChangeLogin }) => {
 
 Login.propTypes = {
   handleChangeLogin: PropTypes.func,
+  handleOpenSnackbar: PropTypes.func,
 };
 
 export default Login;

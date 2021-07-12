@@ -19,6 +19,7 @@ import AlterarSenha from './pages/alterar-senha/AlterarSenha';
 
 import PrivateRoute from './components/private-route/PrivateRoute';
 import UsuarioAutenticado from './contexts/UsuarioAutenticado';
+import SnackbarAlert from './components/snackbar/SnackbarAlert';
 import { NAME_KEY, TOKEN_KEY, ID_USER_KEY } from './Constants';
 
 const muiTheme = createMuiTheme(
@@ -49,6 +50,10 @@ const useStyles = makeStyles((theme) => ({
 
 function App() {
   const [usuarioAutenticado, setUsuarioAutenticado] = useState({});
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [message, setMessage] = useState('');
+  const [severity, setSeverity] = useState('');
+
   const classes = useStyles();
 
   useEffect(() => {
@@ -75,6 +80,17 @@ function App() {
     return usuarioAutenticado?.token;
   };
 
+  const handleOpenSnackbar = (snackbarMessage, snackbarSeverity) => {
+    setMessage(snackbarMessage);
+    setSeverity(snackbarSeverity);
+    setOpenSnackbar(true);
+  };
+
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === 'clickaway') return;
+    setOpenSnackbar(false);
+  };
+
   return (
     <ThemeProvider theme={muiTheme}>
       <UsuarioAutenticado.Provider value={usuarioAutenticado}>
@@ -83,35 +99,51 @@ function App() {
           <CssBaseline />
           <main className={classes.content}>
             <Container component='article' maxWidth='md'>
+              <SnackbarAlert
+                isOpen={openSnackbar}
+                message={message}
+                severity={severity}
+                handleClose={handleCloseSnackbar}
+              />
               <Switch>
                 <PrivateRoute
                   path='/cadastro-marca'
                   exact
-                  component={<CadastroMarca />}
+                  component={
+                    <CadastroMarca handleOpenSnackbar={handleOpenSnackbar} />
+                  }
                   estaAutenticado={estaAutenticado}
                 />
                 <PrivateRoute
                   path='/alteracao-marca/:id'
                   exact
-                  component={<CadastroMarca />}
+                  component={
+                    <CadastroMarca handleOpenSnackbar={handleOpenSnackbar} />
+                  }
                   estaAutenticado={estaAutenticado}
                 />
                 <PrivateRoute
                   path='/listar-marcas'
                   exact
-                  component={<ListagemMarcas />}
+                  component={
+                    <ListagemMarcas handleOpenSnackbar={handleOpenSnackbar} />
+                  }
                   estaAutenticado={estaAutenticado}
                 />
                 <PrivateRoute
                   path='/cadastro-veiculo'
                   exact
-                  component={<CadastroVeiculo />}
+                  component={
+                    <CadastroVeiculo handleOpenSnackbar={handleOpenSnackbar} />
+                  }
                   estaAutenticado={estaAutenticado}
                 />
                 <PrivateRoute
                   path='/alteracao-veiculo/:id'
                   exact
-                  component={<CadastroVeiculo />}
+                  component={
+                    <CadastroVeiculo handleOpenSnackbar={handleOpenSnackbar} />
+                  }
                   estaAutenticado={estaAutenticado}
                 />
                 <PrivateRoute
@@ -123,23 +155,30 @@ function App() {
                 <PrivateRoute
                   path='/listar-usuarios'
                   exact
-                  component={<ListagemUsuarios />}
+                  component={
+                    <ListagemUsuarios handleOpenSnackbar={handleOpenSnackbar} />
+                  }
                   estaAutenticado={estaAutenticado}
                 />
                 <PrivateRoute
                   path='/alterar-senha/:id'
                   exact
-                  component={<AlterarSenha />}
+                  component={
+                    <AlterarSenha handleOpenSnackbar={handleOpenSnackbar} />
+                  }
                   estaAutenticado={estaAutenticado}
                 />
                 <Route path='/' exact>
-                  <ListagemVeiculos />
+                  <ListagemVeiculos handleOpenSnackbar={handleOpenSnackbar} />
                 </Route>
                 <Route path='/login'>
-                  <Login handleChangeLogin={handleChangeLogin} />
+                  <Login
+                    handleChangeLogin={handleChangeLogin}
+                    handleOpenSnackbar={handleOpenSnackbar}
+                  />
                 </Route>
                 <Route path='/cadastro'>
-                  <Cadastro />
+                  <Cadastro handleOpenSnackbar={handleOpenSnackbar} />
                 </Route>
               </Switch>
             </Container>

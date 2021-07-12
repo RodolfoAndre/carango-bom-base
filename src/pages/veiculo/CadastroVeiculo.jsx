@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
+import PropTypes from 'prop-types';
 
 import { TextField, MenuItem } from '@material-ui/core';
 
@@ -9,14 +10,17 @@ import {
   ActionButton,
 } from '../../assets/GlobalStyles.jsx';
 
+import { SUCCESS_ALERT, ERROR_ALERT } from '../../Constants';
+
 import useErros from '../../hooks/useErros';
 import VeiculoService from '../../services/VeiculoService';
 import MarcaService from '../../services/MarcaService.js';
 import ValidacoesVeiculo from '../../utils/ValidacoesVeiculo.js';
 
-const CadastroVeiculo = () => {
+const CadastroVeiculo = ({ handleOpenSnackbar }) => {
   const [marcas, setMarcas] = useState([]);
   const [marcaSelecionada, setMarcaSelecionada] = useState('');
+
   const [modelo, setModelo] = useState('');
   const [ano, setAno] = useState('');
   const [valor, setValor] = useState('');
@@ -47,15 +51,22 @@ const CadastroVeiculo = () => {
 
   const cancelar = () => history.goBack();
 
-  const cadastrarVeiculo = (veiculo) => {
-    VeiculoService.cadastrar(veiculo).then(() => {
+  const tratarResponseRequisicao = (response, tipoOperacao) => {
+    if (!response?.error) {
+      handleOpenSnackbar(` Veículo ${tipoOperacao} com sucesso`, SUCCESS_ALERT);
       history.goBack();
+    } else handleOpenSnackbar(response.message, ERROR_ALERT);
+  };
+
+  const cadastrarVeiculo = (veiculo) => {
+    VeiculoService.cadastrar(veiculo).then((response) => {
+      tratarResponseRequisicao(response, 'cadastrado');
     });
   };
 
   const alterarVeiculo = (veiculo) => {
-    VeiculoService.alterar(veiculo).then(() => {
-      history.goBack();
+    VeiculoService.alterar(veiculo).then((response) => {
+      tratarResponseRequisicao(response, 'alterado');
     });
   };
 
@@ -195,6 +206,10 @@ const CadastroVeiculo = () => {
       </form>
     </>
   );
+};
+
+CadastroVeiculo.propTypes = {
+  handleOpenSnackbar: PropTypes.func,
 };
 
 export default CadastroVeiculo;

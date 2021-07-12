@@ -6,15 +6,16 @@ import UsuarioAutenticado from '../../contexts/UsuarioAutenticado';
 import UsuarioService from '../../services/UsuarioService';
 
 jest.mock('../../services/UsuarioService');
+const handleOpenSnackbar = jest.fn();
 
 const createRender = () => {
-  return render(<ListagemUsuarios />);
+  return render(<ListagemUsuarios handleOpenSnackbar={handleOpenSnackbar} />);
 };
 
 const renderWithContext = (context) => {
   return render(
     <UsuarioAutenticado.Provider value={context}>
-      <ListagemUsuarios />
+      <ListagemUsuarios handleOpenSnackbar={handleOpenSnackbar} />
     </UsuarioAutenticado.Provider>
   );
 };

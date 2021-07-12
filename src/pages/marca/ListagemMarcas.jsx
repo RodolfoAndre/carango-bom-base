@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
+import PropTypes from 'prop-types';
 
 import { DataGrid } from '@material-ui/data-grid';
 import AddIcon from '@material-ui/icons/Add';
@@ -14,11 +15,13 @@ import {
 
 import { useStyles } from '../../assets/DataGridStyles';
 
+import { SUCCESS_ALERT, ERROR_ALERT } from '../../Constants';
+
 import MarcaService from '../../services/MarcaService';
 
 const colunas = [{ field: 'nome', headerName: 'Marca', width: 200 }];
 
-function ListagemMarcas() {
+function ListagemMarcas({ handleOpenSnackbar }) {
   const [marcas, setMarcas] = useState([]);
   const [marcaSelecionada, setMarcaSelecionada] = useState(null);
   const history = useHistory();
@@ -46,9 +49,12 @@ function ListagemMarcas() {
   };
 
   const excluir = () => {
-    MarcaService.excluir(marcaSelecionada).then(() => {
-      setMarcaSelecionada(null);
-      carregarMarcas();
+    MarcaService.excluir(marcaSelecionada).then((response) => {
+      if (!response?.error) {
+        handleOpenSnackbar('Marca excluída com sucesso', SUCCESS_ALERT);
+        setMarcaSelecionada(null);
+        carregarMarcas();
+      } else handleOpenSnackbar(response.message, ERROR_ALERT);
     });
   };
 
@@ -95,5 +101,9 @@ function ListagemMarcas() {
     </MainContent>
   );
 }
+
+ListagemMarcas.propTypes = {
+  handleOpenSnackbar: PropTypes.func,
+};
 
 export default ListagemMarcas;
