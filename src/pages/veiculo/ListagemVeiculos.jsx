@@ -75,9 +75,11 @@ const ListagemVeiculos = () => {
   };
 
   const carregarMarcas = () => {
-    MarcaService.listar().then((dados) => {
-      setMarcas(dados);
-    });
+    if (usuarioAutenticado?.token?.length > 0) {
+      MarcaService.listar().then((dados) => {
+        setMarcas(dados);
+      });
+    }
   };
 
   const excluirVeiculo = () => {
