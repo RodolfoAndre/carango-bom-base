@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { IconButton, Typography, Button } from '@material-ui/core';
 
 export const StyledHeader = styled.header`
+  display: flex;
+  justify-content: space-between;
   flex-grow: 1;
 `;
 
@@ -13,7 +15,6 @@ export const MenuIconButton = styled(IconButton)`
 
 export const Title = styled(Typography)`
   flex-grow: 1;
-  text-align: center;
 
   &:hover {
     cursor: pointer;
