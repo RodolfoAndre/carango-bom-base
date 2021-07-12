@@ -19,8 +19,8 @@ import AlterarSenha from './pages/alterar-senha/AlterarSenha';
 
 import PrivateRoute from './components/private-route/PrivateRoute';
 import UsuarioAutenticado from './contexts/UsuarioAutenticado';
+import SnackbarAlert from './components/snackbar/SnackbarAlert';
 import { NAME_KEY, TOKEN_KEY, ID_USER_KEY } from './Constants';
-import SnackbarAlert from './components/snackbar/Snackbar';
 
 const muiTheme = createMuiTheme(
   {
@@ -80,9 +80,9 @@ function App() {
     return usuarioAutenticado?.token;
   };
 
-  const handleOpenSnackbar = (message, severity) => {
-    setMessage(message);
-    setSeverity(severity);
+  const handleOpenSnackbar = (snackbarMessage, snackbarSeverity) => {
+    setMessage(snackbarMessage);
+    setSeverity(snackbarSeverity);
     setOpenSnackbar(true);
   };
 
