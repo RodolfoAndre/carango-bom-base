@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
+import PropTypes from 'prop-types';
 
 import { TextField } from '@material-ui/core';
 
@@ -9,10 +10,12 @@ import {
   ActionButton,
 } from '../../assets/GlobalStyles.jsx';
 
+import { SUCCESS_ALERT, ERROR_ALERT } from '../../Constants';
+
 import useErros from '../../hooks/useErros';
 import MarcaService from '../../services/MarcaService';
 
-function CadastroMarca() {
+function CadastroMarca({ handleOpenSnackbar }) {
   const [marca, setMarca] = useState('');
   const [titulo, setTitutlo] = useState('');
   const [nomeMetodo, setNomeMetodo] = useState('');
@@ -33,10 +36,6 @@ function CadastroMarca() {
 
   const [erros, validarCampos, possoEnviar] = useErros(validacoes);
 
-  function cancelar() {
-    history.goBack();
-  }
-
   useEffect(() => {
     if (id) {
       setTitutlo('Alterar marca');
@@ -50,6 +49,15 @@ function CadastroMarca() {
     }
   }, [id]);
 
+  const cancelar = () => {
+    history.goBack();
+  };
+
+  const gerarMensagemSucesso = () =>
+    nomeMetodo === 'cadastrar'
+      ? 'Marca cadastrada com sucesso'
+      : 'Marca alterada com sucesso';
+
   return (
     <>
       <PageTitle component='h2' variant='h4'>
@@ -61,8 +69,9 @@ function CadastroMarca() {
           if (possoEnviar()) {
             MarcaService[nomeMetodo]({ id, nome: marca }).then((response) => {
               if (!response?.error) {
+                handleOpenSnackbar(gerarMensagemSucesso(), SUCCESS_ALERT);
                 history.goBack();
-              }
+              } else handleOpenSnackbar(response.message, ERROR_ALERT);
             });
           }
         }}
@@ -105,5 +114,9 @@ function CadastroMarca() {
     </>
   );
 }
+
+CadastroMarca.propTypes = {
+  handleOpenSnackbar: PropTypes.func,
+};
 
 export default CadastroMarca;

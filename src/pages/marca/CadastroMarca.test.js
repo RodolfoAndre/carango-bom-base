@@ -7,11 +7,14 @@ import CadastroMarca from './CadastroMarca';
 import MarcaService from '../../services/MarcaService';
 
 jest.mock('../../services/MarcaService');
+const handleOpenSnackbar = jest.fn();
 
 const renderWithRouter = (history, path) => {
   return render(
     <Router history={history}>
-      <Route component={CadastroMarca} path={path} />
+      <Route path={path}>
+        <CadastroMarca handleOpenSnackbar={handleOpenSnackbar} />
+      </Route>
     </Router>
   );
 };

@@ -10,6 +10,7 @@ import UsuarioAutenticado from '../../contexts/UsuarioAutenticado';
 jest.mock('../../services/UsuarioService');
 
 const history = createMemoryHistory();
+const handleOpenSnackbar = jest.fn();
 
 describe('Testes do componente AlterarSenha', () => {
   describe('Teste de renderização e exibição', () => {
@@ -19,7 +20,7 @@ describe('Testes do componente AlterarSenha', () => {
           <UsuarioAutenticado.Provider
             value={{ id: 1, nome: 'alejandro', token: 'thisisatoken' }}
           >
-            <AlterarSenha />
+            <AlterarSenha handleOpenSnackbar={handleOpenSnackbar} />
           </UsuarioAutenticado.Provider>
         </Router>
       );

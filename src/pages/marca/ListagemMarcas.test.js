@@ -7,15 +7,16 @@ import ListagemMarcas from './ListagemMarcas';
 import MarcaService from '../../services/MarcaService';
 
 jest.mock('../../services/MarcaService');
+const handleOpenSnackbar = jest.fn();
 
 const renderComponent = () => {
-  return render(<ListagemMarcas />);
+  return render(<ListagemMarcas handleOpenSnackbar={handleOpenSnackbar} />);
 };
 
 const renderWithRouter = (history) => {
   return render(
     <Router history={history}>
-      <ListagemMarcas />
+      <ListagemMarcas handleOpenSnackbar={handleOpenSnackbar} />
     </Router>
   );
 };

@@ -11,15 +11,16 @@ import MarcaService from '../../services/MarcaService';
 
 jest.mock('../../services/MarcaService');
 jest.mock('../../services/VeiculoService');
+const handleOpenSnackbar = jest.fn();
 
 const createRender = () => {
-  return render(<ListagemVeiculos />);
+  return render(<ListagemVeiculos handleOpenSnackbar={handleOpenSnackbar} />);
 };
 
 const renderWithContext = (context) => {
   return render(
     <UsuarioAutenticado.Provider value={context}>
-      <ListagemVeiculos />
+      <ListagemVeiculos handleOpenSnackbar={handleOpenSnackbar} />
     </UsuarioAutenticado.Provider>
   );
 };
@@ -28,7 +29,7 @@ const renderWithRouter = (history, context) => {
   return render(
     <Router history={history}>
       <UsuarioAutenticado.Provider value={context}>
-        <ListagemVeiculos />
+        <ListagemVeiculos handleOpenSnackbar={handleOpenSnackbar} />
       </UsuarioAutenticado.Provider>
     </Router>
   );

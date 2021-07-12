@@ -9,11 +9,14 @@ import MarcaService from '../../services/MarcaService';
 
 jest.mock('../../services/VeiculoService');
 jest.mock('../../services/MarcaService');
+const handleOpenSnackbar = jest.fn();
 
 const renderWithRouter = (history, path) => {
   return render(
     <Router history={history}>
-      <Route component={CadastroVeiculo} path={path} exact />
+      <Route path={path} exact>
+        <CadastroVeiculo handleOpenSnackbar={handleOpenSnackbar} />
+      </Route>
     </Router>
   );
 };

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router';
+import PropTypes from 'prop-types';
 
 import {
   CssBaseline,
@@ -11,16 +12,22 @@ import {
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { LoginContainer, IconAvatar } from '../../assets/GlobalStyles';
 
+import { SUCCESS_ALERT, ERROR_ALERT } from '../../Constants';
+
 import LoginFormComponent from '../../components/login-form/LoginFormComponent';
 import UsuarioService from '../../services/UsuarioService';
 
-const Cadastro = () => {
+const Cadastro = ({ handleOpenSnackbar }) => {
   const history = useHistory();
 
   const cadastrar = (usuario, possoEnviar) => {
     if (possoEnviar()) {
-      UsuarioService.cadastrar(usuario).then(() => {
-        history.push('/login');
+      UsuarioService.cadastrar(usuario).then((response) => {
+        if (response?.error) handleOpenSnackbar(response.message, ERROR_ALERT);
+        else {
+          handleOpenSnackbar('Cadastro realizado com sucesso', SUCCESS_ALERT);
+          history.push('/login');
+        }
       });
     }
   };
@@ -44,6 +51,10 @@ const Cadastro = () => {
       </LoginContainer>
     </Container>
   );
+};
+
+Cadastro.propTypes = {
+  handleOpenSnackbar: PropTypes.func.isRequired,
 };
 
 export default Cadastro;

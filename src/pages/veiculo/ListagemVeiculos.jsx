@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router';
 import NumberFormat from 'react-number-format';
+import PropTypes from 'prop-types';
 
 import { DataGrid } from '@material-ui/data-grid';
 import AddIcon from '@material-ui/icons/Add';
@@ -14,6 +15,8 @@ import {
 } from '../../assets/GlobalStyles.jsx';
 
 import { useStyles } from '../../assets/DataGridStyles';
+
+import { SUCCESS_ALERT, ERROR_ALERT } from '../../Constants';
 
 import VeiculoService from '../../services/VeiculoService';
 import UsuarioAutenticado from '../../contexts/UsuarioAutenticado.js';
@@ -47,7 +50,7 @@ const colunas = [
   },
 ];
 
-const ListagemVeiculos = () => {
+const ListagemVeiculos = ({ handleOpenSnackbar }) => {
   const [veiculos, setVeiculos] = useState([]);
   const [veiculosAFiltrar, setVeiculosAFiltrar] = useState([]);
   const [veiculoSelecionado, setVeiculoSelecionado] = useState(null);
@@ -83,9 +86,12 @@ const ListagemVeiculos = () => {
   };
 
   const excluirVeiculo = () => {
-    VeiculoService.excluir(veiculoSelecionado).then(() => {
-      setVeiculoSelecionado(null);
-      carregarVeiculos();
+    VeiculoService.excluir(veiculoSelecionado).then((response) => {
+      if (!response?.error) {
+        handleOpenSnackbar('Veículo excluído com sucesso', SUCCESS_ALERT);
+        setVeiculoSelecionado(null);
+        carregarVeiculos();
+      } else handleOpenSnackbar(response.message, ERROR_ALERT);
     });
   };
 
@@ -168,6 +174,10 @@ const ListagemVeiculos = () => {
       {renderAcoes()}
     </MainContent>
   );
+};
+
+ListagemVeiculos.propTypes = {
+  handleOpenSnackbar: PropTypes.func,
 };
 
 export default ListagemVeiculos;
