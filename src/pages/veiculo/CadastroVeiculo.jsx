@@ -51,21 +51,22 @@ const CadastroVeiculo = ({ handleOpenSnackbar }) => {
 
   const cancelar = () => history.goBack();
 
+  const tratarResponseRequisicao = (response, tipoOperacao) => {
+    if (!response?.error) {
+      handleOpenSnackbar(` Veículo ${tipoOperacao} com sucesso`, SUCCESS_ALERT);
+      history.goBack();
+    } else handleOpenSnackbar(response.message, ERROR_ALERT);
+  };
+
   const cadastrarVeiculo = (veiculo) => {
     VeiculoService.cadastrar(veiculo).then((response) => {
-      if (!response?.error) {
-        handleOpenSnackbar('Veículo cadastrado com sucesso', SUCCESS_ALERT);
-        history.goBack();
-      } else handleOpenSnackbar(response.message, ERROR_ALERT);
+      tratarResponseRequisicao(response, 'cadastrado');
     });
   };
 
   const alterarVeiculo = (veiculo) => {
     VeiculoService.alterar(veiculo).then((response) => {
-      if (!response?.error) {
-        handleOpenSnackbar('Veículo alterado com sucesso', SUCCESS_ALERT);
-        history.goBack();
-      } else handleOpenSnackbar(response.message, ERROR_ALERT);
+      tratarResponseRequisicao(response, 'alterado');
     });
   };
 
